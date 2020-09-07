@@ -666,12 +666,14 @@
 			baseConfigurationReference = C27A033FBC10994AE16C7D03 /* Pods-TimeTracking.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JDLFM5MXDU;
 				INFOPLIST_FILE = "$(SRCROOT)/TimeTracking/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yusuke.timeTracking;
 				PRODUCT_NAME = TimeTracking;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -682,12 +684,14 @@
 			baseConfigurationReference = 5466426C835110F194010839 /* Pods-TimeTracking.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JDLFM5MXDU;
 				INFOPLIST_FILE = "$(SRCROOT)/TimeTracking/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yusuke.timeTracking;
 				PRODUCT_NAME = TimeTracking;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
