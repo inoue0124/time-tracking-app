@@ -95,4 +95,4 @@ iOSInjectionProject/
 
 # R.swift generated file
 
-*.generated.swift
+#*.generated.swift

@@ -1,0 +1,42 @@
+---
+format_version: '8'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: ios
+trigger_map:
+- pull_request_source_branch: develop
+  workflow: deploy-to-deploygate
+  pull_request_target_branch: master
+workflows:
+  deploy-to-deploygate:
+    steps:
+    - activate-ssh-key@4:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@4: {}
+    - cache-pull@2: {}
+    - script@1:
+        title: Do anything with Script step
+    - certificate-and-profile-installer@1: {}
+    - cocoapods-install@1: {}
+    - xcode-archive@2:
+        inputs:
+        - project_path: "$BITRISE_PROJECT_PATH"
+        - scheme: "$BITRISE_SCHEME"
+        - export_method: "$BITRISE_EXPORT_METHOD"
+    - deploygate--upload-app-bitrise-step@1:
+        inputs:
+        - owner_name: inoue0124
+        - app_path: "$BITRISE_IPA_PATH"
+        - visibility: public
+        - api_key: 21809ad240d195bd20de1eaf1a5b840637f07734
+    - cache-push@2: {}
+app:
+  envs:
+  - opts:
+      is_expand: false
+    BITRISE_PROJECT_PATH: TimeTracking.xcworkspace
+  - opts:
+      is_expand: false
+    BITRISE_SCHEME: TimeTracking
+  - opts:
+      is_expand: false
+    BITRISE_EXPORT_METHOD: development
