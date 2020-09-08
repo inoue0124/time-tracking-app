@@ -8,6 +8,7 @@ class EditSheetViewModel: ViewModelType {
         let saveTrigger: Driver<Void>
         let columnTitles: Driver<[String]>
         let columnTypes: Driver<[String]>
+        let columnWidths: Driver<[Int]>
         let data: Driver<[[Any]]>
         let sheetName: String?
     }
@@ -31,11 +32,15 @@ class EditSheetViewModel: ViewModelType {
 
     func transform(input: EditSheetViewModel.Input) -> EditSheetViewModel.Output {
         let state = State()
-        let requiredInputs = Driver.combineLatest(input.columnTitles, input.columnTypes, input.data)
+        let requiredInputs = Driver.combineLatest(input.columnTitles, input.columnTypes, input.columnWidths, input.data)
         let save = input.saveTrigger
             .withLatestFrom(requiredInputs)
-            .flatMapLatest { [unowned self] (columnTitles: [String], columnTypes: [String], data: [[Any]]) -> Driver<Void> in
-                return self.editSheetUseCase.save(with: input.sheetName ?? "名称未設定", and: columnTitles, and: columnTypes, and: data)
+            .flatMapLatest { [unowned self] (columnTitles: [String], columnTypes: [String], columnWidths: [Int], data: [[Any]]) -> Driver<Void> in
+                return self.editSheetUseCase.save(with: input.sheetName ?? "名称未設定",
+                                                  and: columnTitles,
+                                                  and: columnTypes,
+                                                  and: columnWidths,
+                                                  and: data)
                     .do(onNext: { [unowned self] _ in
 //                        self.navigator.toList()
                     })

@@ -2,20 +2,23 @@
 import Foundation
 
 public struct CellDataConverter {
+
+    let appConst = AppConst()
+
     func makeDataCell(cell: DataCell, data: Any, type: String) -> DataCell {
         switch (type) {
-        case "text":
+        case appConst.CELL_TYPE_TEXT:
             cell.label.text = data as? String ?? ""
             cell.addLabel()
             break
-        case "time":
+        case appConst.CELL_TYPE_TIME:
             cell.label.text = getString(from: data as? Date ?? Date())
             cell.addLabel()
             break
-        case "note":
+        case appConst.CELL_TYPE_NOTE:
             cell.addNote()
             break
-        case "check":
+        case appConst.CELL_TYPE_CHECK:
             cell.addCheck(isChecked: data as? Bool ?? false)
             break
         default:

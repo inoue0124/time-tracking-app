@@ -4,6 +4,7 @@ import RxCocoa
 import DropDown
 import SpreadsheetView
 import RxUIAlert
+import BottomHalfModal
 
 class EditSheetViewController: UIViewController {
 
@@ -19,9 +20,11 @@ class EditSheetViewController: UIViewController {
 
     var columnTitles: [String] = []
     var columnTypes: [String] = []
+    var columnWidths: [Int] = []
     var data: [[Any]] = []
     var columnTitlesRelay = BehaviorRelay<[String]>(value: [])
     var columnTypesRelay = BehaviorRelay<[String]>(value: [])
+    var columnWidthsRelay = BehaviorRelay<[Int]>(value: [])
     var dataRelay = BehaviorRelay<[[Any]]>(value: [])
 
     var sheetName: String?
@@ -58,6 +61,7 @@ class EditSheetViewController: UIViewController {
         let input = EditSheetViewModel.Input(saveTrigger: saveButton.rx.tap.asDriver(),
                                              columnTitles: columnTitlesRelay.asDriver(),
                                              columnTypes: columnTypesRelay.asDriver(),
+                                             columnWidths: columnWidthsRelay.asDriver(),
                                              data: dataRelay.asDriver(),
                                              sheetName: sheetName)
         let output = editSheetViewModel.transform(input: input)
@@ -148,18 +152,25 @@ extension EditSheetViewController: SpreadsheetViewDelegate {
 
 
 extension EditSheetViewController: AddCellDelegate {
-    func addColumn() {
-//        numOfColumns += 1
-//        sheetView.reloadData()
-        columnTitles.append("内容")
-        columnTypes.append("text")
+    func setHeaderName(_ column: Column) {
+        columnTitles.append(column.name)
+        columnTypes.append(column.type)
+        columnWidths.append(column.width)
         for i in 0..<data.count {
             data[i].append(String(i))
         }
         columnTitlesRelay.accept(columnTitles)
         columnTypesRelay.accept(columnTypes)
+        columnWidthsRelay.accept(columnWidths)
         dataRelay.accept(data)
         sheetView.reloadData()
+    }
+
+    func addColumn() {
+        let headerSettingVC = HeaderSettingViewController()
+        headerSettingVC.delegate = self
+        let nav = BottomHalfModalNavigationController(rootViewController: headerSettingVC)
+        self.presentBottomHalfModal(nav, animated: true, completion: nil)
     }
 
     func addRow() {
@@ -167,6 +178,5 @@ extension EditSheetViewController: AddCellDelegate {
         dataRelay.accept(data)
         sheetView.reloadData()
     }
-
 
 }

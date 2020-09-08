@@ -68,11 +68,11 @@ extension SheetViewController: SpreadsheetViewDataSource {
     }
 
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, widthForColumn column: Int) -> CGFloat {
-      return 80
+        return CGFloat(positionSheet?.columnWidths[column] ?? 50)
     }
 
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, heightForRow row: Int) -> CGFloat {
-      return 40
+        return 40
     }
     
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, cellForItemAt indexPath: IndexPath) -> Cell? {
