@@ -13,8 +13,8 @@ class EditSheetUseCase {
         self.taskRepository = taskRepository
     }
 
-    func save(with name: String, and columnTitles: [String], and columnTypes: [String], and data: [[Any]]) -> Observable<Void> {
-        sheetRepository.create(with: name, and: columnTitles, and: columnTypes)
+    func save(with name: String, and columnTitles: [String], and columnTypes: [String], and columnWidths: [Int], and data: [[Any]]) -> Observable<Void> {
+        sheetRepository.create(with: name, and: columnTitles, and: columnTypes, and: columnWidths)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { sheetId in
                 for da in data {
