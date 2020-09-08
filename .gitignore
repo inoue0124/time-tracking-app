@@ -92,3 +92,7 @@ iOSInjectionProject/
 # mac file
 
 *DS_store
+
+# R.swift generated file
+
+*.generated.swift
