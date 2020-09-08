@@ -12,7 +12,7 @@ class FireBasePositionSheetRepository: PositionSheetRepository {
         db.settings.isPersistenceEnabled = true
     }
 
-    func create(with name: String, and columnTitles: [String], and columnTypes: [String]) -> Observable<String> {
+    func create(with name: String, and columnTitles: [String], and columnTypes: [String], and columnWidths: [Int]) -> Observable<String> {
         return Observable.create { [unowned self] observer in
             var ref: DocumentReference? = nil
             ref = self.db.collection("position_sheets").addDocument(data: [
@@ -20,6 +20,7 @@ class FireBasePositionSheetRepository: PositionSheetRepository {
                 "is_public": false,
                 "column_titles": columnTitles,
                 "column_types": columnTypes,
+                "column_widths": columnWidths,
                 "create_user": (Auth.auth().currentUser?.uid)!,
                 "created_at": Date(),
                 "update_user": (Auth.auth().currentUser?.uid)!,
@@ -62,8 +63,9 @@ class FireBasePositionSheetRepository: PositionSheetRepository {
                                 id: item.documentID,
                                 name: item["name"] as? String ?? "",
                                 isPublic: item["is_public"] as? Bool ?? false,
-                                columnTitles: item["column_titles"] as? [String] ?? [""],
-                                columnTypes: item["column_types"] as? [String] ?? [""],
+                                columnTitles: item["column_titles"] as? [String] ?? [],
+                                columnTypes: item["column_types"] as? [String] ?? [],
+                                columnWidths: item["column_widths"] as? [Int] ?? [],
                                 createUser: item["create_user"] as? String ?? "",
                                 createdAt: item["created_at"] as? Date ?? Date(),
                                 updateUser: item["update_user"] as? String ?? "",

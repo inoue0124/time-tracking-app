@@ -5,6 +5,7 @@ PODS:
   - BoringSSL/Implementation (9.1):
     - BoringSSL/Interface (= 9.1)
   - BoringSSL/Interface (9.1)
+  - BottomHalfModal (1.1.1)
   - DropDown (2.3.13)
   - Eureka (5.2.1)
   - Firebase (4.7.0):
@@ -86,6 +87,7 @@ PODS:
   - SpreadsheetView (0.8.4)
 
 DEPENDENCIES:
+  - BottomHalfModal
   - DropDown
   - Eureka
   - Firebase (= 4.7.0)
@@ -101,6 +103,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - BoringSSL
+    - BottomHalfModal
     - DropDown
     - Eureka
     - Firebase
@@ -127,6 +130,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   BoringSSL: 84318770d120503ab1a6aaf1df777c5ca053697e
+  BottomHalfModal: eb45e44ee80345e50da8c51667ff9170545a560b
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   Eureka: c883105488e05bc65539f583246ecf9657cabbfe
   Firebase: dbfb98ccec2dcfcd21ab9cc1b4981a3f3c8c5e26
@@ -151,6 +155,6 @@ SPEC CHECKSUMS:
   RxUIAlert: fa9ca44ddd114791a394a14443e40c26127dc049
   SpreadsheetView: 17c55b6dc82099993cc2ceb818248d19f3220998
 
-PODFILE CHECKSUM: 28d3038dff80912c7be8ed9f30168f32e0ff51b5
+PODFILE CHECKSUM: 7679bfe89525fe6ca0457b4157d6a678f3f3b39c
 
 COCOAPODS: 1.9.0

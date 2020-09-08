@@ -59,6 +59,10 @@
 		70D86BEA2504DDB800ABB1A9 /* EditSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE92504DDB800ABB1A9 /* EditSheetViewModel.swift */; };
 		70D86BEC2504DE9200ABB1A9 /* EditSheetUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BEB2504DE9200ABB1A9 /* EditSheetUseCase.swift */; };
 		70D86BEE2504DF1200ABB1A9 /* EditSheetNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BED2504DF1200ABB1A9 /* EditSheetNavigator.swift */; };
+		70ED1C252507A91B0059B3BB /* HeaderSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ED1C232507A91B0059B3BB /* HeaderSettingViewController.swift */; };
+		70ED1C262507A91B0059B3BB /* HeaderSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70ED1C242507A91B0059B3BB /* HeaderSettingViewController.xib */; };
+		70ED1C282507B8750059B3BB /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ED1C272507B8750059B3BB /* Column.swift */; };
+		70ED1C2B2507BDDD0059B3BB /* AppConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ED1C2A2507BDDD0059B3BB /* AppConst.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +121,10 @@
 		70D86BE92504DDB800ABB1A9 /* EditSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSheetViewModel.swift; sourceTree = "<group>"; };
 		70D86BEB2504DE9200ABB1A9 /* EditSheetUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSheetUseCase.swift; sourceTree = "<group>"; };
 		70D86BED2504DF1200ABB1A9 /* EditSheetNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSheetNavigator.swift; sourceTree = "<group>"; };
+		70ED1C232507A91B0059B3BB /* HeaderSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSettingViewController.swift; sourceTree = "<group>"; };
+		70ED1C242507A91B0059B3BB /* HeaderSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderSettingViewController.xib; sourceTree = "<group>"; };
+		70ED1C272507B8750059B3BB /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
+		70ED1C2A2507BDDD0059B3BB /* AppConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConst.swift; sourceTree = "<group>"; };
 		C27A033FBC10994AE16C7D03 /* Pods-TimeTracking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTracking.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTracking/Pods-TimeTracking.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -208,6 +216,7 @@
 				70B5933424F7779600696E2A /* Sheet.swift */,
 				4C7234F61FE699D100677DCC /* Exception.swift */,
 				70B5933224F7769F00696E2A /* Task.swift */,
+				70ED1C272507B8750059B3BB /* Column.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -258,6 +267,8 @@
 				70D86BE32504CE0800ABB1A9 /* AddColumnCell.swift */,
 				70D86BE52504DBED00ABB1A9 /* AddCellDelegate.swift */,
 				70D86BE72504DC0F00ABB1A9 /* AddRowCell.swift */,
+				70ED1C232507A91B0059B3BB /* HeaderSettingViewController.swift */,
+				70ED1C242507A91B0059B3BB /* HeaderSettingViewController.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -293,6 +304,7 @@
 				4C4583641FC957FB002AFB69 /* LaunchScreen.storyboard */,
 				4C4583621FC957FB002AFB69 /* Assets.xcassets */,
 				4C45835B1FC957FB002AFB69 /* AppDelegate.swift */,
+				70ED1C2A2507BDDD0059B3BB /* AppConst.swift */,
 			);
 			path = TimeTracking;
 			sourceTree = "<group>";
@@ -385,6 +397,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C4583661FC957FB002AFB69 /* LaunchScreen.storyboard in Resources */,
+				70ED1C262507A91B0059B3BB /* HeaderSettingViewController.xib in Resources */,
 				4C4583631FC957FB002AFB69 /* Assets.xcassets in Resources */,
 				70B9C88724F502700007E314 /* GoogleService-Info.plist in Resources */,
 				4C4583611FC957FB002AFB69 /* Main.storyboard in Resources */,
@@ -415,6 +428,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TimeTracking/Pods-TimeTracking-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/BottomHalfModal/BottomHalfModal.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
@@ -435,6 +449,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BottomHalfModal.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
@@ -485,6 +500,7 @@
 				70B5933724F779F200696E2A /* PositionSheetTaskRepository.swift in Sources */,
 				70D86BE02504AAFB00ABB1A9 /* DataCell.swift in Sources */,
 				70B5D9AB2500FEBE00032B0F /* EditSheetViewController.swift in Sources */,
+				70ED1C282507B8750059B3BB /* Column.swift in Sources */,
 				4C0477311FE96482005A8A45 /* ArrayTracker.swift in Sources */,
 				4C3D437C1FDACF49008C5F01 /* SignUpViewController.swift in Sources */,
 				70B5934924F7BCEA00696E2A /* HomeNavigator.swift in Sources */,
@@ -504,6 +520,7 @@
 				4C7234F71FE699D100677DCC /* Exception.swift in Sources */,
 				4C3D437D1FDACF5B008C5F01 /* FireBaseAuthRepository.swift in Sources */,
 				70B5933B24F77E0500696E2A /* PositionSheetRepository.swift in Sources */,
+				70ED1C2B2507BDDD0059B3BB /* AppConst.swift in Sources */,
 				70D86BDE2504AA6F00ABB1A9 /* HeaderCell.swift in Sources */,
 				4C0477331FE964A4005A8A45 /* Observable+Ext.swift in Sources */,
 				4C4924891FE75B530073FE0B /* LoginViewModel.swift in Sources */,
@@ -520,6 +537,7 @@
 				70D86BE82504DC0F00ABB1A9 /* AddRowCell.swift in Sources */,
 				4C3D437F1FDACF60008C5F01 /* SheetUseCase.swift in Sources */,
 				70B5933324F7769F00696E2A /* Task.swift in Sources */,
+				70ED1C252507A91B0059B3BB /* HeaderSettingViewController.swift in Sources */,
 				4C4924871FE75B3F0073FE0B /* SheetViewModel.swift in Sources */,
 				4C3D43791FDACF49008C5F01 /* SheetViewController.swift in Sources */,
 				70B5934524F78B9C00696E2A /* FireBaseTaskRepository.swift in Sources */,
