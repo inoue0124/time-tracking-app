@@ -49,12 +49,11 @@
 		70BD769924FB78BA00031D98 /* SubtaskSheetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BD769824FB78BA00031D98 /* SubtaskSheetRepository.swift */; };
 		70BD769B24FB790100031D98 /* FireBaseSubtaskSheetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BD769A24FB790100031D98 /* FireBaseSubtaskSheetRepository.swift */; };
 		70BD769D24FCDF5700031D98 /* AddSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BD769C24FCDF5700031D98 /* AddSheetViewController.swift */; };
-		70D86BDA2503591300ABB1A9 /* PositionSheetFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BD92503591300ABB1A9 /* PositionSheetFormViewController.swift */; };
 		70D86BDE2504AA6F00ABB1A9 /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BDD2504AA6F00ABB1A9 /* HeaderCell.swift */; };
 		70D86BE02504AAFB00ABB1A9 /* DataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BDF2504AAFB00ABB1A9 /* DataCell.swift */; };
 		70D86BE22504ADB300ABB1A9 /* CellDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE12504ADB300ABB1A9 /* CellDataConverter.swift */; };
 		70D86BE42504CE0800ABB1A9 /* AddColumnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE32504CE0800ABB1A9 /* AddColumnCell.swift */; };
-		70D86BE62504DBED00ABB1A9 /* AddCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE52504DBED00ABB1A9 /* AddCellDelegate.swift */; };
+		70D86BE62504DBED00ABB1A9 /* HeaderSettingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE52504DBED00ABB1A9 /* HeaderSettingDelegate.swift */; };
 		70D86BE82504DC0F00ABB1A9 /* AddRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE72504DC0F00ABB1A9 /* AddRowCell.swift */; };
 		70D86BEA2504DDB800ABB1A9 /* EditSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE92504DDB800ABB1A9 /* EditSheetViewModel.swift */; };
 		70D86BEC2504DE9200ABB1A9 /* EditSheetUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BEB2504DE9200ABB1A9 /* EditSheetUseCase.swift */; };
@@ -111,12 +110,11 @@
 		70BD769824FB78BA00031D98 /* SubtaskSheetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskSheetRepository.swift; sourceTree = "<group>"; };
 		70BD769A24FB790100031D98 /* FireBaseSubtaskSheetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseSubtaskSheetRepository.swift; sourceTree = "<group>"; };
 		70BD769C24FCDF5700031D98 /* AddSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSheetViewController.swift; sourceTree = "<group>"; };
-		70D86BD92503591300ABB1A9 /* PositionSheetFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionSheetFormViewController.swift; sourceTree = "<group>"; };
 		70D86BDD2504AA6F00ABB1A9 /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		70D86BDF2504AAFB00ABB1A9 /* DataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCell.swift; sourceTree = "<group>"; };
 		70D86BE12504ADB300ABB1A9 /* CellDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDataConverter.swift; sourceTree = "<group>"; };
 		70D86BE32504CE0800ABB1A9 /* AddColumnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddColumnCell.swift; sourceTree = "<group>"; };
-		70D86BE52504DBED00ABB1A9 /* AddCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCellDelegate.swift; sourceTree = "<group>"; };
+		70D86BE52504DBED00ABB1A9 /* HeaderSettingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSettingDelegate.swift; sourceTree = "<group>"; };
 		70D86BE72504DC0F00ABB1A9 /* AddRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRowCell.swift; sourceTree = "<group>"; };
 		70D86BE92504DDB800ABB1A9 /* EditSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSheetViewModel.swift; sourceTree = "<group>"; };
 		70D86BEB2504DE9200ABB1A9 /* EditSheetUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSheetUseCase.swift; sourceTree = "<group>"; };
@@ -165,6 +163,7 @@
 				4C0477301FE96482005A8A45 /* ArrayTracker.swift */,
 				4C0477321FE964A4005A8A45 /* Observable+Ext.swift */,
 				70D86BE12504ADB300ABB1A9 /* CellDataConverter.swift */,
+				4C49248F1FE75BDF0073FE0B /* ViewModelType.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -237,9 +236,9 @@
 			children = (
 				4C3D43641FDACF30008C5F01 /* SheetUseCase.swift */,
 				4C3D43861FDAD008008C5F01 /* LoginUseCase.swift */,
+				70D86BEB2504DE9200ABB1A9 /* EditSheetUseCase.swift */,
 				4C3D438A1FDAD020008C5F01 /* SignUpUseCase.swift */,
 				70B5934224F7834900696E2A /* HomeUseCase.swift */,
-				70D86BEB2504DE9200ABB1A9 /* EditSheetUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -254,7 +253,6 @@
 				4C3D43721FDACF38008C5F01 /* SignUpViewController.swift */,
 				70B5933E24F7825D00696E2A /* HomeViewController.swift */,
 				70BD769C24FCDF5700031D98 /* AddSheetViewController.swift */,
-				70D86BD92503591300ABB1A9 /* PositionSheetFormViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -265,8 +263,8 @@
 				70D86BDD2504AA6F00ABB1A9 /* HeaderCell.swift */,
 				70D86BDF2504AAFB00ABB1A9 /* DataCell.swift */,
 				70D86BE32504CE0800ABB1A9 /* AddColumnCell.swift */,
-				70D86BE52504DBED00ABB1A9 /* AddCellDelegate.swift */,
 				70D86BE72504DC0F00ABB1A9 /* AddRowCell.swift */,
+				70D86BE52504DBED00ABB1A9 /* HeaderSettingDelegate.swift */,
 				70ED1C232507A91B0059B3BB /* HeaderSettingViewController.swift */,
 				70ED1C242507A91B0059B3BB /* HeaderSettingViewController.xib */,
 			);
@@ -314,10 +312,9 @@
 			children = (
 				4C4924861FE75B3F0073FE0B /* SheetViewModel.swift */,
 				4C4924881FE75B530073FE0B /* LoginViewModel.swift */,
+				70D86BE92504DDB800ABB1A9 /* EditSheetViewModel.swift */,
 				4C49248A1FE75B650073FE0B /* SignUpViewModel.swift */,
 				70B5934024F782F600696E2A /* HomeViewModel.swift */,
-				70D86BE92504DDB800ABB1A9 /* EditSheetViewModel.swift */,
-				4C49248F1FE75BDF0073FE0B /* ViewModelType.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -508,7 +505,7 @@
 				70B5933F24F7825D00696E2A /* HomeViewController.swift in Sources */,
 				70B5934324F7834900696E2A /* HomeUseCase.swift in Sources */,
 				70D86BEC2504DE9200ABB1A9 /* EditSheetUseCase.swift in Sources */,
-				70D86BE62504DBED00ABB1A9 /* AddCellDelegate.swift in Sources */,
+				70D86BE62504DBED00ABB1A9 /* HeaderSettingDelegate.swift in Sources */,
 				70D86BE42504CE0800ABB1A9 /* AddColumnCell.swift in Sources */,
 				4C04772C1FE96435005A8A45 /* ActivityIndicator.swift in Sources */,
 				4C4924971FE769080073FE0B /* LoginNavigator.swift in Sources */,
@@ -541,7 +538,6 @@
 				4C4924871FE75B3F0073FE0B /* SheetViewModel.swift in Sources */,
 				4C3D43791FDACF49008C5F01 /* SheetViewController.swift in Sources */,
 				70B5934524F78B9C00696E2A /* FireBaseTaskRepository.swift in Sources */,
-				70D86BDA2503591300ABB1A9 /* PositionSheetFormViewController.swift in Sources */,
 				70BD769B24FB790100031D98 /* FireBaseSubtaskSheetRepository.swift in Sources */,
 				4C45835C1FC957FB002AFB69 /* AppDelegate.swift in Sources */,
 				70BD769924FB78BA00031D98 /* SubtaskSheetRepository.swift in Sources */,

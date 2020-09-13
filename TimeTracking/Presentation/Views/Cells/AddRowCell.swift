@@ -1,23 +1,19 @@
 import SpreadsheetView
 
 class AddRowCell: Cell {
-    let button = UIButton()
-    var delegate: AddCellDelegate?
+    
+    let label = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        button.frame = bounds
-        button.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        button.setTitle("+", for: .normal)
-        button.setTitleColor(UIColor(named: R.color.theme.name), for: .normal)
-        button.addTarget(self, action: #selector(buttonEvent(_:)), for: UIControlEvents.touchUpInside)
+        label.frame = bounds
+        label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        label.text = "+"
+        label.textAlignment = .center
+        label.textColor = UIColor(named: R.color.theme.name)
 
-        contentView.addSubview(button)
-    }
-
-    @objc func buttonEvent(_ sender: UIButton) {
-        delegate?.addRow()
+        contentView.addSubview(label)
     }
 
     required init?(coder aDecoder: NSCoder) {
