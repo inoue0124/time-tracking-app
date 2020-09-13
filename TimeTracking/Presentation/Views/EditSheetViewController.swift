@@ -51,8 +51,7 @@ class EditSheetViewController: UIViewController {
 
     func initializeViewModel() {
         editSheetViewModel = EditSheetViewModel(
-            with: EditSheetUseCase(with: FireBasePositionSheetRepository(),
-                                   and: FireBasePositionSheetTaskRepository()),
+            with: EditSheetUseCase(with: FireBasePositionSheetRepository(), and: FireBasePositionSheetTaskRepository()),
             and: EditSheetNavigator(with: self)
         )
     }
@@ -67,7 +66,6 @@ class EditSheetViewController: UIViewController {
         let output = editSheetViewModel.transform(input: input)
         output.save.drive().disposed(by: disposeBag)
     }
-
 }
 
 
@@ -104,12 +102,12 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
         case (0, 0..<columnTitles.count):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderCell.self), for: indexPath) as! HeaderCell
             cell.label.text = columnTitles[indexPath.column]
+//            cell.button.setTitle(columnTitles[indexPath.column], for: .normal)
             return cell
 
         // 1行目、addColumnCellの時
         case (0, columnTitles.count):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: AddColumnCell.self), for: indexPath) as! AddColumnCell
-            cell.delegate = self
             return cell
 
         // 一番下にaddRowCellを追加
@@ -124,7 +122,6 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
                 return cell
             }
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: AddRowCell.self), for: indexPath) as! AddRowCell
-            cell.delegate = self
             return cell
 
         // 2行目以降、右端は空のセル
@@ -159,24 +156,18 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
 
 extension EditSheetViewController: SpreadsheetViewDelegate {
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, didSelectItemAt indexPath: IndexPath) {
-        print("Selected: (row: \(indexPath.row), column: \(indexPath.column))")
-    }
-}
-
-
-extension EditSheetViewController: AddCellDelegate {
-    func setHeaderName(_ column: Column) {
-        columnTitles.append(column.name)
-        columnTypes.append(column.type)
-        columnWidths.append(column.width)
-        for i in 0..<data.count {
-            data[i].append("")
+        switch (spreadsheetView.cellForItem(at: indexPath)) {
+        case is AddColumnCell:
+            addColumn()
+        case is AddRowCell:
+            addRow()
+        case is HeaderCell:
+            editColumn(Column(name: columnTitles[indexPath.column],
+                              type: columnTypes[indexPath.column],
+                              width: columnWidths[indexPath.column]), index: indexPath.column)
+        default:
+            break
         }
-        columnTitlesRelay.accept(columnTitles)
-        columnTypesRelay.accept(columnTypes)
-        columnWidthsRelay.accept(columnWidths)
-        dataRelay.accept(data)
-        sheetView.reloadData()
     }
 
     func addColumn() {
@@ -192,4 +183,53 @@ extension EditSheetViewController: AddCellDelegate {
         sheetView.reloadData()
     }
 
+    func editColumn(_ column: Column, index: Int) {
+        let headerSettingVC = HeaderSettingViewController()
+        headerSettingVC.delegate = self
+        headerSettingVC.selectedColumn = column
+        headerSettingVC.index = index
+        let nav = BottomHalfModalNavigationController(rootViewController: headerSettingVC)
+        self.presentBottomHalfModal(nav, animated: true, completion: nil)
+    }
+}
+
+
+extension EditSheetViewController: HeaderSettingDelegate {
+    func createColumn(_ column: Column) {
+        columnTitles.append(column.name)
+        columnTypes.append(column.type)
+        columnWidths.append(column.width)
+        for i in 0..<data.count {
+            data[i].append("")
+        }
+        refreshDate()
+    }
+
+    func updateColumn(_ column: Column, index: Int) {
+        columnTitles[index] = column.name
+        columnTypes[index] = column.type
+        columnWidths[index] = column.width
+        for i in 0..<data.count {
+            data[i][index] = ""
+        }
+        refreshDate()
+    }
+
+    func deleteColumn(index: Int) {
+        columnTitles.remove(at: index)
+        columnTypes.remove(at: index)
+        columnWidths.remove(at: index)
+        for i in 0..<data.count {
+            data[i].remove(at: index)
+        }
+        refreshDate()
+    }
+
+    func refreshDate() {
+        columnTitlesRelay.accept(columnTitles)
+        columnTypesRelay.accept(columnTypes)
+        columnWidthsRelay.accept(columnWidths)
+        dataRelay.accept(data)
+        sheetView.reloadData()
+    }
 }
