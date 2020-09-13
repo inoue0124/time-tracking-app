@@ -119,6 +119,9 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
                 cell.gridlines.right = .none
                 cell.gridlines.bottom = .none
                 cell.gridlines.left = .none
+                for subview in cell.contentView.subviews {
+                    subview.removeFromSuperview()
+                }
                 return cell
             }
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: AddRowCell.self), for: indexPath) as! AddRowCell
@@ -131,6 +134,9 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
             cell.gridlines.right = .none
             cell.gridlines.bottom = .none
             cell.gridlines.left = .default
+            for subview in cell.contentView.subviews {
+                subview.removeFromSuperview()
+            }
             return cell
 
         default:
@@ -138,9 +144,14 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
             cell.gridlines.right = .default
             cell.gridlines.bottom = .default
             cell.gridlines.left = .default
-            return cellDataConverter.makeDataCell(cell: cell,
-                                                  data: data[indexPath.row-1][indexPath.column] as Any,
-                                                  type: columnTypes[indexPath.column])
+            cell.delegate = self
+            cell.indexPath = indexPath
+            for subview in cell.contentView.subviews {
+                subview.removeFromSuperview()
+            }
+            return cellDataConverter.makeEditableDataCell(cell: cell,
+                                                          data: data[indexPath.row-1][indexPath.column] as Any,
+                                                          type: columnTypes[indexPath.column])
         }
     }
 
@@ -207,11 +218,14 @@ extension EditSheetViewController: HeaderSettingDelegate {
 
     func updateColumn(_ column: Column, index: Int) {
         columnTitles[index] = column.name
-        columnTypes[index] = column.type
-        columnWidths[index] = column.width
-        for i in 0..<data.count {
-            data[i][index] = ""
+        // typeが変更されていたらデータを初期化
+        if (columnTypes[index] != column.type) {
+            for i in 0..<data.count {
+                data[i][index] = ""
+            }
+            columnTypes[index] = column.type
         }
+        columnWidths[index] = column.width
         refreshDate()
     }
 
@@ -223,6 +237,15 @@ extension EditSheetViewController: HeaderSettingDelegate {
             data[i].remove(at: index)
         }
         refreshDate()
+    }
+
+    func updateTimeCell(_ time: Date, indexPath: IndexPath) {
+        data[indexPath.row-1][indexPath.column] = time
+        refreshDate()
+    }
+
+    func updateTextCell(_ text: String, indexPath: IndexPath) {
+        data[indexPath.row-1][indexPath.column] = text
     }
 
     func refreshDate() {

@@ -1,5 +1,5 @@
-
 import Foundation
+
 
 public struct CellDataConverter {
 
@@ -20,6 +20,28 @@ public struct CellDataConverter {
             break
         case appConst.CELL_TYPE_CHECK:
             cell.addCheck(isChecked: data as? Bool ?? false)
+            break
+        default:
+            break
+        }
+        return cell
+    }
+
+    func makeEditableDataCell(cell: DataCell, data: Any, type: String) -> DataCell {
+        switch (type) {
+        case appConst.CELL_TYPE_TIME:
+            cell.dateField.text = getString(from: data as? Date ?? Date())
+            cell.addDateField()
+            break
+        case appConst.CELL_TYPE_TEXT:
+            cell.textField.text = data as? String ?? ""
+            cell.addTextField()
+            break
+        case appConst.CELL_TYPE_NOTE:
+            cell.addNote()
+            break
+        case appConst.CELL_TYPE_CHECK:
+            cell.addCheck(isChecked: false)
             break
         default:
             break

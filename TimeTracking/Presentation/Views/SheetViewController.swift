@@ -83,6 +83,9 @@ extension SheetViewController: SpreadsheetViewDataSource {
             return cell
         } else {
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: DataCell.self), for: indexPath) as! DataCell
+            for subview in cell.contentView.subviews {
+                subview.removeFromSuperview()
+            }
             return cellDataConverter.makeDataCell(cell: cell,
                                                   data: tasks?[indexPath.row-1].data[indexPath.column] as Any,
                                                   type: positionSheet?.columnTypes[indexPath.column] ?? "text")
