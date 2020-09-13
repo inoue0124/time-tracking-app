@@ -250,10 +250,10 @@
 				4C3D436C1FDACF38008C5F01 /* Cells */,
 				4C3D436F1FDACF38008C5F01 /* SheetViewController.swift */,
 				4C3D43701FDACF38008C5F01 /* LoginViewController.swift */,
+				70B5D9AA2500FEBE00032B0F /* EditSheetViewController.swift */,
 				4C3D43721FDACF38008C5F01 /* SignUpViewController.swift */,
 				70B5933E24F7825D00696E2A /* HomeViewController.swift */,
 				70BD769C24FCDF5700031D98 /* AddSheetViewController.swift */,
-				70B5D9AA2500FEBE00032B0F /* EditSheetViewController.swift */,
 				70D86BD92503591300ABB1A9 /* PositionSheetFormViewController.swift */,
 			);
 			path = Views;

@@ -74,15 +74,22 @@ class EditSheetViewController: UIViewController {
 extension EditSheetViewController: SpreadsheetViewDataSource {
 
     func numberOfColumns(in spreadsheetView: SpreadsheetView) -> Int {
+        // 1 == addColumnCell
         return columnTitles.count + 1
     }
 
     func numberOfRows(in spreadsheetView: SpreadsheetView) -> Int {
+        // 2 == addRowCell+header
         return data.count + 2
     }
 
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, widthForColumn column: Int) -> CGFloat {
-      return 80
+        // addColumnCellの時は例外
+        if (column == columnTitles.count) {
+            return 80
+        } else {
+            return CGFloat(columnWidths[column])
+        }
     }
 
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, heightForRow row: Int) -> CGFloat {
@@ -93,17 +100,21 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
 
         switch (indexPath.row, indexPath.column) {
 
+        // 1行目、headerCellの時
         case (0, 0..<columnTitles.count):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderCell.self), for: indexPath) as! HeaderCell
             cell.label.text = columnTitles[indexPath.column]
             return cell
 
+        // 1行目、addColumnCellの時
         case (0, columnTitles.count):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: AddColumnCell.self), for: indexPath) as! AddColumnCell
             cell.delegate = self
             return cell
 
+        // 一番下にaddRowCellを追加
         case (data.count+1, 0):
+            // データがまだない時は非表示
             if (columnTitles.count==0) {
                 let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: DataCell.self), for: indexPath) as! DataCell
                 cell.label.text = ""
@@ -116,6 +127,7 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
             cell.delegate = self
             return cell
 
+        // 2行目以降、右端は空のセル
         case (1..<data.count+2, columnTitles.count):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: DataCell.self), for: indexPath) as! DataCell
             cell.label.text = ""
@@ -135,6 +147,7 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
         }
     }
 
+    // addRowCellを結合
     func mergedCells(in spreadsheetView: SpreadsheetView) -> [CellRange] {
         if (columnTitles.count==0) {
             return [CellRange(from: (0, 0), to: (0, 0))]
@@ -157,7 +170,7 @@ extension EditSheetViewController: AddCellDelegate {
         columnTypes.append(column.type)
         columnWidths.append(column.width)
         for i in 0..<data.count {
-            data[i].append(String(i))
+            data[i].append("")
         }
         columnTitlesRelay.accept(columnTitles)
         columnTypesRelay.accept(columnTypes)
@@ -174,7 +187,7 @@ extension EditSheetViewController: AddCellDelegate {
     }
 
     func addRow() {
-        data.append(Array<String>(repeating: "テキスト", count: columnTitles.count))
+        data.append(Array<String>(repeating: "", count: columnTitles.count))
         dataRelay.accept(data)
         sheetView.reloadData()
     }
