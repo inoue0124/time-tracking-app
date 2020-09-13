@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HeaderSettingViewController" customModule="TimeTracking" customModuleProvider="target">
             <connections>
+                <outlet property="deleteButton" destination="0DL-m9-or6" id="fTY-ra-xhy"/>
                 <outlet property="nameTextField" destination="hqU-PL-BfR" id="My7-CD-oai"/>
                 <outlet property="typeButton" destination="f3n-Ed-yRH" id="WWh-Mu-0v7"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -70,6 +71,17 @@
                                 </button>
                             </subviews>
                         </stackView>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0DL-m9-or6">
+                            <rect key="frame" x="0.0" y="190" width="334" height="0.0"/>
+                            <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" title="削除する"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="16"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
                     </subviews>
                 </stackView>
             </subviews>

@@ -76,10 +76,3 @@ class AddSheetViewController: UIViewController {
     }
 }
 
-extension AddSheetViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-}
-

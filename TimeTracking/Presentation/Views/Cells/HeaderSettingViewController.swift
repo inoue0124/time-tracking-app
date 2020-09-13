@@ -8,18 +8,21 @@ class HeaderSettingViewController: UIViewController, SheetContentHeightModifiabl
 
     let appConst = AppConst()
     let sheetContentHeightToModify: CGFloat = 240
-    var delegate: AddCellDelegate?
-
-    let typeDropDown = DropDown()
-    let widthDropDown = DropDown()
+    var delegate: HeaderSettingDelegate?
 
     @IBOutlet private var nameTextField: UITextField!
     @IBOutlet weak var typeButton: UIButton!
     @IBOutlet weak var widthButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
 
     var columnType: String?
     var columnWidth: Int?
 
+    var selectedColumn: Column?
+    var index: Int?
+
+    let typeDropDown = DropDown()
+    let widthDropDown = DropDown()
     let disposeBag = DisposeBag()
     
 
@@ -50,6 +53,13 @@ class HeaderSettingViewController: UIViewController, SheetContentHeightModifiabl
         widthButton.rx.tap.subscribe { _ in
             self.widthDropDown.show()
         }.disposed(by: disposeBag)
+        deleteButton.rx.tap.subscribe { _ in
+            self.delete()
+        }.disposed(by: disposeBag)
+        if (selectedColumn != nil) {
+            setupInitialData()
+            deleteButton.isHidden = false
+        }
     }
 
     func setupDropDowns() {
@@ -60,12 +70,7 @@ class HeaderSettingViewController: UIViewController, SheetContentHeightModifiabl
     func setupTypeDropDown() {
         typeDropDown.anchorView = typeButton
         typeDropDown.bottomOffset = CGPoint(x: 0, y: typeButton.bounds.height)
-        typeDropDown.dataSource = [
-            appConst.CELL_TYPE_TIME_DISPLAY,
-            appConst.CELL_TYPE_TEXT_DISPLAY,
-            appConst.CELL_TYPE_CHECK_DISPLAY,
-            appConst.CELL_TYPE_NOTE_DISPLAY
-        ]
+        typeDropDown.dataSource = [appConst.CELL_TYPE_TIME_DISPLAY, appConst.CELL_TYPE_TEXT_DISPLAY, appConst.CELL_TYPE_CHECK_DISPLAY, appConst.CELL_TYPE_NOTE_DISPLAY]
         typeDropDown.selectionAction = { (index, item) in
             switch (item) {
             case self.appConst.CELL_TYPE_TIME_DISPLAY:
@@ -90,11 +95,7 @@ class HeaderSettingViewController: UIViewController, SheetContentHeightModifiabl
     func setupWidthDropDown() {
         widthDropDown.anchorView = widthButton
         widthDropDown.bottomOffset = CGPoint(x: 0, y: widthButton.bounds.height)
-        widthDropDown.dataSource = [
-            appConst.CELL_WIDTH_SMALL_DISPLAY,
-            appConst.CELL_WIDTH_MEDIUM_DISPLAY,
-            appConst.CELL_WIDTH_LARGE_DISPLAY,
-        ]
+        widthDropDown.dataSource = [appConst.CELL_WIDTH_SMALL_DISPLAY, appConst.CELL_WIDTH_MEDIUM_DISPLAY, appConst.CELL_WIDTH_LARGE_DISPLAY]
         widthDropDown.selectionAction = { (index, item) in
             switch (item) {
             case self.appConst.CELL_WIDTH_SMALL_DISPLAY:
@@ -113,18 +114,56 @@ class HeaderSettingViewController: UIViewController, SheetContentHeightModifiabl
         }
     }
 
-    @objc private func save() {
-        delegate?.setHeaderName(Column(name: nameTextField.text ?? "名称未設定",
-                                       type: columnType ?? self.appConst.CELL_TYPE_TIME,
-                                       width: columnWidth ?? 1))
-        dismiss(animated: true, completion: nil)
-    }
+    func setupInitialData() {
+        nameTextField.text = selectedColumn?.name
+        columnType = selectedColumn?.type
+        columnWidth = selectedColumn?.width
 
+        switch (selectedColumn?.type) {
+        case appConst.CELL_TYPE_TIME:
+            typeButton.setTitle(appConst.CELL_TYPE_TIME_DISPLAY, for: .normal)
+        case appConst.CELL_TYPE_TEXT:
+            typeButton.setTitle(appConst.CELL_TYPE_TEXT_DISPLAY, for: .normal)
+        case appConst.CELL_TYPE_CHECK:
+            typeButton.setTitle(appConst.CELL_TYPE_CHECK_DISPLAY, for: .normal)
+        case appConst.CELL_TYPE_NOTE:
+            typeButton.setTitle(appConst.CELL_TYPE_NOTE_DISPLAY, for: .normal)
+        default:
+            break
+        }
+
+        switch (selectedColumn?.width) {
+        case appConst.CELL_WIDTH_SMALL:
+            widthButton.setTitle(appConst.CELL_WIDTH_SMALL_DISPLAY, for: .normal)
+        case appConst.CELL_WIDTH_MEDIUM:
+            widthButton.setTitle(appConst.CELL_WIDTH_MEDIUM_DISPLAY, for: .normal)
+        case appConst.CELL_WIDTH_LARGE:
+            widthButton.setTitle(appConst.CELL_WIDTH_LARGE_DISPLAY, for: .normal)
+        default:
+            break
+        }
+    }
 
     @objc private func cancel() {
         dismiss(animated: true, completion: nil)
     }
 
+    @objc private func save() {
+        let column = Column(name: nameTextField.text ?? "名称未設定",
+                            type: columnType ?? self.appConst.CELL_TYPE_TIME,
+                            width: columnWidth ?? self.appConst.CELL_WIDTH_MEDIUM)
+        if (selectedColumn != nil) {
+            delegate?.updateColumn(column, index: index!)
+        } else {
+            delegate?.createColumn(column)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+
+    private func delete() {
+        delegate?.deleteColumn(index: index!)
+        dismiss(animated: true, completion: nil)
+    }
 
     @objc private func keyboardNoti(noti: Notification) {
         if let rootView = UIApplication.shared.keyWindow {
