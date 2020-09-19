@@ -289,8 +289,8 @@ extension EditSheetViewController: NoteDialogViewCellDelegate {
 }
 
 extension EditSheetViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[.originalImage] as? UIImage {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             noteDialogView.imageView.image = image
         }
         picker.dismiss(animated: true, completion: nil)

@@ -56,16 +56,16 @@ class NoteDialogView: UIView {
                                                       metrics:nil,
                                                       views: bindings))
         textViewHeightConstraint.constant = textView.sizeThatFits(CGSize(width: textView.frame.size.width,height: CGFloat.greatestFiniteMagnitude)).height
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardNoti(noti:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardNoti(noti:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardNoti(noti:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardNoti(noti:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
     @objc private func keyboardNoti(noti: Notification) {
-        if noti.name == UIResponder.keyboardWillShowNotification {
+        if noti.name == NSNotification.Name.UIKeyboardWillShow {
             self.bounds.origin.y += 100
             imageView.isUserInteractionEnabled = false
         }
-        if noti.name == UIResponder.keyboardWillHideNotification {
+        if noti.name == NSNotification.Name.UIKeyboardWillHide {
             self.bounds.origin.y -= 100
             imageView.isUserInteractionEnabled = true
         }
