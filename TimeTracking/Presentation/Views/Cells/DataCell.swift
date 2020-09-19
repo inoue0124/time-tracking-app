@@ -7,11 +7,15 @@ class DataCell: Cell {
     var dateField = UITextField()
     var textField = UITextField()
     let datePicker = UIDatePicker()
-    var delegate: HeaderSettingDelegate?
+    var delegate: DataCellDelegate?
     var indexPath: IndexPath?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 
     func addLabel() {
@@ -27,7 +31,12 @@ class DataCell: Cell {
         noteButton.frame = bounds
         noteButton.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         noteButton.setImage(UIImage(named: "note"), for: .normal)
+        noteButton.addTarget(self, action: #selector(tappedNoteButton(_:)), for: UIControl.Event.touchUpInside)
         contentView.addSubview(noteButton)
+    }
+
+    @objc func tappedNoteButton(_ sender: UIButton) {
+        delegate?.openNoteDialog()
     }
 
     func addCheck(isChecked: Bool) {
@@ -48,7 +57,7 @@ class DataCell: Cell {
 
         datePicker.timeZone = NSTimeZone.local
         datePicker.locale = Locale.current
-        datePicker.datePickerMode = UIDatePickerMode.time
+        datePicker.datePickerMode = UIDatePicker.Mode.time
 
         dateField.inputView = datePicker
 
@@ -61,6 +70,11 @@ class DataCell: Cell {
         contentView.addSubview(dateField)
     }
 
+    @objc func done() {
+        delegate?.updateTimeCell(datePicker.date, indexPath: self.indexPath ?? IndexPath())
+        dateField.endEditing(true)
+    }
+
     func addTextField() {
         textField.frame = bounds
         textField.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -70,15 +84,6 @@ class DataCell: Cell {
         textField.delegate = self
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         contentView.addSubview(textField)
-    }
-
-    @objc func done() {
-        delegate?.updateTimeCell(datePicker.date, indexPath: self.indexPath ?? IndexPath())
-        dateField.endEditing(true)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }
 
@@ -90,4 +95,10 @@ extension DataCell: UITextFieldDelegate {
     @objc func textFieldDidChange(_ textField: UITextField) {
         delegate?.updateTextCell(textField.text ?? "", indexPath: self.indexPath ?? IndexPath())
     }
+}
+
+protocol DataCellDelegate {
+    func updateTimeCell(_ time: Date, indexPath: IndexPath) -> Void
+    func updateTextCell(_ text: String, indexPath: IndexPath) -> Void
+    func openNoteDialog() -> Void
 }

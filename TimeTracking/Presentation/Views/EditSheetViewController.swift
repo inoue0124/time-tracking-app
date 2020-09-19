@@ -26,6 +26,8 @@ class EditSheetViewController: UIViewController {
     var columnTypesRelay = BehaviorRelay<[String]>(value: [])
     var columnWidthsRelay = BehaviorRelay<[Int]>(value: [])
     var dataRelay = BehaviorRelay<[[Any]]>(value: [])
+    var imagePicker = UIImagePickerController()
+    var noteDialogView = NoteDialogView()
 
     var sheetName: String?
 
@@ -39,14 +41,12 @@ class EditSheetViewController: UIViewController {
 
     func initializeUI() {
         sheetView.dataSource = self
-        sheetView.delegate = self
         dismissButton.rx.tap.subscribe { [unowned self] _ in
             self.dismiss(animated: true, completion: nil)
         }.disposed(by: disposeBag)
         sheetView.register(HeaderCell.self, forCellWithReuseIdentifier: String(describing: HeaderCell.self))
         sheetView.register(DataCell.self, forCellWithReuseIdentifier: String(describing: DataCell.self))
-        sheetView.register(AddColumnCell.self, forCellWithReuseIdentifier: String(describing: AddColumnCell.self))
-        sheetView.register(AddRowCell.self, forCellWithReuseIdentifier: String(describing: AddRowCell.self))
+        sheetView.register(AddButtonCell.self, forCellWithReuseIdentifier: String(describing: AddButtonCell.self))
     }
 
     func initializeViewModel() {
@@ -102,12 +102,18 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
         case (0, 0..<columnTitles.count):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderCell.self), for: indexPath) as! HeaderCell
             cell.label.text = columnTitles[indexPath.column]
-//            cell.button.setTitle(columnTitles[indexPath.column], for: .normal)
+            cell.delegate = self
+            cell.column = Column(name: columnTitles[indexPath.column],
+                                 type: columnTypes[indexPath.column],
+                                 width: columnWidths[indexPath.column])
+            cell.index = indexPath.column
             return cell
 
         // 1行目、addColumnCellの時
         case (0, columnTitles.count):
-            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: AddColumnCell.self), for: indexPath) as! AddColumnCell
+            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: AddButtonCell.self), for: indexPath) as! AddButtonCell
+            cell.delegate = self
+            cell.type = "column"
             return cell
 
         // 一番下にaddRowCellを追加
@@ -115,41 +121,27 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
             // データがまだない時は非表示
             if (columnTitles.count==0) {
                 let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: DataCell.self), for: indexPath) as! DataCell
-                cell.label.text = ""
-                cell.gridlines.right = .none
-                cell.gridlines.bottom = .none
-                cell.gridlines.left = .none
-                for subview in cell.contentView.subviews {
-                    subview.removeFromSuperview()
-                }
+                clearCell(cell)
                 return cell
             }
-            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: AddRowCell.self), for: indexPath) as! AddRowCell
+            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: AddButtonCell.self), for: indexPath) as! AddButtonCell
+            cell.delegate = self
+            cell.type = "row"
             return cell
 
         // 2行目以降、右端は空のセル
         case (1..<data.count+2, columnTitles.count):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: DataCell.self), for: indexPath) as! DataCell
-            cell.label.text = ""
-            cell.gridlines.right = .none
-            cell.gridlines.bottom = .none
+            clearCell(cell)
             cell.gridlines.left = .default
-            for subview in cell.contentView.subviews {
-                subview.removeFromSuperview()
-            }
             return cell
 
         default:
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: DataCell.self), for: indexPath) as! DataCell
-            cell.gridlines.right = .default
-            cell.gridlines.bottom = .default
-            cell.gridlines.left = .default
+            clearCell(cell)
             cell.delegate = self
-            cell.indexPath = indexPath
-            for subview in cell.contentView.subviews {
-                subview.removeFromSuperview()
-            }
             return cellDataConverter.makeEditableDataCell(cell: cell,
+                                                          indexPath: indexPath,
                                                           data: data[indexPath.row-1][indexPath.column] as Any,
                                                           type: columnTypes[indexPath.column])
         }
@@ -162,39 +154,41 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
         }
         return [CellRange(from: (data.count+1, 0), to: (data.count+1, columnTitles.count-1))]
     }
-}
 
-
-extension EditSheetViewController: SpreadsheetViewDelegate {
-    func spreadsheetView(_ spreadsheetView: SpreadsheetView, didSelectItemAt indexPath: IndexPath) {
-        switch (spreadsheetView.cellForItem(at: indexPath)) {
-        case is AddColumnCell:
-            addColumn()
-        case is AddRowCell:
-            addRow()
-        case is HeaderCell:
-            editColumn(Column(name: columnTitles[indexPath.column],
-                              type: columnTypes[indexPath.column],
-                              width: columnWidths[indexPath.column]), index: indexPath.column)
-        default:
-            break
+    func clearCell(_ cell: DataCell) {
+        for subview in cell.contentView.subviews {
+            subview.removeFromSuperview()
         }
+        cell.gridlines.right = .none
+        cell.gridlines.bottom = .none
+        cell.gridlines.left = .none
     }
 
+    func refreshData() {
+        columnTitlesRelay.accept(columnTitles)
+        columnTypesRelay.accept(columnTypes)
+        columnWidthsRelay.accept(columnWidths)
+        dataRelay.accept(data)
+        sheetView.reloadData()
+    }
+}
+
+extension EditSheetViewController: AddButtonCellDelegate {
     func addColumn() {
         let headerSettingVC = HeaderSettingViewController()
         headerSettingVC.delegate = self
         let nav = BottomHalfModalNavigationController(rootViewController: headerSettingVC)
         self.presentBottomHalfModal(nav, animated: true, completion: nil)
     }
-
     func addRow() {
         data.append(Array<String>(repeating: "", count: columnTitles.count))
         dataRelay.accept(data)
         sheetView.reloadData()
     }
+}
 
-    func editColumn(_ column: Column, index: Int) {
+extension EditSheetViewController: HeaderCellDelegate {
+    func openHeaderSetting(_ column: Column, index: Int) {
         let headerSettingVC = HeaderSettingViewController()
         headerSettingVC.delegate = self
         headerSettingVC.selectedColumn = column
@@ -204,7 +198,6 @@ extension EditSheetViewController: SpreadsheetViewDelegate {
     }
 }
 
-
 extension EditSheetViewController: HeaderSettingDelegate {
     func createColumn(_ column: Column) {
         columnTitles.append(column.name)
@@ -213,9 +206,8 @@ extension EditSheetViewController: HeaderSettingDelegate {
         for i in 0..<data.count {
             data[i].append("")
         }
-        refreshDate()
+        refreshData()
     }
-
     func updateColumn(_ column: Column, index: Int) {
         columnTitles[index] = column.name
         // typeが変更されていたらデータを初期化
@@ -226,9 +218,8 @@ extension EditSheetViewController: HeaderSettingDelegate {
             columnTypes[index] = column.type
         }
         columnWidths[index] = column.width
-        refreshDate()
+        refreshData()
     }
-
     func deleteColumn(index: Int) {
         columnTitles.remove(at: index)
         columnTypes.remove(at: index)
@@ -236,23 +227,77 @@ extension EditSheetViewController: HeaderSettingDelegate {
         for i in 0..<data.count {
             data[i].remove(at: index)
         }
-        refreshDate()
+        refreshData()
     }
+}
 
+extension EditSheetViewController: DataCellDelegate {
     func updateTimeCell(_ time: Date, indexPath: IndexPath) {
         data[indexPath.row-1][indexPath.column] = time
-        refreshDate()
+        refreshData()
     }
 
     func updateTextCell(_ text: String, indexPath: IndexPath) {
         data[indexPath.row-1][indexPath.column] = text
     }
+    func openNoteDialog() {
+        let size: CGSize = UIScreen.main.bounds.size
+        let width = size.width
+        let height = size.height
+        noteDialogView = NoteDialogView(frame: CGRect(x: 0,
+                                                      y: 0,
+                                                      width: width,
+                                                      height: height))
+        noteDialogView.delegate = self
+        noteDialogView.alpha = 0
+        navigationController?.view.addSubview(self.noteDialogView)
+        UIView.transition(with: self.view, duration: 0.25, options: [.transitionCrossDissolve], animations: {
+            self.noteDialogView.alpha = 1
+        }, completion: nil)
+    }
+}
 
-    func refreshDate() {
-        columnTitlesRelay.accept(columnTitles)
-        columnTypesRelay.accept(columnTypes)
-        columnWidthsRelay.accept(columnWidths)
-        dataRelay.accept(data)
-        sheetView.reloadData()
+extension EditSheetViewController: NoteDialogViewCellDelegate {
+    func openCamera(){
+        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera)){
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            imagePicker.allowsEditing = false
+            imagePicker.delegate = self
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        else{
+            let alert  = UIAlertController(title: "エラー", message: "端末にカメラがありません。", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+
+    func openGallary(){
+        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+        imagePicker.allowsEditing = false
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+
+    func dismiss() {
+        UIView.transition(with: self.view, duration: 0.25, options: [.transitionCrossDissolve], animations: {
+            self.noteDialogView.alpha = 0
+        }, completion: { _ in
+            self.noteDialogView.removeFromSuperview()
+        })
+    }
+}
+
+extension EditSheetViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            noteDialogView.imageView.image = image
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.isNavigationBarHidden = false
+        self.dismiss(animated: true, completion: nil)
     }
 }

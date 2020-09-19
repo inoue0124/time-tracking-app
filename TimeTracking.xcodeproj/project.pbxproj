@@ -33,6 +33,9 @@
 		4C4924971FE769080073FE0B /* LoginNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4924961FE769080073FE0B /* LoginNavigator.swift */; };
 		4C7234F71FE699D100677DCC /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234F61FE699D100677DCC /* Exception.swift */; };
 		4CBB96F11FE1153F002C5DCC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBB96F01FE1153F002C5DCC /* User.swift */; };
+		7020B11325165D17007FB709 /* NoteDialogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7020B11225165D17007FB709 /* NoteDialogView.xib */; };
+		7020B11525165F82007FB709 /* NoteDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020B11425165F82007FB709 /* NoteDialogView.swift */; };
+		7020B11725167D36007FB709 /* Extension_UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020B11625167D36007FB709 /* Extension_UIView.swift */; };
 		70B5933324F7769F00696E2A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933224F7769F00696E2A /* Task.swift */; };
 		70B5933524F7779600696E2A /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933424F7779600696E2A /* Sheet.swift */; };
 		70B5933724F779F200696E2A /* PositionSheetTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933624F779F200696E2A /* PositionSheetTaskRepository.swift */; };
@@ -52,9 +55,7 @@
 		70D86BDE2504AA6F00ABB1A9 /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BDD2504AA6F00ABB1A9 /* HeaderCell.swift */; };
 		70D86BE02504AAFB00ABB1A9 /* DataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BDF2504AAFB00ABB1A9 /* DataCell.swift */; };
 		70D86BE22504ADB300ABB1A9 /* CellDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE12504ADB300ABB1A9 /* CellDataConverter.swift */; };
-		70D86BE42504CE0800ABB1A9 /* AddColumnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE32504CE0800ABB1A9 /* AddColumnCell.swift */; };
-		70D86BE62504DBED00ABB1A9 /* HeaderSettingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE52504DBED00ABB1A9 /* HeaderSettingDelegate.swift */; };
-		70D86BE82504DC0F00ABB1A9 /* AddRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE72504DC0F00ABB1A9 /* AddRowCell.swift */; };
+		70D86BE42504CE0800ABB1A9 /* AddButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE32504CE0800ABB1A9 /* AddButtonCell.swift */; };
 		70D86BEA2504DDB800ABB1A9 /* EditSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE92504DDB800ABB1A9 /* EditSheetViewModel.swift */; };
 		70D86BEC2504DE9200ABB1A9 /* EditSheetUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BEB2504DE9200ABB1A9 /* EditSheetUseCase.swift */; };
 		70D86BEE2504DF1200ABB1A9 /* EditSheetNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BED2504DF1200ABB1A9 /* EditSheetNavigator.swift */; };
@@ -94,6 +95,9 @@
 		4C7234F61FE699D100677DCC /* Exception.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exception.swift; sourceTree = "<group>"; };
 		4CBB96F01FE1153F002C5DCC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5466426C835110F194010839 /* Pods-TimeTracking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTracking.release.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTracking/Pods-TimeTracking.release.xcconfig"; sourceTree = "<group>"; };
+		7020B11225165D17007FB709 /* NoteDialogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteDialogView.xib; sourceTree = "<group>"; };
+		7020B11425165F82007FB709 /* NoteDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDialogView.swift; sourceTree = "<group>"; };
+		7020B11625167D36007FB709 /* Extension_UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension_UIView.swift; sourceTree = "<group>"; };
 		70B5933224F7769F00696E2A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		70B5933424F7779600696E2A /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
 		70B5933624F779F200696E2A /* PositionSheetTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionSheetTaskRepository.swift; sourceTree = "<group>"; };
@@ -113,9 +117,7 @@
 		70D86BDD2504AA6F00ABB1A9 /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		70D86BDF2504AAFB00ABB1A9 /* DataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCell.swift; sourceTree = "<group>"; };
 		70D86BE12504ADB300ABB1A9 /* CellDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDataConverter.swift; sourceTree = "<group>"; };
-		70D86BE32504CE0800ABB1A9 /* AddColumnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddColumnCell.swift; sourceTree = "<group>"; };
-		70D86BE52504DBED00ABB1A9 /* HeaderSettingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSettingDelegate.swift; sourceTree = "<group>"; };
-		70D86BE72504DC0F00ABB1A9 /* AddRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRowCell.swift; sourceTree = "<group>"; };
+		70D86BE32504CE0800ABB1A9 /* AddButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButtonCell.swift; sourceTree = "<group>"; };
 		70D86BE92504DDB800ABB1A9 /* EditSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSheetViewModel.swift; sourceTree = "<group>"; };
 		70D86BEB2504DE9200ABB1A9 /* EditSheetUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSheetUseCase.swift; sourceTree = "<group>"; };
 		70D86BED2504DF1200ABB1A9 /* EditSheetNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSheetNavigator.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				4C0477321FE964A4005A8A45 /* Observable+Ext.swift */,
 				70D86BE12504ADB300ABB1A9 /* CellDataConverter.swift */,
 				4C49248F1FE75BDF0073FE0B /* ViewModelType.swift */,
+				7020B11625167D36007FB709 /* Extension_UIView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -262,11 +265,11 @@
 			children = (
 				70D86BDD2504AA6F00ABB1A9 /* HeaderCell.swift */,
 				70D86BDF2504AAFB00ABB1A9 /* DataCell.swift */,
-				70D86BE32504CE0800ABB1A9 /* AddColumnCell.swift */,
-				70D86BE72504DC0F00ABB1A9 /* AddRowCell.swift */,
-				70D86BE52504DBED00ABB1A9 /* HeaderSettingDelegate.swift */,
+				70D86BE32504CE0800ABB1A9 /* AddButtonCell.swift */,
 				70ED1C232507A91B0059B3BB /* HeaderSettingViewController.swift */,
 				70ED1C242507A91B0059B3BB /* HeaderSettingViewController.xib */,
+				7020B11425165F82007FB709 /* NoteDialogView.swift */,
+				7020B11225165D17007FB709 /* NoteDialogView.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				4C4583631FC957FB002AFB69 /* Assets.xcassets in Resources */,
 				70B9C88724F502700007E314 /* GoogleService-Info.plist in Resources */,
 				4C4583611FC957FB002AFB69 /* Main.storyboard in Resources */,
+				7020B11325165D17007FB709 /* NoteDialogView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,16 +505,17 @@
 				4C0477311FE96482005A8A45 /* ArrayTracker.swift in Sources */,
 				4C3D437C1FDACF49008C5F01 /* SignUpViewController.swift in Sources */,
 				70B5934924F7BCEA00696E2A /* HomeNavigator.swift in Sources */,
+				7020B11725167D36007FB709 /* Extension_UIView.swift in Sources */,
 				4C3D437A1FDACF49008C5F01 /* LoginViewController.swift in Sources */,
 				70B5933F24F7825D00696E2A /* HomeViewController.swift in Sources */,
 				70B5934324F7834900696E2A /* HomeUseCase.swift in Sources */,
 				70D86BEC2504DE9200ABB1A9 /* EditSheetUseCase.swift in Sources */,
-				70D86BE62504DBED00ABB1A9 /* HeaderSettingDelegate.swift in Sources */,
-				70D86BE42504CE0800ABB1A9 /* AddColumnCell.swift in Sources */,
+				70D86BE42504CE0800ABB1A9 /* AddButtonCell.swift in Sources */,
 				4C04772C1FE96435005A8A45 /* ActivityIndicator.swift in Sources */,
 				4C4924971FE769080073FE0B /* LoginNavigator.swift in Sources */,
 				70BD769D24FCDF5700031D98 /* AddSheetViewController.swift in Sources */,
 				4C4924921FE764380073FE0B /* SheetNavigator.swift in Sources */,
+				7020B11525165F82007FB709 /* NoteDialogView.swift in Sources */,
 				70B5934124F782F600696E2A /* HomeViewModel.swift in Sources */,
 				70D86BE22504ADB300ABB1A9 /* CellDataConverter.swift in Sources */,
 				4C4924951FE768F10073FE0B /* SignUpNavigator.swift in Sources */,
@@ -531,7 +536,6 @@
 				4C3D438B1FDAD020008C5F01 /* SignUpUseCase.swift in Sources */,
 				70B5934724F79DAD00696E2A /* R.generated.swift in Sources */,
 				4C49248B1FE75B650073FE0B /* SignUpViewModel.swift in Sources */,
-				70D86BE82504DC0F00ABB1A9 /* AddRowCell.swift in Sources */,
 				4C3D437F1FDACF60008C5F01 /* SheetUseCase.swift in Sources */,
 				70B5933324F7769F00696E2A /* Task.swift in Sources */,
 				70ED1C252507A91B0059B3BB /* HeaderSettingViewController.swift in Sources */,
@@ -688,7 +692,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yusuke.timeTracking;
 				PRODUCT_NAME = TimeTracking;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -706,7 +710,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yusuke.timeTracking;
 				PRODUCT_NAME = TimeTracking;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
