@@ -289,7 +289,7 @@ struct _R: Rswift.Validatable {
     }
     
     struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = UIKit.UINavigationController
+      typealias InitialController = AddSheetViewController
       
       let bundle = R.hostingBundle
       let name = "Main"

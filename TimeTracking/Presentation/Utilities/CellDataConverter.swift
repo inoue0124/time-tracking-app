@@ -1,5 +1,5 @@
 import Foundation
-
+import SpreadsheetView
 
 public struct CellDataConverter {
 
@@ -27,12 +27,16 @@ public struct CellDataConverter {
         return cell
     }
 
-    func makeEditableDataCell(cell: DataCell, data: Any, type: String) -> DataCell {
+    func makeEditableDataCell(cell: DataCell, indexPath: IndexPath, data: Any, type: String) -> DataCell {
+        cell.indexPath = indexPath
+        cell.gridlines.right = .default
+        cell.gridlines.bottom = .default
+        cell.gridlines.left = .default
         switch (type) {
         case appConst.CELL_TYPE_TIME:
             cell.dateField.text = getString(from: data as? Date ?? Date())
             cell.addDateField()
-            break
+            return cell
         case appConst.CELL_TYPE_TEXT:
             cell.textField.text = data as? String ?? ""
             cell.addTextField()
