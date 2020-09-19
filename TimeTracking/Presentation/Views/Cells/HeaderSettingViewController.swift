@@ -44,8 +44,8 @@ class HeaderSettingViewController: UIViewController, SheetContentHeightModifiabl
     func initializeUI() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardNoti(noti:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardNoti(noti:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardNoti(noti:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardNoti(noti:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         setupDropDowns()
         typeButton.rx.tap.subscribe { _ in
             self.typeDropDown.show()

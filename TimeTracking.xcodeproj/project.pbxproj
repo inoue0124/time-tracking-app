@@ -33,6 +33,9 @@
 		4C4924971FE769080073FE0B /* LoginNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4924961FE769080073FE0B /* LoginNavigator.swift */; };
 		4C7234F71FE699D100677DCC /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234F61FE699D100677DCC /* Exception.swift */; };
 		4CBB96F11FE1153F002C5DCC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBB96F01FE1153F002C5DCC /* User.swift */; };
+		7020B11325165D17007FB709 /* NoteDialogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7020B11225165D17007FB709 /* NoteDialogView.xib */; };
+		7020B11525165F82007FB709 /* NoteDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020B11425165F82007FB709 /* NoteDialogView.swift */; };
+		7020B11725167D36007FB709 /* Extension_UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020B11625167D36007FB709 /* Extension_UIView.swift */; };
 		70B5933324F7769F00696E2A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933224F7769F00696E2A /* Task.swift */; };
 		70B5933524F7779600696E2A /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933424F7779600696E2A /* Sheet.swift */; };
 		70B5933724F779F200696E2A /* PositionSheetTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933624F779F200696E2A /* PositionSheetTaskRepository.swift */; };
@@ -92,6 +95,9 @@
 		4C7234F61FE699D100677DCC /* Exception.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exception.swift; sourceTree = "<group>"; };
 		4CBB96F01FE1153F002C5DCC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5466426C835110F194010839 /* Pods-TimeTracking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeTracking.release.xcconfig"; path = "Pods/Target Support Files/Pods-TimeTracking/Pods-TimeTracking.release.xcconfig"; sourceTree = "<group>"; };
+		7020B11225165D17007FB709 /* NoteDialogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteDialogView.xib; sourceTree = "<group>"; };
+		7020B11425165F82007FB709 /* NoteDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDialogView.swift; sourceTree = "<group>"; };
+		7020B11625167D36007FB709 /* Extension_UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension_UIView.swift; sourceTree = "<group>"; };
 		70B5933224F7769F00696E2A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		70B5933424F7779600696E2A /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
 		70B5933624F779F200696E2A /* PositionSheetTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionSheetTaskRepository.swift; sourceTree = "<group>"; };
@@ -160,6 +166,7 @@
 				4C0477321FE964A4005A8A45 /* Observable+Ext.swift */,
 				70D86BE12504ADB300ABB1A9 /* CellDataConverter.swift */,
 				4C49248F1FE75BDF0073FE0B /* ViewModelType.swift */,
+				7020B11625167D36007FB709 /* Extension_UIView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -261,6 +268,8 @@
 				70D86BE32504CE0800ABB1A9 /* AddButtonCell.swift */,
 				70ED1C232507A91B0059B3BB /* HeaderSettingViewController.swift */,
 				70ED1C242507A91B0059B3BB /* HeaderSettingViewController.xib */,
+				7020B11425165F82007FB709 /* NoteDialogView.swift */,
+				7020B11225165D17007FB709 /* NoteDialogView.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -392,6 +401,7 @@
 				4C4583631FC957FB002AFB69 /* Assets.xcassets in Resources */,
 				70B9C88724F502700007E314 /* GoogleService-Info.plist in Resources */,
 				4C4583611FC957FB002AFB69 /* Main.storyboard in Resources */,
+				7020B11325165D17007FB709 /* NoteDialogView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +505,7 @@
 				4C0477311FE96482005A8A45 /* ArrayTracker.swift in Sources */,
 				4C3D437C1FDACF49008C5F01 /* SignUpViewController.swift in Sources */,
 				70B5934924F7BCEA00696E2A /* HomeNavigator.swift in Sources */,
+				7020B11725167D36007FB709 /* Extension_UIView.swift in Sources */,
 				4C3D437A1FDACF49008C5F01 /* LoginViewController.swift in Sources */,
 				70B5933F24F7825D00696E2A /* HomeViewController.swift in Sources */,
 				70B5934324F7834900696E2A /* HomeUseCase.swift in Sources */,
@@ -504,6 +515,7 @@
 				4C4924971FE769080073FE0B /* LoginNavigator.swift in Sources */,
 				70BD769D24FCDF5700031D98 /* AddSheetViewController.swift in Sources */,
 				4C4924921FE764380073FE0B /* SheetNavigator.swift in Sources */,
+				7020B11525165F82007FB709 /* NoteDialogView.swift in Sources */,
 				70B5934124F782F600696E2A /* HomeViewModel.swift in Sources */,
 				70D86BE22504ADB300ABB1A9 /* CellDataConverter.swift in Sources */,
 				4C4924951FE768F10073FE0B /* SignUpNavigator.swift in Sources */,
@@ -680,7 +692,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yusuke.timeTracking;
 				PRODUCT_NAME = TimeTracking;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -698,7 +710,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yusuke.timeTracking;
 				PRODUCT_NAME = TimeTracking;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

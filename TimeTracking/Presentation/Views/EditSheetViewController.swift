@@ -26,6 +26,8 @@ class EditSheetViewController: UIViewController {
     var columnTypesRelay = BehaviorRelay<[String]>(value: [])
     var columnWidthsRelay = BehaviorRelay<[Int]>(value: [])
     var dataRelay = BehaviorRelay<[[Any]]>(value: [])
+    var imagePicker = UIImagePickerController()
+    var noteDialogView = NoteDialogView()
 
     var sheetName: String?
 
@@ -239,6 +241,63 @@ extension EditSheetViewController: DataCellDelegate {
         data[indexPath.row-1][indexPath.column] = text
     }
     func openNoteDialog() {
-        print("hello")
+        let size: CGSize = UIScreen.main.bounds.size
+        let width = size.width
+        let height = size.height
+        noteDialogView = NoteDialogView(frame: CGRect(x: 0,
+                                                      y: 0,
+                                                      width: width,
+                                                      height: height))
+        noteDialogView.delegate = self
+        noteDialogView.alpha = 0
+        navigationController?.view.addSubview(self.noteDialogView)
+        UIView.transition(with: self.view, duration: 0.25, options: [.transitionCrossDissolve], animations: {
+            self.noteDialogView.alpha = 1
+        }, completion: nil)
+    }
+}
+
+extension EditSheetViewController: NoteDialogViewCellDelegate {
+    func openCamera(){
+        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera)){
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            imagePicker.allowsEditing = false
+            imagePicker.delegate = self
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        else{
+            let alert  = UIAlertController(title: "エラー", message: "端末にカメラがありません。", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+
+    func openGallary(){
+        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+        imagePicker.allowsEditing = false
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+
+    func dismiss() {
+        UIView.transition(with: self.view, duration: 0.25, options: [.transitionCrossDissolve], animations: {
+            self.noteDialogView.alpha = 0
+        }, completion: { _ in
+            self.noteDialogView.removeFromSuperview()
+        })
+    }
+}
+
+extension EditSheetViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            noteDialogView.imageView.image = image
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.isNavigationBarHidden = false
+        self.dismiss(animated: true, completion: nil)
     }
 }

@@ -31,7 +31,7 @@ class DataCell: Cell {
         noteButton.frame = bounds
         noteButton.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         noteButton.setImage(UIImage(named: "note"), for: .normal)
-        noteButton.addTarget(self, action: #selector(tappedNoteButton(_:)), for: UIControlEvents.touchUpInside)
+        noteButton.addTarget(self, action: #selector(tappedNoteButton(_:)), for: UIControl.Event.touchUpInside)
         contentView.addSubview(noteButton)
     }
 
@@ -57,7 +57,7 @@ class DataCell: Cell {
 
         datePicker.timeZone = NSTimeZone.local
         datePicker.locale = Locale.current
-        datePicker.datePickerMode = UIDatePickerMode.time
+        datePicker.datePickerMode = UIDatePicker.Mode.time
 
         dateField.inputView = datePicker
 

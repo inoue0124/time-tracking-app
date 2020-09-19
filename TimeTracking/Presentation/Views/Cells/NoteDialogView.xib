@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoteDialogView" customModule="TimeTracking" customModuleProvider="target">
+            <connections>
+                <outlet property="confirmButton" destination="q4l-y1-Tdw" id="U3D-gz-YSK"/>
+                <outlet property="imageView" destination="7bI-E2-Djs" id="qhx-jY-fYm"/>
+                <outlet property="textView" destination="i4Z-hv-32r" id="fxa-Qa-JxR"/>
+                <outlet property="textViewHeightConstraint" destination="sbU-i6-c52" id="WXH-FC-i1n"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Id9-HL-0t3">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xwh-GD-FzM">
+                    <rect key="frame" x="50" y="100" width="314" height="696"/>
+                    <subviews>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GTX-4q-a9Q">
+                            <rect key="frame" x="0.0" y="0.0" width="314" height="656"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XUo-7T-1GO">
+                                    <rect key="frame" x="0.0" y="0.0" width="314" height="548"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="7bI-E2-Djs">
+                                            <rect key="frame" x="0.0" y="0.0" width="314" height="314"/>
+                                            <gestureRecognizers/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="7bI-E2-Djs" secondAttribute="height" multiplier="1:1" id="SlR-6G-lMR"/>
+                                            </constraints>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="hmv-tr-Ik3" appends="YES" id="zVe-ed-Jl9"/>
+                                            </connections>
+                                        </imageView>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" text="説明を記入" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="i4Z-hv-32r">
+                                            <rect key="frame" x="0.0" y="314" width="314" height="234"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="234" id="sbU-i6-c52"/>
+                                            </constraints>
+                                            <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="XUo-7T-1GO" firstAttribute="width" secondItem="GTX-4q-a9Q" secondAttribute="width" id="633-Tj-REu"/>
+                                <constraint firstItem="XUo-7T-1GO" firstAttribute="top" secondItem="GTX-4q-a9Q" secondAttribute="top" id="Aqk-8t-6I4"/>
+                                <constraint firstItem="XUo-7T-1GO" firstAttribute="leading" secondItem="GTX-4q-a9Q" secondAttribute="leading" id="X94-VL-RAH"/>
+                                <constraint firstAttribute="bottom" secondItem="XUo-7T-1GO" secondAttribute="bottom" id="Z3X-hp-5IV"/>
+                                <constraint firstAttribute="trailing" secondItem="XUo-7T-1GO" secondAttribute="trailing" id="pZ0-Ch-8dt"/>
+                            </constraints>
+                        </scrollView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q4l-y1-Tdw">
+                            <rect key="frame" x="10" y="656" width="294" height="30"/>
+                            <color key="backgroundColor" name="theme"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" title="入力完了"/>
+                            <connections>
+                                <action selector="tappedConfirmButton:" destination="-1" eventType="touchUpInside" id="Pet-Wt-VPE"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="q4l-y1-Tdw" firstAttribute="top" secondItem="GTX-4q-a9Q" secondAttribute="bottom" id="9St-BF-c7e"/>
+                        <constraint firstItem="GTX-4q-a9Q" firstAttribute="width" secondItem="Xwh-GD-FzM" secondAttribute="width" id="FrX-Jz-TMU"/>
+                        <constraint firstAttribute="trailing" secondItem="GTX-4q-a9Q" secondAttribute="trailing" id="NOs-bI-YEo"/>
+                        <constraint firstAttribute="trailing" secondItem="q4l-y1-Tdw" secondAttribute="trailing" constant="10" id="Ok3-XD-kSe"/>
+                        <constraint firstItem="q4l-y1-Tdw" firstAttribute="leading" secondItem="Xwh-GD-FzM" secondAttribute="leading" constant="10" id="TiA-LG-zZs"/>
+                        <constraint firstAttribute="bottom" secondItem="q4l-y1-Tdw" secondAttribute="bottom" constant="10" id="b1t-1n-ctN"/>
+                        <constraint firstItem="GTX-4q-a9Q" firstAttribute="leading" secondItem="Xwh-GD-FzM" secondAttribute="leading" id="j0k-Ca-HAJ"/>
+                        <constraint firstItem="GTX-4q-a9Q" firstAttribute="top" secondItem="Xwh-GD-FzM" secondAttribute="top" id="n0T-50-IPH"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Id9-HL-0t3" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="4W0-a2-3PX"/>
+                <constraint firstItem="Xwh-GD-FzM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="50" id="6Tk-RB-OqI"/>
+                <constraint firstAttribute="trailing" secondItem="Xwh-GD-FzM" secondAttribute="trailing" constant="50" id="CbP-YB-Up6"/>
+                <constraint firstAttribute="bottom" secondItem="Id9-HL-0t3" secondAttribute="bottom" id="W5j-eQ-3eC"/>
+                <constraint firstItem="Id9-HL-0t3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="jPc-Iw-rZZ"/>
+                <constraint firstItem="Xwh-GD-FzM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="100" id="pXJ-kz-VAC"/>
+                <constraint firstAttribute="trailing" secondItem="Id9-HL-0t3" secondAttribute="trailing" id="zYu-fB-pwP"/>
+                <constraint firstAttribute="bottom" secondItem="Xwh-GD-FzM" secondAttribute="bottom" constant="100" id="zqS-DS-3eI"/>
+            </constraints>
+            <point key="canvasLocation" x="169.56521739130437" y="109.82142857142857"/>
+        </view>
+        <tapGestureRecognizer id="hmv-tr-Ik3">
+            <connections>
+                <action selector="tappedImageView:" destination="-1" id="cXd-Ya-nQR"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="check" width="16" height="16"/>
+        <namedColor name="theme">
+            <color red="0.14900000393390656" green="0.60000002384185791" blue="0.98400002717971802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

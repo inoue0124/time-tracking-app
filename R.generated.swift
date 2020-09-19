@@ -105,14 +105,21 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 1 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 2 nibs.
   struct nib {
     /// Nib `HeaderSettingViewController`.
     static let headerSettingViewController = _R.nib._HeaderSettingViewController()
+    /// Nib `NoteDialogView`.
+    static let noteDialogView = _R.nib._NoteDialogView()
     
     /// `UINib(name: "HeaderSettingViewController", in: bundle)`
     static func headerSettingViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.headerSettingViewController)
+    }
+    
+    /// `UINib(name: "NoteDialogView", in: bundle)`
+    static func noteDialogView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.noteDialogView)
     }
     
     fileprivate init() {}
@@ -252,15 +259,39 @@ struct R: Rswift.Validatable {
 struct _R: Rswift.Validatable {
   static func validate() throws {
     try storyboard.validate()
+    try nib.validate()
   }
   
-  struct nib {
+  struct nib: Rswift.Validatable {
+    static func validate() throws {
+      try _NoteDialogView.validate()
+    }
+    
     struct _HeaderSettingViewController: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "HeaderSettingViewController"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _NoteDialogView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "NoteDialogView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "check", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'check' is used in nib 'NoteDialogView', but couldn't be loaded.") }
       }
       
       fileprivate init() {}
