@@ -16,6 +16,14 @@ public struct CellDataConverter {
             cell.addLabel()
             break
         case appConst.CELL_TYPE_NOTE:
+            do {
+                let note = try JSONDecoder().decode(Note.self, from: (data as! String).data(using: .utf8)!)
+                cell.note = note
+            } catch {
+                cell.noteButton.tintColor = .lightGray
+                cell.noteButton.isEnabled = false
+                print("error")
+            }
             cell.addNote()
             break
         case appConst.CELL_TYPE_CHECK:
