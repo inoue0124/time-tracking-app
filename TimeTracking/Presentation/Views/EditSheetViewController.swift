@@ -26,6 +26,9 @@ class EditSheetViewController: UIViewController {
     var columnTypesRelay = BehaviorRelay<[String]>(value: [])
     var columnWidthsRelay = BehaviorRelay<[Int]>(value: [])
     var dataRelay = BehaviorRelay<[[Any]]>(value: [])
+    var imageRelay = BehaviorRelay<UIImage>(value: UIImage())
+    var imageNameRelay = BehaviorRelay<String>(value: "")
+
     var imagePicker = UIImagePickerController()
     var noteDialogView = NoteDialogView()
 
@@ -62,9 +65,12 @@ class EditSheetViewController: UIViewController {
                                              columnTypes: columnTypesRelay.asDriver(),
                                              columnWidths: columnWidthsRelay.asDriver(),
                                              data: dataRelay.asDriver(),
+                                             uploadImageTrigger: imageRelay.asDriver(),
+                                             imageName: imageNameRelay.asDriver(),
                                              sheetName: sheetName)
         let output = editSheetViewModel.transform(input: input)
         output.save.drive().disposed(by: disposeBag)
+        output.uploadImage.drive().disposed(by: disposeBag)
     }
 }
 
@@ -240,10 +246,14 @@ extension EditSheetViewController: DataCellDelegate {
     func updateTextCell(_ text: String, indexPath: IndexPath) {
         data[indexPath.row-1][indexPath.column] = text
     }
-    func openNoteDialog() {
+    func openNoteDialog(_ note: Note?, indexPath: IndexPath) {
         let size: CGSize = UIScreen.main.bounds.size
         noteDialogView = NoteDialogView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         noteDialogView.delegate = self
+        noteDialogView.indexPath = indexPath
+        if (note != nil) {
+            noteDialogView.setNote(note: note!)
+        }
         noteDialogView.alpha = 0
         navigationController?.view.addSubview(self.noteDialogView)
         UIView.transition(with: self.view, duration: 0.25, options: [.transitionCrossDissolve], animations: {
@@ -253,6 +263,7 @@ extension EditSheetViewController: DataCellDelegate {
 }
 
 extension EditSheetViewController: NoteDialogViewCellDelegate {
+
     func openCamera(){
         if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera)) {
             imagePicker.sourceType = UIImagePickerController.SourceType.camera
@@ -273,12 +284,15 @@ extension EditSheetViewController: NoteDialogViewCellDelegate {
         self.present(imagePicker, animated: true, completion: nil)
     }
 
-    func dismiss() {
-        UIView.transition(with: self.view, duration: 0.25, options: [.transitionCrossDissolve], animations: {
-            self.noteDialogView.alpha = 0
-        }, completion: { _ in
-            self.noteDialogView.removeFromSuperview()
-        })
+    func onCloseDialog(_ image: UIImage, note: Note, indexPath: IndexPath) {
+        imageNameRelay.accept(note.imageName)
+        imageRelay.accept(image)
+        data[indexPath.row-1][indexPath.column] = makeNoteJson(note)
+        refreshData()
+    }
+
+    func makeNoteJson(_ note: Note) -> String {
+        return "{\"imageName\":\"" + note.imageName + "\", \"text\": \"" + note.text + "\"}"
     }
 }
 

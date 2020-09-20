@@ -6,4 +6,5 @@ protocol PositionSheetRepository {
     func read() -> Observable<[Sheet]>
     func update(_ positionSheet: Sheet) -> Observable<Void>
     func delete(_ positionSheetId: String) -> Observable<Void>
+    func uploadImage(_ image: UIImage, name: String) -> Observable<Void>
 }

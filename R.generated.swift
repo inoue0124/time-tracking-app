@@ -50,12 +50,20 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 7 images.
+  /// This `R.image` struct is generated, and contains static references to 11 images.
   struct image {
+    /// Image `camera`.
+    static let camera = Rswift.ImageResource(bundle: R.hostingBundle, name: "camera")
     /// Image `check`.
     static let check = Rswift.ImageResource(bundle: R.hostingBundle, name: "check")
+    /// Image `cross`.
+    static let cross = Rswift.ImageResource(bundle: R.hostingBundle, name: "cross")
     /// Image `edit`.
     static let edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "edit")
+    /// Image `folder`.
+    static let folder = Rswift.ImageResource(bundle: R.hostingBundle, name: "folder")
+    /// Image `image`.
+    static let image = Rswift.ImageResource(bundle: R.hostingBundle, name: "image")
     /// Image `menu`.
     static let menu = Rswift.ImageResource(bundle: R.hostingBundle, name: "menu")
     /// Image `note`.
@@ -67,14 +75,34 @@ struct R: Rswift.Validatable {
     /// Image `time_tracking_logo`.
     static let time_tracking_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "time_tracking_logo")
     
+    /// `UIImage(named: "camera", bundle: ..., traitCollection: ...)`
+    static func camera(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.camera, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "check", bundle: ..., traitCollection: ...)`
     static func check(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.check, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "cross", bundle: ..., traitCollection: ...)`
+    static func cross(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.cross, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "edit", bundle: ..., traitCollection: ...)`
     static func edit(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.edit, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "folder", bundle: ..., traitCollection: ...)`
+    static func folder(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.folder, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "image", bundle: ..., traitCollection: ...)`
+    static func image(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.image, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "menu", bundle: ..., traitCollection: ...)`
@@ -291,7 +319,8 @@ struct _R: Rswift.Validatable {
       }
       
       static func validate() throws {
-        if UIKit.UIImage(named: "check", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'check' is used in nib 'NoteDialogView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "cross", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'cross' is used in nib 'NoteDialogView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "camera", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'camera' is used in nib 'NoteDialogView', but couldn't be loaded.") }
       }
       
       fileprivate init() {}

@@ -9,6 +9,7 @@ class DataCell: Cell {
     let datePicker = UIDatePicker()
     var delegate: DataCellDelegate?
     var indexPath: IndexPath?
+    var note: Note?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,7 +37,7 @@ class DataCell: Cell {
     }
 
     @objc func tappedNoteButton(_ sender: UIButton) {
-        delegate?.openNoteDialog()
+        delegate?.openNoteDialog(note, indexPath: self.indexPath ?? IndexPath())
     }
 
     func addCheck(isChecked: Bool) {
@@ -100,5 +101,5 @@ extension DataCell: UITextFieldDelegate {
 protocol DataCellDelegate {
     func updateTimeCell(_ time: Date, indexPath: IndexPath) -> Void
     func updateTextCell(_ text: String, indexPath: IndexPath) -> Void
-    func openNoteDialog() -> Void
+    func openNoteDialog(_ note: Note?, indexPath: IndexPath) -> Void
 }
