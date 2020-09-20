@@ -10,11 +10,14 @@ class EditSheetViewModel: ViewModelType {
         let columnTypes: Driver<[String]>
         let columnWidths: Driver<[Int]>
         let data: Driver<[[Any]]>
+        let uploadImageTrigger: Driver<UIImage>
+        let imageName: Driver<String>
         let sheetName: String?
     }
 
     struct Output {
         let save: Driver<Void>
+        let uploadImage: Driver<Void>
         let error: Driver<Error>
     }
 
@@ -47,7 +50,13 @@ class EditSheetViewModel: ViewModelType {
                     .trackError(state.error)
                     .asDriver(onErrorJustReturn: ())
         }
+        let uploadImage = input.uploadImageTrigger
+            .withLatestFrom(Driver.combineLatest(input.uploadImageTrigger, input.imageName))
+            .flatMapLatest { [unowned self] (image: UIImage, imageName: String) -> Driver<Void> in
+                return self.editSheetUseCase.uploadImage(image, name: imageName).asDriver(onErrorJustReturn: ())
+        }
         return EditSheetViewModel.Output(save: save,
+                                         uploadImage: uploadImage,
                                          error: state.error.asDriver())
     }
 }

@@ -23,6 +23,10 @@ class EditSheetUseCase {
             }).disposed(by: disposeBag)
         return Observable.create { _ in return Disposables.create() }
     }
+
+    func uploadImage(_ image: UIImage, name: String) -> Observable<Void> {
+        sheetRepository.uploadImage(image, name: name)
+    }
 }
 
 

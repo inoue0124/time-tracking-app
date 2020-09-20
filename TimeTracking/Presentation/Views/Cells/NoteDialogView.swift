@@ -1,4 +1,6 @@
 import UIKit
+import Firebase
+import FirebaseStorageUI
 
 class NoteDialogView: UIView {
 
@@ -6,20 +8,23 @@ class NoteDialogView: UIView {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet weak var dismissButton: UIButton!
+
 
     var delegate: NoteDialogViewCellDelegate?
+    var indexPath: IndexPath?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        comminInit()
+        initiateUI()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        comminInit()
+        initiateUI()
     }
 
-    private func comminInit() {
+    private func initiateUI() {
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: R.nib.noteDialogView.name, bundle: bundle)
         let view = nib.instantiate(withOwner: self, options: nil).first as! UIView
@@ -37,6 +42,16 @@ class NoteDialogView: UIView {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardNoti(noti:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardNoti(noti:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         textView.delegate = self
+    }
+
+    func setNote(note: Note) {
+        textView.text = note.text
+        imageView.sd_setImage(with: Storage.storage().reference().child("noteImages/" + note.imageName + ".jpg"),
+                              placeholderImage: UIImage(named: R.image.image.name))
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.imageView.sd_setImage(with: Storage.storage().reference().child("noteImages/" + note.imageName + ".jpg"),
+                                       placeholderImage: UIImage(named: R.image.image.name))
+        }
     }
 
     @IBAction func tappedImageView(_ sender: Any) {
@@ -57,7 +72,21 @@ class NoteDialogView: UIView {
     }
 
     @IBAction func tappedConfirmButton(_ sender: Any) {
-        self.delegate?.dismiss()
+        let note = Note(imageName: NSUUID().uuidString, text: textView.text)
+        self.delegate?.onCloseDialog(imageView.image!, note: note, indexPath: indexPath!)
+        UIView.transition(with: self, duration: 0.25, options: [.transitionCrossDissolve], animations: {
+            self.alpha = 0
+        }, completion: { _ in
+            self.removeFromSuperview()
+        })
+    }
+
+    @IBAction func tappedDismissButton(_ sender: Any) {
+        UIView.transition(with: self, duration: 0.25, options: [.transitionCrossDissolve], animations: {
+            self.alpha = 0
+        }, completion: { _ in
+            self.removeFromSuperview()
+        })
     }
 
     @objc private func keyboardNoti(noti: Notification) {
@@ -88,5 +117,5 @@ extension NoteDialogView: UITextViewDelegate {
 protocol NoteDialogViewCellDelegate {
     func openCamera() -> Void
     func openGallary() -> Void
-    func dismiss() -> Void
+    func onCloseDialog(_ image: UIImage, note: Note, indexPath: IndexPath) -> Void
 }

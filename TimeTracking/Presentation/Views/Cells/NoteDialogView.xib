@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoteDialogView" customModule="TimeTracking" customModuleProvider="target">
             <connections>
                 <outlet property="confirmButton" destination="q4l-y1-Tdw" id="U3D-gz-YSK"/>
+                <outlet property="dismissButton" destination="mig-uk-cTx" id="Fln-1d-xkA"/>
                 <outlet property="imageView" destination="7bI-E2-Djs" id="qhx-jY-fYm"/>
                 <outlet property="textView" destination="i4Z-hv-32r" id="fxa-Qa-JxR"/>
                 <outlet property="textViewHeightConstraint" destination="sbU-i6-c52" id="WXH-FC-i1n"/>
@@ -34,8 +35,9 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XUo-7T-1GO">
                                     <rect key="frame" x="0.0" y="0.0" width="314" height="614"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="7bI-E2-Djs">
+                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="7bI-E2-Djs">
                                             <rect key="frame" x="0.0" y="0.0" width="314" height="314"/>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <gestureRecognizers/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="7bI-E2-Djs" secondAttribute="height" multiplier="1:1" id="SlR-6G-lMR"/>
@@ -74,6 +76,14 @@
                                 <action selector="tappedConfirmButton:" destination="-1" eventType="touchUpInside" id="Pet-Wt-VPE"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mig-uk-cTx">
+                            <rect key="frame" x="5" y="5" width="26" height="26"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="cross"/>
+                            <connections>
+                                <action selector="tappedDismissButton:" destination="-1" eventType="touchUpInside" id="huN-x8-7bu"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
@@ -99,9 +109,11 @@
                 <constraint firstItem="Id9-HL-0t3" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="4W0-a2-3PX"/>
                 <constraint firstItem="Xwh-GD-FzM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="50" id="6Tk-RB-OqI"/>
                 <constraint firstAttribute="trailing" secondItem="Xwh-GD-FzM" secondAttribute="trailing" constant="50" id="CbP-YB-Up6"/>
+                <constraint firstItem="mig-uk-cTx" firstAttribute="top" secondItem="Id9-HL-0t3" secondAttribute="top" id="ITU-zc-JcZ"/>
                 <constraint firstAttribute="bottom" secondItem="Id9-HL-0t3" secondAttribute="bottom" id="W5j-eQ-3eC"/>
                 <constraint firstItem="Id9-HL-0t3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="jPc-Iw-rZZ"/>
                 <constraint firstItem="Xwh-GD-FzM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="100" id="pXJ-kz-VAC"/>
+                <constraint firstItem="mig-uk-cTx" firstAttribute="leading" secondItem="Id9-HL-0t3" secondAttribute="leading" id="qSd-Gs-2DW"/>
                 <constraint firstAttribute="trailing" secondItem="Id9-HL-0t3" secondAttribute="trailing" id="zYu-fB-pwP"/>
                 <constraint firstAttribute="bottom" secondItem="Xwh-GD-FzM" secondAttribute="bottom" constant="100" id="zqS-DS-3eI"/>
             </constraints>
@@ -114,7 +126,8 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="check" width="16" height="16"/>
+        <image name="camera" width="128" height="128"/>
+        <image name="cross" width="16" height="16"/>
         <namedColor name="theme">
             <color red="0.14900000393390656" green="0.60000002384185791" blue="0.98400002717971802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

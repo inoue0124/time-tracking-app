@@ -1,9 +1,12 @@
 import Firebase
+import FirebaseStorage
 import RxSwift
 
 class FireBasePositionSheetRepository: PositionSheetRepository {
 
     let db: Firestore
+    let storage = Storage.storage()
+    let imageResizer = ImageResizer()
 
     var listener: ListenerRegistration?
 
@@ -106,6 +109,25 @@ class FireBasePositionSheetRepository: PositionSheetRepository {
                     return
                 }
                 observer.onNext(())
+            }
+            return Disposables.create()
+        }
+    }
+
+    func uploadImage(_ image: UIImage, name: String) -> Observable<Void> {
+        guard image != UIImage() else { return Observable.create { observer in Disposables.create() } }
+        let storageRef = storage.reference().child("noteImages/" + name + ".jpg")
+        let resizedImage = imageResizer.resizeImage(image: image, targetSize: CGSize(width: 500.0, height: 500.0))
+        let jpgData = UIImageJPEGRepresentation(resizedImage, 0.7)
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+
+        return Observable.create { observer in
+            storageRef.putData(jpgData!, metadata: metadata) { (metadata, error) in
+                if let e = error {
+                    observer.onError(e)
+                    return
+                }
             }
             return Disposables.create()
         }
