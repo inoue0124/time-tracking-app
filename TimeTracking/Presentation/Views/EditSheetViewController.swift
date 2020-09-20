@@ -242,12 +242,7 @@ extension EditSheetViewController: DataCellDelegate {
     }
     func openNoteDialog() {
         let size: CGSize = UIScreen.main.bounds.size
-        let width = size.width
-        let height = size.height
-        noteDialogView = NoteDialogView(frame: CGRect(x: 0,
-                                                      y: 0,
-                                                      width: width,
-                                                      height: height))
+        noteDialogView = NoteDialogView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         noteDialogView.delegate = self
         noteDialogView.alpha = 0
         navigationController?.view.addSubview(self.noteDialogView)
@@ -259,20 +254,19 @@ extension EditSheetViewController: DataCellDelegate {
 
 extension EditSheetViewController: NoteDialogViewCellDelegate {
     func openCamera(){
-        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera)){
+        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera)) {
             imagePicker.sourceType = UIImagePickerController.SourceType.camera
             imagePicker.allowsEditing = false
             imagePicker.delegate = self
             self.present(imagePicker, animated: true, completion: nil)
-        }
-        else{
+        } else{
             let alert  = UIAlertController(title: "エラー", message: "端末にカメラがありません。", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
     }
 
-    func openGallary(){
+    func openGallary() {
         imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
         imagePicker.allowsEditing = false
         imagePicker.delegate = self

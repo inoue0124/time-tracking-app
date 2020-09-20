@@ -29,10 +29,10 @@
                     <rect key="frame" x="50" y="100" width="314" height="696"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GTX-4q-a9Q">
-                            <rect key="frame" x="0.0" y="0.0" width="314" height="656"/>
+                            <rect key="frame" x="0.0" y="0.0" width="314" height="646"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XUo-7T-1GO">
-                                    <rect key="frame" x="0.0" y="0.0" width="314" height="548"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="314" height="614"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="7bI-E2-Djs">
                                             <rect key="frame" x="0.0" y="0.0" width="314" height="314"/>
@@ -45,10 +45,10 @@
                                             </connections>
                                         </imageView>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" text="説明を記入" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="i4Z-hv-32r">
-                                            <rect key="frame" x="0.0" y="314" width="314" height="234"/>
+                                            <rect key="frame" x="0.0" y="314" width="314" height="300"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="234" id="sbU-i6-c52"/>
+                                                <constraint firstAttribute="height" constant="300" id="sbU-i6-c52"/>
                                             </constraints>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -77,7 +77,7 @@
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
-                        <constraint firstItem="q4l-y1-Tdw" firstAttribute="top" secondItem="GTX-4q-a9Q" secondAttribute="bottom" id="9St-BF-c7e"/>
+                        <constraint firstItem="q4l-y1-Tdw" firstAttribute="top" secondItem="GTX-4q-a9Q" secondAttribute="bottom" constant="10" id="9St-BF-c7e"/>
                         <constraint firstItem="GTX-4q-a9Q" firstAttribute="width" secondItem="Xwh-GD-FzM" secondAttribute="width" id="FrX-Jz-TMU"/>
                         <constraint firstAttribute="trailing" secondItem="GTX-4q-a9Q" secondAttribute="trailing" id="NOs-bI-YEo"/>
                         <constraint firstAttribute="trailing" secondItem="q4l-y1-Tdw" secondAttribute="trailing" constant="10" id="Ok3-XD-kSe"/>
