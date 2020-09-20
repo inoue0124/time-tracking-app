@@ -239,6 +239,11 @@ extension EditSheetViewController: HeaderSettingDelegate {
 }
 
 extension EditSheetViewController: DataCellDelegate {
+    func tappedCheckButton(_ isChecked: Bool, indexPath: IndexPath) {
+        data[indexPath.row-1][indexPath.column] = isChecked
+        refreshData()
+    }
+
     func updateTimeCell(_ time: Date, indexPath: IndexPath) {
         data[indexPath.row-1][indexPath.column] = time
         refreshData()

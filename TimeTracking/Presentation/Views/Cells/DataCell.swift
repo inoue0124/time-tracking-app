@@ -10,6 +10,7 @@ class DataCell: Cell {
     var delegate: DataCellDelegate?
     var indexPath: IndexPath?
     var note: Note?
+    var isChecked: Bool?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,13 +41,23 @@ class DataCell: Cell {
         delegate?.openNoteDialog(note, indexPath: self.indexPath ?? IndexPath())
     }
 
-    func addCheck(isChecked: Bool) {
+    func addCheck() {
         checkButton.frame = bounds
         checkButton.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        if (isChecked) {
-            checkButton.setImage(UIImage(named: "check"), for: .normal)
+        checkButton.addTarget(self, action: #selector(tappedCheckButton(_:)), for: UIControl.Event.touchUpInside)
+
+        if (isChecked!) {
+            checkButton.setImage(UIImage(named: R.image.checked.name), for: .normal)
+            checkButton.tintColor = UIColor(named: R.color.theme.name)
+        } else {
+            checkButton.setImage(UIImage(named: R.image.checkbox.name), for: .normal)
+            checkButton.tintColor = .lightGray
         }
         contentView.addSubview(checkButton)
+    }
+
+    @objc func tappedCheckButton(_ sender: UIButton) {
+        delegate?.tappedCheckButton(!(isChecked!), indexPath: self.indexPath ?? IndexPath())
     }
 
     func addDateField() {
@@ -102,4 +113,5 @@ protocol DataCellDelegate {
     func updateTimeCell(_ time: Date, indexPath: IndexPath) -> Void
     func updateTextCell(_ text: String, indexPath: IndexPath) -> Void
     func openNoteDialog(_ note: Note?, indexPath: IndexPath) -> Void
+    func tappedCheckButton(_ isChecked: Bool, indexPath: IndexPath) -> Void
 }

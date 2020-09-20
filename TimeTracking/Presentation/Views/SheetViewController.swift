@@ -13,6 +13,7 @@ class SheetViewController: UIViewController {
     var positionSheet: Sheet?
     let cellDataConverter = CellDataConverter()
     var noteDialogView = NoteDialogView()
+    var data: [[Any]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +47,9 @@ class SheetViewController: UIViewController {
         output.load.drive().disposed(by: disposeBag)
         output.tasks.drive(onNext: { tasks in
             self.tasks = tasks
+            for task in self.tasks! {
+                self.data.append(task.data)
+            }
             self.sheetView.reloadData()
         }).disposed(by: disposeBag)
         output.positionSheet.drive(onNext: { positionSheet in
@@ -89,7 +93,8 @@ extension SheetViewController: SpreadsheetViewDataSource {
             }
             cell.delegate = self
             return cellDataConverter.makeDataCell(cell: cell,
-                                                  data: tasks?[indexPath.row-1].data[indexPath.column] as Any,
+                                                  indexPath: indexPath,
+                                                  data: data[indexPath.row-1][indexPath.column] as Any,
                                                   type: positionSheet?.columnTypes[indexPath.column] ?? "text")
         }
 
@@ -97,6 +102,11 @@ extension SheetViewController: SpreadsheetViewDataSource {
 }
 
 extension SheetViewController: DataCellDelegate {
+    func tappedCheckButton(_ isChecked: Bool, indexPath: IndexPath) {
+        data[indexPath.row-1][indexPath.column] = isChecked
+        sheetView.reloadData()
+    }
+
     func updateTimeCell(_ time: Date, indexPath: IndexPath) {}
 
     func updateTextCell(_ text: String, indexPath: IndexPath) {}
