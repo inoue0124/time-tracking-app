@@ -692,7 +692,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yusuke.timeTracking;
 				PRODUCT_NAME = TimeTracking;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+<<<<<<< HEAD
 				SWIFT_VERSION = 4.0;
+=======
+				SWIFT_VERSION = 4.2;
+>>>>>>> fe93588985794e430afe1473588c27932ce33be1
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -710,7 +714,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yusuke.timeTracking;
 				PRODUCT_NAME = TimeTracking;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+<<<<<<< HEAD
 				SWIFT_VERSION = 4.0;
+=======
+				SWIFT_VERSION = 4.2;
+>>>>>>> fe93588985794e430afe1473588c27932ce33be1
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
