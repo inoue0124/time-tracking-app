@@ -50,12 +50,16 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 11 images.
+  /// This `R.image` struct is generated, and contains static references to 13 images.
   struct image {
     /// Image `camera`.
     static let camera = Rswift.ImageResource(bundle: R.hostingBundle, name: "camera")
     /// Image `check`.
     static let check = Rswift.ImageResource(bundle: R.hostingBundle, name: "check")
+    /// Image `checkbox`.
+    static let checkbox = Rswift.ImageResource(bundle: R.hostingBundle, name: "checkbox")
+    /// Image `checked`.
+    static let checked = Rswift.ImageResource(bundle: R.hostingBundle, name: "checked")
     /// Image `cross`.
     static let cross = Rswift.ImageResource(bundle: R.hostingBundle, name: "cross")
     /// Image `edit`.
@@ -83,6 +87,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "check", bundle: ..., traitCollection: ...)`
     static func check(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.check, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "checkbox", bundle: ..., traitCollection: ...)`
+    static func checkbox(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.checkbox, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "checked", bundle: ..., traitCollection: ...)`
+    static func checked(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.checked, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "cross", bundle: ..., traitCollection: ...)`

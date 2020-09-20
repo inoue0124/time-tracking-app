@@ -12,6 +12,8 @@ class SheetViewController: UIViewController {
     var tasks: [Task]?
     var positionSheet: Sheet?
     let cellDataConverter = CellDataConverter()
+    var noteDialogView = NoteDialogView()
+    var data: [[Any]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,9 @@ class SheetViewController: UIViewController {
         output.load.drive().disposed(by: disposeBag)
         output.tasks.drive(onNext: { tasks in
             self.tasks = tasks
+            for task in self.tasks! {
+                self.data.append(task.data)
+            }
             self.sheetView.reloadData()
         }).disposed(by: disposeBag)
         output.positionSheet.drive(onNext: { positionSheet in
@@ -86,10 +91,48 @@ extension SheetViewController: SpreadsheetViewDataSource {
             for subview in cell.contentView.subviews {
                 subview.removeFromSuperview()
             }
+            cell.delegate = self
             return cellDataConverter.makeDataCell(cell: cell,
-                                                  data: tasks?[indexPath.row-1].data[indexPath.column] as Any,
+                                                  indexPath: indexPath,
+                                                  data: data[indexPath.row-1][indexPath.column] as Any,
                                                   type: positionSheet?.columnTypes[indexPath.column] ?? "text")
         }
 
     }
+}
+
+extension SheetViewController: DataCellDelegate {
+    func tappedCheckButton(_ isChecked: Bool, indexPath: IndexPath) {
+        data[indexPath.row-1][indexPath.column] = isChecked
+        sheetView.reloadData()
+    }
+
+    func updateTimeCell(_ time: Date, indexPath: IndexPath) {}
+
+    func updateTextCell(_ text: String, indexPath: IndexPath) {}
+
+    func openNoteDialog(_ note: Note?, indexPath: IndexPath) {
+        let size: CGSize = UIScreen.main.bounds.size
+        noteDialogView = NoteDialogView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        noteDialogView.delegate = self
+        noteDialogView.indexPath = indexPath
+        if (note != nil) {
+            noteDialogView.setNote(note: note!)
+        }
+        noteDialogView.alpha = 0
+        noteDialogView.confirmButton.setTitle("閉じる", for: .normal)
+        navigationController?.view.addSubview(self.noteDialogView)
+        UIView.transition(with: self.view, duration: 0.25, options: [.transitionCrossDissolve], animations: {
+            self.noteDialogView.alpha = 1
+        }, completion: nil)
+    }
+
+}
+
+extension SheetViewController: NoteDialogViewCellDelegate {
+    func openCamera() {}
+
+    func openGallary() {}
+
+    func onCloseDialog(_ image: UIImage, note: Note, indexPath: IndexPath) {}
 }

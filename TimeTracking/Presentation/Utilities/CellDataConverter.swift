@@ -5,7 +5,8 @@ public struct CellDataConverter {
 
     let appConst = AppConst()
 
-    func makeDataCell(cell: DataCell, data: Any, type: String) -> DataCell {
+    func makeDataCell(cell: DataCell, indexPath: IndexPath, data: Any, type: String) -> DataCell {
+        cell.indexPath = indexPath
         switch (type) {
         case appConst.CELL_TYPE_TEXT:
             cell.label.text = data as? String ?? ""
@@ -16,10 +17,19 @@ public struct CellDataConverter {
             cell.addLabel()
             break
         case appConst.CELL_TYPE_NOTE:
+            do {
+                let note = try JSONDecoder().decode(Note.self, from: (data as! String).data(using: .utf8)!)
+                cell.note = note
+            } catch {
+                cell.noteButton.tintColor = .lightGray
+                cell.noteButton.isEnabled = false
+                print("error")
+            }
             cell.addNote()
             break
         case appConst.CELL_TYPE_CHECK:
-            cell.addCheck(isChecked: data as? Bool ?? false)
+            cell.isChecked = data as? Bool ?? false
+            cell.addCheck()
             break
         default:
             break
@@ -52,7 +62,8 @@ public struct CellDataConverter {
             cell.addNote()
             break
         case appConst.CELL_TYPE_CHECK:
-            cell.addCheck(isChecked: false)
+            cell.isChecked = data as? Bool ?? false
+            cell.addCheck()
             break
         default:
             break

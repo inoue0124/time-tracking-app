@@ -42,11 +42,13 @@ class EditSheetViewModel: ViewModelType {
                 return self.editSheetUseCase.save(with: input.sheetName ?? "名称未設定",
                                                   and: columnTitles,
                                                   and: columnTypes,
-                                                  and: columnWidths,
-                                                  and: data)
-                    .do(onNext: { [unowned self] _ in
-//                        self.navigator.toList()
-                    })
+                                                  and: columnWidths)
+                    .flatMap { [unowned self] (sheetId: String) in
+                        self.editSheetUseCase.saveTasks(with: data, and: sheetId)
+                            .do(onNext: { [unowned self] in
+                                self.navigator.toAddSheet()
+                            })
+                    }
                     .trackError(state.error)
                     .asDriver(onErrorJustReturn: ())
         }
