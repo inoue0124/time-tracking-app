@@ -53,9 +53,10 @@ class EditSheetViewController: UIViewController {
     }
 
     func initializeViewModel() {
+        let parentNVC = self.presentingViewController as? UINavigationController
         editSheetViewModel = EditSheetViewModel(
             with: EditSheetUseCase(with: FireBasePositionSheetRepository(), and: FireBasePositionSheetTaskRepository()),
-            and: EditSheetNavigator(with: self)
+            and: EditSheetNavigator(with: self, and: parentNVC)
         )
     }
 
