@@ -12,15 +12,20 @@ class FireBasePositionSheetTaskRepository: PositionSheetTaskRepository {
         db.settings.isPersistenceEnabled = true
     }
 
-    func create(with data: [Any], and sheetId: String) -> Observable<Void> {
-        return Observable.create { [unowned self] observer in
-            self.db.collection("position_sheets").document(sheetId).collection("tasks").addDocument(data: [
-                "data": data,
+    func create(with data: [[Any]], and sheetId: String) -> Observable<Void> {
+        let batch = db.batch()
+        for da in data {
+            let dbRef = db.collection("position_sheets").document(sheetId).collection("tasks").document()
+            batch.setData([
+                "data": da,
                 "create_user": (Auth.auth().currentUser?.uid)!,
                 "created_at": Date(),
                 "update_user": (Auth.auth().currentUser?.uid)!,
                 "updated_at": Date()
-            ]) { error in
+            ], forDocument: dbRef)
+        }
+        return Observable.create { observer in
+            batch.commit() { error in
                 if let e = error {
                     observer.onError(e)
                     return

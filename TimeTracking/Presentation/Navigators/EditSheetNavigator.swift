@@ -6,4 +6,8 @@ class EditSheetNavigator {
     init(with viewController: EditSheetViewController) {
         self.viewController = viewController
     }
+
+    func toAddSheet() {
+         viewController!.dismiss(animated: true)
+    }
 }
