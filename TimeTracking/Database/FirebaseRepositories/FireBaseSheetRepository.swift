@@ -48,6 +48,7 @@ class FireBaseSheetRepository: SheetRepository {
 
         return Observable.create { [unowned self] observer in
             self.listener = self.db.collection(sheetType)
+                .whereField("create_user", isEqualTo: (Auth.auth().currentUser?.uid)!)
                 .order(by: "updated_at", descending: true)
                 .addSnapshotListener(options: options) { snapshot, error in
                     guard let snap = snapshot else {
