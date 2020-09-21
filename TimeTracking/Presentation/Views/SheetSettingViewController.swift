@@ -21,10 +21,12 @@ class SheetSettingViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == R.segue.homeViewController.toTaskList.identifier {
-            if let vc = segue.destination as? SheetViewController,
-                let positionSheet = sender as? Sheet {
-                vc.initializeViewModel(with: positionSheet)
+        if segue.identifier == R.segue.sheetSettingViewController.toEditSheet.identifier {
+            if let nvc = segue.destination as? UINavigationController {
+                if let vc = nvc.viewControllers.last as? EditSheetViewController,
+                    let sheet = sender as? Sheet {
+                    vc.initializeViewModel(with: sheet)
+                }
             }
         }
     }
@@ -34,13 +36,13 @@ class SheetSettingViewController: UIViewController {
 
     func initializeViewModel() {
         sheetSettingViewModel = SheetSettingViewModel.init(with: HomeUseCase(with: FireBaseSheetRepository()),
-                                               and: SheetSettingNavigator(with: self))
+                                                           and: SheetSettingNavigator(with: self))
     }
 
     func bindViewModel() {
         let input = SheetSettingViewModel.Input(loadTrigger: Driver.just(()),
-                                        selectPositionSheetTrigger: positionSheetTable.rx.itemSelected.asDriver().map { $0.row },
-                                        selectSubtaskSheetTrigger: subtaskSheetTable.rx.itemSelected.asDriver().map { $0.row })
+                                                selectPositionSheetTrigger: positionSheetTable.rx.itemSelected.asDriver().map { $0.row },
+                                                selectSubtaskSheetTrigger: subtaskSheetTable.rx.itemSelected.asDriver().map { $0.row })
 
         let output = sheetSettingViewModel.transform(input: input)
         output.loadPositionSheets.drive().disposed(by: disposeBag)
@@ -49,7 +51,6 @@ class SheetSettingViewController: UIViewController {
             cell.textLabel?.text = element.name
         }.disposed(by: disposeBag)
         output.selectPositionSheet.drive().disposed(by: disposeBag)
-
         output.loadSubtaskSheets.drive().disposed(by: disposeBag)
         output.subtaskSheets.drive(subtaskSheetTable.rx.items(cellIdentifier: R.reuseIdentifier.subtaskSheetCell.identifier)) {
             (row, element, cell) in

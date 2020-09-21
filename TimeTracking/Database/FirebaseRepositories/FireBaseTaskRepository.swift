@@ -13,12 +13,13 @@ class FireBaseTaskRepository: TaskRepository {
         db.settings.isPersistenceEnabled = true
     }
 
-    func create(with data: [[Any]], and sheetId: String, and sheetType: String) -> Observable<Void> {
+    func create(with tasks: [Task], and sheetId: String, and sheetType: String) -> Observable<Void> {
         let batch = db.batch()
-        for da in data {
-            let dbRef = db.collection(sheetType).document(sheetId).collection("tasks").document()
+        for task in tasks {
+        let dbRef = db.collection(sheetType).document(sheetId).collection("tasks").document()
             batch.setData([
-                "data": da,
+                "id": dbRef.documentID,
+                "data": task.data,
                 "create_user": (Auth.auth().currentUser?.uid)!,
                 "created_at": Date(),
                 "update_user": (Auth.auth().currentUser?.uid)!,
@@ -76,12 +77,32 @@ class FireBaseTaskRepository: TaskRepository {
         }
     }
 
-    func update(with task: Task, and sheetId: String, and sheetType: String) -> Observable<Void> {
-        return Observable.create { [unowned self] observer in
-            self.db.collection(sheetType).document(sheetId).collection("tasks").document(task.id).updateData([
-                "update_user": (Auth.auth().currentUser?.uid)!,
-                "updated_at": Date()
-                ]) { error in
+    func update(with tasks: [Task], and sheetId: String, and sheetType: String) -> Observable<Void> {
+        let batch = db.batch()
+        for task in tasks {
+            var dbRef: DocumentReference?
+            if (task.id == "") {
+                dbRef = db.collection(sheetType).document(sheetId).collection("tasks").document()
+                batch.setData([
+                    "id": dbRef!.documentID,
+                    "data": task.data,
+                    "create_user": (Auth.auth().currentUser?.uid)!,
+                    "created_at": Date(),
+                    "update_user": (Auth.auth().currentUser?.uid)!,
+                    "updated_at": Date()
+                ], forDocument: dbRef!)
+            } else {
+                dbRef = db.collection(sheetType).document(sheetId).collection("tasks").document(task.id)
+                batch.updateData([
+                    "id": dbRef!.documentID,
+                    "data": task.data,
+                    "update_user": (Auth.auth().currentUser?.uid)!,
+                    "updated_at": Date()
+                ], forDocument: dbRef!)
+            }
+        }
+        return Observable.create { observer in
+            batch.commit() { error in
                 if let e = error {
                     observer.onError(e)
                     return

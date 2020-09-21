@@ -15,16 +15,18 @@ class FireBaseSheetRepository: SheetRepository {
         db.settings.isPersistenceEnabled = true
     }
 
-    func create(with name: String, and columnTitles: [String], and columnTypes: [String], and columnWidths: [Int], and sheetType: String) -> Observable<String> {
+    func create(with sheet: Sheet) -> Observable<String> {
+        print(sheet)
         return Observable.create { [unowned self] observer in
-            var ref: DocumentReference? = nil
-            ref = self.db.collection(sheetType).addDocument(data: [
-                "name": name,
-                "type": sheetType,
+            let ref = self.db.collection(sheet.type).document()
+            ref.setData([
+                "id": ref.documentID,
+                "name": sheet.name,
+                "type": sheet.type,
                 "is_public": false,
-                "column_titles": columnTitles,
-                "column_types": columnTypes,
-                "column_widths": columnWidths,
+                "column_titles": sheet.columnTitles,
+                "column_types": sheet.columnTypes,
+                "column_widths": sheet.columnWidths,
                 "create_user": (Auth.auth().currentUser?.uid)!,
                 "created_at": Date(),
                 "update_user": (Auth.auth().currentUser?.uid)!,
@@ -34,7 +36,7 @@ class FireBaseSheetRepository: SheetRepository {
                     observer.onError(e)
                     return
                 }
-                observer.onNext((ref!.documentID))
+                observer.onNext((ref.documentID))
             }
             return Disposables.create()
         }
@@ -84,13 +86,14 @@ class FireBaseSheetRepository: SheetRepository {
         }
     }
 
-    func update(_ positionSheet: Sheet, and sheetType: String) -> Observable<Void> {
+    func update(_ sheet: Sheet) -> Observable<Void> {
         return Observable.create { [unowned self] observer in
-            self.db.collection(sheetType).document(positionSheet.id).updateData([
-                "name": positionSheet.name,
-                "type": positionSheet.type,
-                "is_public": positionSheet.isPublic,
-                "columnTit": positionSheet.columnTitles,
+            self.db.collection(sheet.type).document(sheet.id).updateData([
+                "name": sheet.name,
+                "is_public": false,
+                "column_titles": sheet.columnTitles,
+                "column_types": sheet.columnTypes,
+                "column_widths": sheet.columnWidths,
                 "update_user": (Auth.auth().currentUser?.uid)!,
                 "updated_at": Date()
                 ]) { error in

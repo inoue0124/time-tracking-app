@@ -483,7 +483,7 @@
                         <outlet property="menuBarButton" destination="aUj-xE-okd" id="HZu-9j-zoF"/>
                         <outlet property="positionSheetTable" destination="FWw-74-Eou" id="AGb-7D-Chv"/>
                         <outlet property="subtaskSheetTable" destination="5kP-JX-45M" id="h3D-Fe-73D"/>
-                        <segue destination="c5f-3z-sNd" kind="show" identifier="toTaskList" id="Cyx-5x-BUh"/>
+                        <segue destination="c5f-3z-sNd" kind="show" identifier="toSheetDetail" id="Cyx-5x-BUh"/>
                         <segue destination="0Mc-ae-4W3" kind="show" identifier="toSetting" id="1bb-3a-OZ5"/>
                     </connections>
                 </viewController>
@@ -650,6 +650,7 @@
                         <outlet property="positionSheetTable" destination="EvJ-Ju-Twe" id="P7b-5s-YTh"/>
                         <outlet property="subtaskSheetTable" destination="7AS-Ek-gcN" id="Py9-go-sH0"/>
                         <outlet property="topSheetTable" destination="Akh-uJ-rux" id="7TK-sM-3Bq"/>
+                        <segue destination="Svd-Af-xoA" kind="presentation" identifier="toEditSheet" modalPresentationStyle="fullScreen" id="gpK-0t-aVc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ppZ-bn-Vgc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -845,6 +846,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="gpK-0t-aVc"/>
         <segue reference="mqw-I1-wrc"/>
     </inferredMetricsTieBreakers>
     <resources>

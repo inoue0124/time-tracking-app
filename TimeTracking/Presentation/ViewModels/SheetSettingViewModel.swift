@@ -55,7 +55,7 @@ class SheetSettingViewModel: ViewModelType {
         }
         let selectPositionSheet = input.selectPositionSheetTrigger
             .withLatestFrom(loadPositionSheetsState.positionSheetsArray) { [unowned self] (index: Int, positionSheets: [Sheet]) in
-//                self.navigator.toTaskList(with: positionSheets[index])
+                self.navigator.toEditSheet(with: positionSheets[index])
         }
 
         let loadSubtaskSheetsState = State()
@@ -70,7 +70,7 @@ class SheetSettingViewModel: ViewModelType {
         }
         let selectSubtaskSheet = input.selectSubtaskSheetTrigger
             .withLatestFrom(loadSubtaskSheetsState.subtaskSheetsArray) { [unowned self] (index: Int, subtaskSheets: [Sheet]) in
-//                self.navigator.toTaskList(with: subtaskSheets[index])
+                self.navigator.toEditSheet(with: subtaskSheets[index])
         }
         return SheetSettingViewModel.Output(
             loadPositionSheets: loadPositionSheets,
