@@ -35,7 +35,7 @@ class SheetViewController: UIViewController {
     func initializeViewModel(with positionSheet: Sheet? = nil) {
         guard listViewModel == nil else { return }
         listViewModel = SheetViewModel(
-            with: SheetUseCase(withTask: FireBasePositionSheetTaskRepository()),
+            with: SheetUseCase(withTask: FireBaseTaskRepository()),
             and: SheetNavigator(with: self),
             and: positionSheet
         )

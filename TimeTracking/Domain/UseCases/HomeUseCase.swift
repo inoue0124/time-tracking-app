@@ -3,23 +3,17 @@ import RxSwift
 
 class HomeUseCase {
 
-    private let positionSheetRepository: PositionSheetRepository
-    private let subtaskSheetRepository: SubtaskSheetRepository
+    private let sheetRepository: SheetRepository
 
-    init(with positionSheetRepository: PositionSheetRepository, and subtaskSheetRepository: SubtaskSheetRepository) {
-        self.positionSheetRepository = positionSheetRepository
-        self.subtaskSheetRepository = subtaskSheetRepository
+    init(with sheetRepository: SheetRepository) {
+        self.sheetRepository = sheetRepository
     }
 
-//    func executeTest(with name: String) -> Observable<Void> {
-//        return positionSheetRepository.create(with: name)
-//    }
-
     func loadPositionSheets() -> Observable<[Sheet]> {
-        return positionSheetRepository.read()
+        return sheetRepository.read()
     }
 
     func loadSubtaskSheets() -> Observable<[Sheet]> {
-        return subtaskSheetRepository.read()
+        return sheetRepository.read()
     }
 }

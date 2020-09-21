@@ -3,9 +3,9 @@ import RxSwift
 
 class SheetUseCase {
     
-    private let taskRepository: PositionSheetTaskRepository
+    private let taskRepository: TaskRepository
     
-    init(withTask taskRepository: PositionSheetTaskRepository) {
+    init(withTask taskRepository: TaskRepository) {
         self.taskRepository = taskRepository
     }
     

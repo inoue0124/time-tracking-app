@@ -3,17 +3,17 @@ import RxSwift
 
 class EditSheetUseCase {
 
-    private let sheetRepository: PositionSheetRepository
-    private let taskRepository: PositionSheetTaskRepository
+    private let sheetRepository: SheetRepository
+    private let taskRepository: TaskRepository
 
     let disposeBag = DisposeBag()
 
-    init(with sheetRepository: PositionSheetRepository, and taskRepository: PositionSheetTaskRepository) {
+    init(with sheetRepository: SheetRepository, and taskRepository: TaskRepository) {
         self.sheetRepository = sheetRepository
         self.taskRepository = taskRepository
     }
 
-    func save(with name: String, and columnTitles: [String], and columnTypes: [String], and columnWidths: [Int]) -> Observable<String> {
+    func saveSheet(with name: String, and columnTitles: [String], and columnTypes: [String], and columnWidths: [Int]) -> Observable<String> {
         sheetRepository.create(with: name, and: columnTitles, and: columnTypes, and: columnWidths)
     }
 

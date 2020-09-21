@@ -10,7 +10,6 @@ class AddSheetViewController: UIViewController {
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var sheetNameTextField: UITextField!
 
-
     let sheetDropDown = DropDown()
     let disposeBag = DisposeBag()
 
@@ -47,6 +46,7 @@ class AddSheetViewController: UIViewController {
             self.changeSubmitButtonState()
         }).disposed(by: disposeBag)
     }
+
 
     func setupDropDowns() {
         setupSheetDropDown()

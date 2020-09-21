@@ -2,7 +2,7 @@ import Firebase
 import FirebaseStorage
 import RxSwift
 
-class FireBasePositionSheetRepository: PositionSheetRepository {
+class FireBaseSheetRepository: SheetRepository {
 
     let db: Firestore
     let storage = Storage.storage()

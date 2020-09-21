@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-protocol PositionSheetTaskRepository {
+protocol TaskRepository {
     func create(with data: [[Any]], and sheetId: String) -> Observable<Void>
     func read(with sheetId: String) -> Observable<[Task]>
     func update(with task: Task, and sheetId: String) -> Observable<Void>

@@ -39,7 +39,7 @@ class EditSheetViewModel: ViewModelType {
         let save = input.saveTrigger
             .withLatestFrom(requiredInputs)
             .flatMapLatest { [unowned self] (columnTitles: [String], columnTypes: [String], columnWidths: [Int], data: [[Any]]) -> Driver<Void> in
-                return self.editSheetUseCase.save(with: input.sheetName ?? "名称未設定",
+                return self.editSheetUseCase.saveSheet(with: input.sheetName ?? "名称未設定",
                                                   and: columnTitles,
                                                   and: columnTypes,
                                                   and: columnWidths)

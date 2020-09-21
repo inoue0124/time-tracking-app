@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-protocol PositionSheetRepository {
+protocol SheetRepository {
     func create(with name: String, and columnTitles: [String], and columnTypes: [String], and columnWidths: [Int]) -> Observable<String>
     func read() -> Observable<[Sheet]>
     func update(_ positionSheet: Sheet) -> Observable<Void>

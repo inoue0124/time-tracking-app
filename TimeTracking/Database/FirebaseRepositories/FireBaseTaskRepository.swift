@@ -1,7 +1,7 @@
 import Firebase
 import RxSwift
 
-class FireBasePositionSheetTaskRepository: PositionSheetTaskRepository {
+class FireBaseTaskRepository: TaskRepository {
 
     let db: Firestore
 

@@ -3,27 +3,21 @@ import RxSwift
 import RxCocoa
 import DropDown
 
-class HomeViewController: UIViewController {
+class SheetSettingViewController: UIViewController {
 
-    @IBOutlet weak var dateButton: UIButton!
-    @IBOutlet weak var menuBarButton: UIBarButtonItem!
+    @IBOutlet weak var topSheetTable: UITableView!
     @IBOutlet weak var positionSheetTable: UITableView!
     @IBOutlet weak var subtaskSheetTable: UITableView!
 
-    var homeViewModel: HomeViewModel!
+    var sheetSettingViewModel: SheetSettingViewModel!
 
     let disposeBag = DisposeBag()
-    let dropDown = DropDown()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeUI()
         initializeViewModel()
         bindViewModel()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -36,37 +30,19 @@ class HomeViewController: UIViewController {
     }
 
     func initializeUI() {
-        dateButton.layer.borderColor = UIColor(named: R.color.theme.name)?.cgColor
-        dateButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        let f = DateFormatter()
-        f.timeStyle = .none
-        f.dateStyle = .long
-        f.locale = Locale(identifier: "ja_JP")
-        dateButton.setTitle(f.string(from: Date()), for: .normal)
-        dropDown.anchorView = menuBarButton
-        dropDown.dataSource = ["設定", "ホーム"]
-        dropDown.bottomOffset = CGPoint(x: 0, y: 40)
-        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            if (item == "設定") {
-                self.homeViewModel.toSetting()
-            }
-        }
-        menuBarButton.rx.tap.subscribe { [unowned self] _ in
-            self.dropDown.show()
-        }.disposed(by: disposeBag)
     }
 
     func initializeViewModel() {
-        homeViewModel = HomeViewModel.init(with: HomeUseCase(with: FireBaseSheetRepository()),
-                                               and: HomeNavigator(with: self))
+        sheetSettingViewModel = SheetSettingViewModel.init(with: HomeUseCase(with: FireBaseSheetRepository()),
+                                               and: SheetSettingNavigator(with: self))
     }
 
     func bindViewModel() {
-        let input = HomeViewModel.Input(loadTrigger: Driver.just(()),
+        let input = SheetSettingViewModel.Input(loadTrigger: Driver.just(()),
                                         selectPositionSheetTrigger: positionSheetTable.rx.itemSelected.asDriver().map { $0.row },
                                         selectSubtaskSheetTrigger: subtaskSheetTable.rx.itemSelected.asDriver().map { $0.row })
 
-        let output = homeViewModel.transform(input: input)
+        let output = sheetSettingViewModel.transform(input: input)
         output.loadPositionSheets.drive().disposed(by: disposeBag)
         output.positionSheets.drive(positionSheetTable.rx.items(cellIdentifier: R.reuseIdentifier.positionSheetCell.identifier)) {
             (row, element, cell) in
