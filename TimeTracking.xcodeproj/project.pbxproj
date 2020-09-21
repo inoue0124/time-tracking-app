@@ -234,8 +234,8 @@
 			isa = PBXGroup;
 			children = (
 				4C3D43821FDACFDD008C5F01 /* AuthRepository.swift */,
-				70B5933624F779F200696E2A /* TaskRepository.swift */,
 				70B5933A24F77E0500696E2A /* SheetRepository.swift */,
+				70B5933624F779F200696E2A /* TaskRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";

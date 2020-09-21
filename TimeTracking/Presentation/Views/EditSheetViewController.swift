@@ -32,6 +32,7 @@ class EditSheetViewController: UIViewController {
     var imagePicker = UIImagePickerController()
     var noteDialogView = NoteDialogView()
 
+    var sheetType: String?
     var sheetName: String?
 
     override func viewDidLoad() {
@@ -68,6 +69,7 @@ class EditSheetViewController: UIViewController {
                                              data: dataRelay.asDriver(),
                                              uploadImageTrigger: imageRelay.asDriver(),
                                              imageName: imageNameRelay.asDriver(),
+                                             sheetType: sheetType,
                                              sheetName: sheetName)
         let output = editSheetViewModel.transform(input: input)
         output.save.drive().disposed(by: disposeBag)

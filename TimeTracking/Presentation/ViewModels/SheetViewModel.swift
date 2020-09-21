@@ -36,7 +36,7 @@ class SheetViewModel: ViewModelType {
         let state = State()
         let load = input.trigger
             .flatMap { [unowned self] _ in
-                return self.sheetUseCase.loadTasks(with: self.positionSheet!.id)
+                return self.sheetUseCase.loadTasks(with: self.positionSheet!.id, and: self.positionSheet!.type)
                     .trackArray(state.contentArray)
                     .trackError(state.error)
                     .trackActivity(state.isLoading)

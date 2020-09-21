@@ -12,6 +12,7 @@ class EditSheetViewModel: ViewModelType {
         let data: Driver<[[Any]]>
         let uploadImageTrigger: Driver<UIImage>
         let imageName: Driver<String>
+        let sheetType: String?
         let sheetName: String?
     }
 
@@ -39,12 +40,13 @@ class EditSheetViewModel: ViewModelType {
         let save = input.saveTrigger
             .withLatestFrom(requiredInputs)
             .flatMapLatest { [unowned self] (columnTitles: [String], columnTypes: [String], columnWidths: [Int], data: [[Any]]) -> Driver<Void> in
-                return self.editSheetUseCase.saveSheet(with: input.sheetName ?? "名称未設定",
+                return self.editSheetUseCase.saveSheet(with: input.sheetName!,
                                                   and: columnTitles,
                                                   and: columnTypes,
-                                                  and: columnWidths)
+                                                  and: columnWidths,
+                                                  and: input.sheetType!)
                     .flatMap { [unowned self] (sheetId: String) in
-                        self.editSheetUseCase.saveTasks(with: data, and: sheetId)
+                        self.editSheetUseCase.saveTasks(with: data, and: sheetId, and: input.sheetType!)
                             .do(onNext: { [unowned self] in
                                 self.navigator.toAddSheet()
                             })

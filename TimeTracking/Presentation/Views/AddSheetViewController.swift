@@ -12,7 +12,9 @@ class AddSheetViewController: UIViewController {
 
     let sheetDropDown = DropDown()
     let disposeBag = DisposeBag()
+    let appConst = AppConst()
 
+    var sheetType: String?
     var sheetName: String?
 
     override func viewDidLoad() {
@@ -28,6 +30,7 @@ class AddSheetViewController: UIViewController {
             if let nc = segue.destination as? UINavigationController {
                 if let vc = nc.viewControllers[0] as? EditSheetViewController {
                     vc.sheetName = sheetName
+                    vc.sheetType = sheetType
                 }
             }
         }
@@ -56,12 +59,22 @@ class AddSheetViewController: UIViewController {
         sheetDropDown.anchorView = sheetButton
         sheetDropDown.bottomOffset = CGPoint(x: 0, y: sheetButton.bounds.height)
         sheetDropDown.dataSource = [
-            "TOPシート",
-            "ポジションシート",
-            "サブタスクシート"
+            appConst.SHEET_TYPE_TOP_DISPLAY,
+            appConst.SHEET_TYPE_POSITION_DISPLAY,
+            appConst.SHEET_TYPE_SUBTASK_DISPLAY,
         ]
         sheetDropDown.selectionAction = { [weak self] (index, item) in
             self?.sheetButton.setTitle(item, for: .normal)
+            switch (item) {
+            case self?.appConst.SHEET_TYPE_TOP_DISPLAY:
+                self?.sheetType = self?.appConst.SHEET_TYPE_TOP
+            case self?.appConst.SHEET_TYPE_POSITION_DISPLAY:
+                self?.sheetType = self?.appConst.SHEET_TYPE_POSITION
+            case self?.appConst.SHEET_TYPE_SUBTASK_DISPLAY:
+                self?.sheetType = self?.appConst.SHEET_TYPE_SUBTASK
+            default:
+                break
+            }
         }
     }
 

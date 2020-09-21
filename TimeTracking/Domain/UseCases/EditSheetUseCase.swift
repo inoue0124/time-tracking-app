@@ -13,12 +13,12 @@ class EditSheetUseCase {
         self.taskRepository = taskRepository
     }
 
-    func saveSheet(with name: String, and columnTitles: [String], and columnTypes: [String], and columnWidths: [Int]) -> Observable<String> {
-        sheetRepository.create(with: name, and: columnTitles, and: columnTypes, and: columnWidths)
+    func saveSheet(with name: String, and columnTitles: [String], and columnTypes: [String], and columnWidths: [Int], and sheetType: String) -> Observable<String> {
+        sheetRepository.create(with: name, and: columnTitles, and: columnTypes, and: columnWidths, and: sheetType)
     }
 
-    func saveTasks(with data: [[Any]], and sheetId: String) -> Observable<Void> {
-        taskRepository.create(with: data, and: sheetId)
+    func saveTasks(with data: [[Any]], and sheetId: String, and sheetType: String) -> Observable<Void> {
+        taskRepository.create(with: data, and: sheetId, and: sheetType)
     }
 
     func uploadImage(_ image: UIImage, name: String) -> Observable<Void> {

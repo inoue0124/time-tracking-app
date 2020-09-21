@@ -3,6 +3,7 @@ import RxSwift
 
 class FireBaseTaskRepository: TaskRepository {
 
+    let appConst = AppConst()
     let db: Firestore
 
     var listener: ListenerRegistration?
@@ -12,10 +13,10 @@ class FireBaseTaskRepository: TaskRepository {
         db.settings.isPersistenceEnabled = true
     }
 
-    func create(with data: [[Any]], and sheetId: String) -> Observable<Void> {
+    func create(with data: [[Any]], and sheetId: String, and sheetType: String) -> Observable<Void> {
         let batch = db.batch()
         for da in data {
-            let dbRef = db.collection("position_sheets").document(sheetId).collection("tasks").document()
+            let dbRef = db.collection(sheetType).document(sheetId).collection("tasks").document()
             batch.setData([
                 "data": da,
                 "create_user": (Auth.auth().currentUser?.uid)!,
@@ -36,12 +37,12 @@ class FireBaseTaskRepository: TaskRepository {
         }
     }
 
-    func read(with sheetId: String) -> Observable<[Task]> {
+    func read(with sheetId: String, and sheetType: String) -> Observable<[Task]> {
         let options = QueryListenOptions()
         options.includeQueryMetadataChanges(true)
 
         return Observable.create { [unowned self] observer in
-            self.listener = self.db.collection("position_sheets").document(sheetId).collection("tasks")
+            self.listener = self.db.collection(sheetType).document(sheetId).collection("tasks")
                 .order(by: "created_at")
                 .addSnapshotListener(options: options) { snapshot, error in
                     guard let snap = snapshot else {
@@ -75,9 +76,9 @@ class FireBaseTaskRepository: TaskRepository {
         }
     }
 
-    func update(with task: Task, and sheetId: String) -> Observable<Void> {
+    func update(with task: Task, and sheetId: String, and sheetType: String) -> Observable<Void> {
         return Observable.create { [unowned self] observer in
-            self.db.collection("position_sheets").document(sheetId).collection("tasks").document(task.id).updateData([
+            self.db.collection(sheetType).document(sheetId).collection("tasks").document(task.id).updateData([
                 "update_user": (Auth.auth().currentUser?.uid)!,
                 "updated_at": Date()
                 ]) { error in
@@ -91,9 +92,9 @@ class FireBaseTaskRepository: TaskRepository {
         }
     }
 
-    func delete(with documentId: String, and sheetId: String) -> Observable<Void> {
+    func delete(with documentId: String, and sheetId: String, and sheetType: String) -> Observable<Void> {
         return Observable.create { [unowned self] observer in
-            self.db.collection("position_sheets").document(sheetId).collection("tasks").document(documentId).delete() { error in
+            self.db.collection(sheetType).document(sheetId).collection("tasks").document(documentId).delete() { error in
                 if let e = error {
                     observer.onError(e)
                     return

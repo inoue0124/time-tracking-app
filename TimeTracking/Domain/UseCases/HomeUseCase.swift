@@ -3,6 +3,8 @@ import RxSwift
 
 class HomeUseCase {
 
+    let appConst = AppConst()
+
     private let sheetRepository: SheetRepository
 
     init(with sheetRepository: SheetRepository) {
@@ -10,10 +12,10 @@ class HomeUseCase {
     }
 
     func loadPositionSheets() -> Observable<[Sheet]> {
-        return sheetRepository.read()
+        return sheetRepository.read(with: appConst.SHEET_TYPE_POSITION)
     }
 
     func loadSubtaskSheets() -> Observable<[Sheet]> {
-        return sheetRepository.read()
+        return sheetRepository.read(with: appConst.SHEET_TYPE_SUBTASK)
     }
 }
