@@ -35,14 +35,16 @@ class SheetSettingViewController: UIViewController {
     }
 
     func initializeViewModel() {
-        sheetSettingViewModel = SheetSettingViewModel.init(with: HomeUseCase(with: FireBaseSheetRepository()),
+        sheetSettingViewModel = SheetSettingViewModel.init(with: SheetSettingUseCase(with: FireBaseSheetRepository()),
                                                            and: SheetSettingNavigator(with: self))
     }
 
     func bindViewModel() {
         let input = SheetSettingViewModel.Input(loadTrigger: Driver.just(()),
                                                 selectPositionSheetTrigger: positionSheetTable.rx.itemSelected.asDriver().map { $0.row },
-                                                selectSubtaskSheetTrigger: subtaskSheetTable.rx.itemSelected.asDriver().map { $0.row })
+                                                deletePositionSheetTrigger: positionSheetTable.rx.itemDeleted.asDriver().map { $0.row },
+                                                selectSubtaskSheetTrigger: subtaskSheetTable.rx.itemSelected.asDriver().map { $0.row },
+                                                deleteSubtaskSheetTrigger: subtaskSheetTable.rx.itemDeleted.asDriver().map { $0.row })
 
         let output = sheetSettingViewModel.transform(input: input)
         output.loadPositionSheets.drive().disposed(by: disposeBag)
@@ -51,12 +53,15 @@ class SheetSettingViewController: UIViewController {
             cell.textLabel?.text = element.name
         }.disposed(by: disposeBag)
         output.selectPositionSheet.drive().disposed(by: disposeBag)
+        output.deletePositionSheet.drive().disposed(by: disposeBag)
+
         output.loadSubtaskSheets.drive().disposed(by: disposeBag)
         output.subtaskSheets.drive(subtaskSheetTable.rx.items(cellIdentifier: R.reuseIdentifier.subtaskSheetCell.identifier)) {
             (row, element, cell) in
             cell.textLabel?.text = element.name
         }.disposed(by: disposeBag)
         output.selectSubtaskSheet.drive().disposed(by: disposeBag)
+        output.deleteSubtaskSheet.drive().disposed(by: disposeBag)
 
     }
 }

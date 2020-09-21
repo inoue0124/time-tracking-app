@@ -28,7 +28,7 @@ class AddSheetViewController: UIViewController {
         if segue.identifier == R.segue.addSheetViewController.toCreateSheet.identifier {
             if let nc = segue.destination as? UINavigationController {
                 if let vc = nc.viewControllers[0] as? EditSheetViewController {
-                    vc.initializeViewModel(with: self.sheet)
+                    vc.initializeViewModel(with: self.sheet, and: self.navigationController)
                 }
             }
         }

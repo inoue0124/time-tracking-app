@@ -7,19 +7,23 @@ class SheetSettingViewModel: ViewModelType {
     struct Input {
         let loadTrigger: Driver<Void>
         let selectPositionSheetTrigger: Driver<Int>
+        let deletePositionSheetTrigger: Driver<Int>
         let selectSubtaskSheetTrigger: Driver<Int>
+        let deleteSubtaskSheetTrigger: Driver<Int>
     }
 
     struct Output {
         let loadPositionSheets: Driver<Void>
         let positionSheets: Driver<[Sheet]>
         let selectPositionSheet: Driver<Void>
+        let deletePositionSheet: Driver<Void>
         let isLoadingPositionSheets: Driver<Bool>
         let errorLoadingPositionSheets: Driver<Error>
 
         let loadSubtaskSheets: Driver<Void>
         let subtaskSheets: Driver<[Sheet]>
         let selectSubtaskSheet: Driver<Void>
+        let deleteSubtaskSheet: Driver<Void>
         let isLoadingSubtaskSheets: Driver<Bool>
         let errorLoadingSubtaskSheets: Driver<Error>
     }
@@ -34,56 +38,68 @@ class SheetSettingViewModel: ViewModelType {
         let errorLoadingSubtaskSheets = ErrorTracker()
     }
 
-    private let homeUseCase: HomeUseCase
+    private let sheetSettingUseCase: SheetSettingUseCase
     private let navigator: SheetSettingNavigator
 
-    init(with homeUseCase: HomeUseCase, and navigator: SheetSettingNavigator) {
-        self.homeUseCase = homeUseCase
+    init(with sheetSettingUseCase: SheetSettingUseCase, and navigator: SheetSettingNavigator) {
+        self.sheetSettingUseCase = sheetSettingUseCase
         self.navigator = navigator
     }
 
     func transform(input: SheetSettingViewModel.Input) -> SheetSettingViewModel.Output {
-        let loadPositionSheetsState = State()
+        let state = State()
         let loadPositionSheets = input.loadTrigger
             .flatMap { [unowned self] _ in
-            return self.homeUseCase.loadPositionSheets()
-                .trackArray(loadPositionSheetsState.positionSheetsArray)
-                .trackError(loadPositionSheetsState.errorLoadingPositionSheets)
-                .trackActivity(loadPositionSheetsState.isLoadingPositionSheets)
+            return self.sheetSettingUseCase.loadPositionSheets()
+                .trackArray(state.positionSheetsArray)
+                .trackError(state.errorLoadingPositionSheets)
+                .trackActivity(state.isLoadingPositionSheets)
                 .mapToVoid()
                 .asDriverOnErrorJustComplete()
-        }
+            }
         let selectPositionSheet = input.selectPositionSheetTrigger
-            .withLatestFrom(loadPositionSheetsState.positionSheetsArray) { [unowned self] (index: Int, positionSheets: [Sheet]) in
+            .withLatestFrom(state.positionSheetsArray) { [unowned self] (index: Int, positionSheets: [Sheet]) in
                 self.navigator.toEditSheet(with: positionSheets[index])
-        }
+            }
+        let deletePositionSheet = input.deletePositionSheetTrigger
+            .flatMapLatest { [unowned self] index -> Driver<Void> in
+                return self.sheetSettingUseCase.deletePositionSheets(with: state.positionSheetsArray.array[index].id)
+                    .asDriver(onErrorJustReturn: ())
+            }
 
-        let loadSubtaskSheetsState = State()
         let loadSubtaskSheets = input.loadTrigger
             .flatMap { [unowned self] _ in
-            return self.homeUseCase.loadSubtaskSheets()
-                .trackArray(loadSubtaskSheetsState.subtaskSheetsArray)
-                .trackError(loadSubtaskSheetsState.errorLoadingSubtaskSheets)
-                .trackActivity(loadSubtaskSheetsState.isLoadingSubtaskSheets)
+            return self.sheetSettingUseCase.loadSubtaskSheets()
+                .trackArray(state.subtaskSheetsArray)
+                .trackError(state.errorLoadingSubtaskSheets)
+                .trackActivity(state.isLoadingSubtaskSheets)
                 .mapToVoid()
                 .asDriverOnErrorJustComplete()
-        }
+            }
         let selectSubtaskSheet = input.selectSubtaskSheetTrigger
-            .withLatestFrom(loadSubtaskSheetsState.subtaskSheetsArray) { [unowned self] (index: Int, subtaskSheets: [Sheet]) in
+            .withLatestFrom(state.subtaskSheetsArray) { [unowned self] (index: Int, subtaskSheets: [Sheet]) in
                 self.navigator.toEditSheet(with: subtaskSheets[index])
-        }
+            }
+        let deleteSubtaskSheet = input.deleteSubtaskSheetTrigger
+            .flatMapLatest { [unowned self] index -> Driver<Void> in
+                return self.sheetSettingUseCase.deleteSubtaskSheets(with: state.subtaskSheetsArray.array[index].id)
+                    .asDriver(onErrorJustReturn: ())
+            }
+
         return SheetSettingViewModel.Output(
             loadPositionSheets: loadPositionSheets,
-            positionSheets: loadPositionSheetsState.positionSheetsArray.asDriver(),
+            positionSheets: state.positionSheetsArray.asDriver(),
             selectPositionSheet: selectPositionSheet,
-            isLoadingPositionSheets: loadPositionSheetsState.isLoadingPositionSheets.asDriver(),
-            errorLoadingPositionSheets: loadPositionSheetsState.errorLoadingPositionSheets.asDriver(),
+            deletePositionSheet: deletePositionSheet,
+            isLoadingPositionSheets: state.isLoadingPositionSheets.asDriver(),
+            errorLoadingPositionSheets: state.errorLoadingPositionSheets.asDriver(),
 
             loadSubtaskSheets: loadSubtaskSheets,
-            subtaskSheets: loadSubtaskSheetsState.subtaskSheetsArray.asDriver(),
+            subtaskSheets: state.subtaskSheetsArray.asDriver(),
             selectSubtaskSheet: selectSubtaskSheet,
-            isLoadingSubtaskSheets: loadSubtaskSheetsState.isLoadingSubtaskSheets.asDriver(),
-            errorLoadingSubtaskSheets: loadSubtaskSheetsState.errorLoadingPositionSheets.asDriver()
+            deleteSubtaskSheet: deleteSubtaskSheet,
+            isLoadingSubtaskSheets: state.isLoadingSubtaskSheets.asDriver(),
+            errorLoadingSubtaskSheets: state.errorLoadingPositionSheets.asDriver()
         )
     }
 }

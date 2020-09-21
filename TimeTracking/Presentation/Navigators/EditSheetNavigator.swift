@@ -10,7 +10,7 @@ class EditSheetNavigator {
         self.parentNVC = parentNVC
     }
 
-    func toAddSheet() {
+    func toSheetSetting() {
         parentNVC?.popViewController(animated: false)
         viewController?.dismiss(animated: true)
     }

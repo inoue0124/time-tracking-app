@@ -45,12 +45,11 @@ class EditSheetViewController: UIViewController {
         sheetView.register(AddButtonCell.self, forCellWithReuseIdentifier: String(describing: AddButtonCell.self))
     }
 
-    func initializeViewModel(with sheet: Sheet? = nil) {
+    func initializeViewModel(with sheet: Sheet? = nil, and nvc: UINavigationController? = nil) {
         guard editSheetViewModel == nil else { return }
-        let parentNVC = self.presentingViewController as? UINavigationController
         editSheetViewModel = EditSheetViewModel(with: EditSheetUseCase(with: FireBaseSheetRepository(),
                                                                        and: FireBaseTaskRepository()),
-                                                and: EditSheetNavigator(with: self, and: parentNVC),
+                                                and: EditSheetNavigator(with: self, and: nvc),
                                                 and: sheet)
     }
 

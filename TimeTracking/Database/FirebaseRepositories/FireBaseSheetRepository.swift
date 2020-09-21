@@ -107,9 +107,9 @@ class FireBaseSheetRepository: SheetRepository {
         }
     }
 
-    func delete(_ positionSheetId: String, and sheetType: String) -> Observable<Void> {
+    func delete(_ sheetId: String, and sheetType: String) -> Observable<Void> {
         return Observable.create { [unowned self] observer in
-            self.db.collection(sheetType).document(positionSheetId).delete() { error in
+            self.db.collection(sheetType).document(sheetId).delete() { error in
                 if let e = error {
                     observer.onError(e)
                     return

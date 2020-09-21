@@ -63,7 +63,7 @@ class EditSheetViewModel: ViewModelType {
                     .flatMap { [unowned self] _ in
                         self.editSheetUseCase.updateTasks(with: tasks, and: sheet.id, and: sheet.type)
                             .do(onNext: { [unowned self] in
-                                self.navigator.toAddSheet()
+                                self.navigator.toSheetSetting()
                             })
                     }
                     .trackError(state.error)
@@ -73,7 +73,7 @@ class EditSheetViewModel: ViewModelType {
                     .flatMap { [unowned self] (sheetId: String) in
                         self.editSheetUseCase.saveTasks(with: tasks, and: sheetId, and: sheet.type)
                             .do(onNext: { [unowned self] in
-                                self.navigator.toAddSheet()
+                                self.navigator.toSheetSetting()
                             })
                     }
                     .trackError(state.error)

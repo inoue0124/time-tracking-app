@@ -41,6 +41,7 @@
 		7020B11D2518976C007FB709 /* SheetSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020B11C2518976C007FB709 /* SheetSettingViewController.swift */; };
 		7020B11F251898D4007FB709 /* SheetSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020B11E251898D4007FB709 /* SheetSettingViewModel.swift */; };
 		7020B121251899B8007FB709 /* SheetSettingNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020B120251899B8007FB709 /* SheetSettingNavigator.swift */; };
+		7020B1252519058B007FB709 /* SheetSettingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020B1242519058B007FB709 /* SheetSettingUseCase.swift */; };
 		70B5933324F7769F00696E2A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933224F7769F00696E2A /* Task.swift */; };
 		70B5933524F7779600696E2A /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933424F7779600696E2A /* Sheet.swift */; };
 		70B5933724F779F200696E2A /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933624F779F200696E2A /* TaskRepository.swift */; };
@@ -106,6 +107,7 @@
 		7020B11C2518976C007FB709 /* SheetSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetSettingViewController.swift; sourceTree = "<group>"; };
 		7020B11E251898D4007FB709 /* SheetSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetSettingViewModel.swift; sourceTree = "<group>"; };
 		7020B120251899B8007FB709 /* SheetSettingNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetSettingNavigator.swift; sourceTree = "<group>"; };
+		7020B1242519058B007FB709 /* SheetSettingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetSettingUseCase.swift; sourceTree = "<group>"; };
 		70B5933224F7769F00696E2A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		70B5933424F7779600696E2A /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
 		70B5933624F779F200696E2A /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				4C3D43861FDAD008008C5F01 /* LoginUseCase.swift */,
 				70B5934224F7834900696E2A /* HomeUseCase.swift */,
 				4C3D43641FDACF30008C5F01 /* SheetUseCase.swift */,
+				7020B1242519058B007FB709 /* SheetSettingUseCase.swift */,
 				70D86BEB2504DE9200ABB1A9 /* EditSheetUseCase.swift */,
 			);
 			path = UseCases;
@@ -534,6 +537,7 @@
 				4C4924951FE768F10073FE0B /* SignUpNavigator.swift in Sources */,
 				4C7234F71FE699D100677DCC /* Exception.swift in Sources */,
 				4C3D437D1FDACF5B008C5F01 /* FireBaseAuthRepository.swift in Sources */,
+				7020B1252519058B007FB709 /* SheetSettingUseCase.swift in Sources */,
 				70B5933B24F77E0500696E2A /* SheetRepository.swift in Sources */,
 				70ED1C2B2507BDDD0059B3BB /* AppConst.swift in Sources */,
 				70D86BDE2504AA6F00ABB1A9 /* HeaderCell.swift in Sources */,
