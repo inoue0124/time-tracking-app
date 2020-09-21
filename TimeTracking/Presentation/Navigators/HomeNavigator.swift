@@ -7,8 +7,8 @@ class HomeNavigator {
         self.viewController = viewController
     }
 
-    func toTaskList(with positionSheet: Sheet? = nil) {
-        viewController?.performSegue(withIdentifier: R.segue.homeViewController.toTaskList, sender: positionSheet)
+    func toSheetDetail(with sheet: Sheet? = nil) {
+        viewController?.performSegue(withIdentifier: R.segue.homeViewController.toSheetDetail, sender: sheet)
     }
 
     func toSetting() {

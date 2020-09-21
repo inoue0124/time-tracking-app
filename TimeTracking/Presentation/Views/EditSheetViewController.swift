@@ -18,28 +18,21 @@ class EditSheetViewController: UIViewController {
     let cellDataConverter = CellDataConverter()
 
 
-    var columnTitles: [String] = []
-    var columnTypes: [String] = []
-    var columnWidths: [Int] = []
-    var data: [[Any]] = []
-    var columnTitlesRelay = BehaviorRelay<[String]>(value: [])
-    var columnTypesRelay = BehaviorRelay<[String]>(value: [])
-    var columnWidthsRelay = BehaviorRelay<[Int]>(value: [])
-    var dataRelay = BehaviorRelay<[[Any]]>(value: [])
+    var sheet: Sheet = Sheet()
+    var sheetRelay = BehaviorRelay<Sheet>(value: Sheet())
+    var tasks: [Task] = []
+    var tasksRelay = BehaviorRelay<[Task]>(value: [])
     var imageRelay = BehaviorRelay<UIImage>(value: UIImage())
     var imageNameRelay = BehaviorRelay<String>(value: "")
 
     var imagePicker = UIImagePickerController()
     var noteDialogView = NoteDialogView()
 
-    var sheetName: String?
-
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeUI()
         initializeViewModel()
         bindViewModel()
-        
     }
 
     func initializeUI() {
@@ -52,24 +45,31 @@ class EditSheetViewController: UIViewController {
         sheetView.register(AddButtonCell.self, forCellWithReuseIdentifier: String(describing: AddButtonCell.self))
     }
 
-    func initializeViewModel() {
-        let parentNVC = self.presentingViewController as? UINavigationController
-        editSheetViewModel = EditSheetViewModel(
-            with: EditSheetUseCase(with: FireBasePositionSheetRepository(), and: FireBasePositionSheetTaskRepository()),
-            and: EditSheetNavigator(with: self, and: parentNVC)
-        )
+    func initializeViewModel(with sheet: Sheet? = nil, and nvc: UINavigationController? = nil) {
+        guard editSheetViewModel == nil else { return }
+        editSheetViewModel = EditSheetViewModel(with: EditSheetUseCase(with: FireBaseSheetRepository(),
+                                                                       and: FireBaseTaskRepository()),
+                                                and: EditSheetNavigator(with: self, and: nvc),
+                                                and: sheet)
     }
 
     func bindViewModel() {
-        let input = EditSheetViewModel.Input(saveTrigger: saveButton.rx.tap.asDriver(),
-                                             columnTitles: columnTitlesRelay.asDriver(),
-                                             columnTypes: columnTypesRelay.asDriver(),
-                                             columnWidths: columnWidthsRelay.asDriver(),
-                                             data: dataRelay.asDriver(),
+        let input = EditSheetViewModel.Input(loadTrigger: Driver.just(()),
+                                             saveTrigger: saveButton.rx.tap.asDriver(),
+                                             sheet: sheetRelay.asDriver(),
+                                             tasks: tasksRelay.asDriver(),
                                              uploadImageTrigger: imageRelay.asDriver(),
-                                             imageName: imageNameRelay.asDriver(),
-                                             sheetName: sheetName)
+                                             imageName: imageNameRelay.asDriver())
         let output = editSheetViewModel.transform(input: input)
+        output.load.drive().disposed(by: disposeBag)
+        output.tasks.drive(onNext: { tasks in
+            self.tasks = tasks
+            self.refreshData()
+        }).disposed(by: disposeBag)
+        output.sheet.drive(onNext: { sheet in
+            self.sheet = sheet
+            self.refreshData()
+        }).disposed(by: disposeBag)
         output.save.drive().disposed(by: disposeBag)
         output.uploadImage.drive().disposed(by: disposeBag)
     }
@@ -80,20 +80,20 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
 
     func numberOfColumns(in spreadsheetView: SpreadsheetView) -> Int {
         // 1 == addColumnCell
-        return columnTitles.count + 1
+        return sheet.columnTitles.count + 1
     }
 
     func numberOfRows(in spreadsheetView: SpreadsheetView) -> Int {
         // 2 == addRowCell+header
-        return data.count + 2
+        return tasks.count + 2
     }
 
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, widthForColumn column: Int) -> CGFloat {
         // addColumnCellの時は例外
-        if (column == columnTitles.count) {
+        if (column == sheet.columnTitles.count) {
             return 80
         } else {
-            return CGFloat(columnWidths[column])
+            return CGFloat(sheet.columnWidths[column])
         }
     }
 
@@ -106,27 +106,27 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
         switch (indexPath.row, indexPath.column) {
 
         // 1行目、headerCellの時
-        case (0, 0..<columnTitles.count):
+        case (0, 0..<sheet.columnTitles.count):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderCell.self), for: indexPath) as! HeaderCell
-            cell.label.text = columnTitles[indexPath.column]
+            cell.label.text = sheet.columnTitles[indexPath.column]
             cell.delegate = self
-            cell.column = Column(name: columnTitles[indexPath.column],
-                                 type: columnTypes[indexPath.column],
-                                 width: columnWidths[indexPath.column])
+            cell.column = Column(name: sheet.columnTitles[indexPath.column],
+                                 type: sheet.columnTypes[indexPath.column],
+                                 width: sheet.columnWidths[indexPath.column])
             cell.index = indexPath.column
             return cell
 
         // 1行目、addColumnCellの時
-        case (0, columnTitles.count):
+        case (0, sheet.columnTitles.count):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: AddButtonCell.self), for: indexPath) as! AddButtonCell
             cell.delegate = self
             cell.type = "column"
             return cell
 
         // 一番下にaddRowCellを追加
-        case (data.count+1, 0):
+        case (tasks.count+1, 0):
             // データがまだない時は非表示
-            if (columnTitles.count==0) {
+            if (sheet.columnTitles.count==0) {
                 let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: DataCell.self), for: indexPath) as! DataCell
                 clearCell(cell)
                 return cell
@@ -137,7 +137,7 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
             return cell
 
         // 2行目以降、右端は空のセル
-        case (1..<data.count+2, columnTitles.count):
+        case (1..<tasks.count+2, sheet.columnTitles.count):
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: DataCell.self), for: indexPath) as! DataCell
             clearCell(cell)
             cell.gridlines.left = .default
@@ -149,17 +149,17 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
             cell.delegate = self
             return cellDataConverter.makeEditableDataCell(cell: cell,
                                                           indexPath: indexPath,
-                                                          data: data[indexPath.row-1][indexPath.column] as Any,
-                                                          type: columnTypes[indexPath.column])
+                                                          data: tasks[indexPath.row-1].data[indexPath.column] as Any,
+                                                          type: sheet.columnTypes[indexPath.column])
         }
     }
 
     // addRowCellを結合
     func mergedCells(in spreadsheetView: SpreadsheetView) -> [CellRange] {
-        if (columnTitles.count==0) {
+        if (sheet.columnTitles.count==0) {
             return [CellRange(from: (0, 0), to: (0, 0))]
         }
-        return [CellRange(from: (data.count+1, 0), to: (data.count+1, columnTitles.count-1))]
+        return [CellRange(from: (tasks.count+1, 0), to: (tasks.count+1, sheet.columnTitles.count-1))]
     }
 
     func clearCell(_ cell: DataCell) {
@@ -172,10 +172,8 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
     }
 
     func refreshData() {
-        columnTitlesRelay.accept(columnTitles)
-        columnTypesRelay.accept(columnTypes)
-        columnWidthsRelay.accept(columnWidths)
-        dataRelay.accept(data)
+        sheetRelay.accept(sheet)
+        tasksRelay.accept(tasks)
         sheetView.reloadData()
     }
 }
@@ -188,9 +186,13 @@ extension EditSheetViewController: AddButtonCellDelegate {
         self.presentBottomHalfModal(nav, animated: true, completion: nil)
     }
     func addRow() {
-        data.append(Array<String>(repeating: "", count: columnTitles.count))
-        dataRelay.accept(data)
-        sheetView.reloadData()
+        tasks.append(Task(id: "",
+                          data: Array<String>(repeating: "", count: sheet.columnTitles.count),
+                          createUser: "",
+                          createdAt: Date(),
+                          updateUser: "",
+                          updatedAt: Date()))
+        refreshData()
     }
 }
 
@@ -207,32 +209,32 @@ extension EditSheetViewController: HeaderCellDelegate {
 
 extension EditSheetViewController: HeaderSettingDelegate {
     func createColumn(_ column: Column) {
-        columnTitles.append(column.name)
-        columnTypes.append(column.type)
-        columnWidths.append(column.width)
-        for i in 0..<data.count {
-            data[i].append("")
+        sheet.columnTitles.append(column.name)
+        sheet.columnTypes.append(column.type)
+        sheet.columnWidths.append(column.width)
+        for i in 0..<tasks.count {
+            tasks[i].data.append("")
         }
         refreshData()
     }
     func updateColumn(_ column: Column, index: Int) {
-        columnTitles[index] = column.name
+        sheet.columnTitles[index] = column.name
         // typeが変更されていたらデータを初期化
-        if (columnTypes[index] != column.type) {
-            for i in 0..<data.count {
-                data[i][index] = ""
+        if (sheet.columnTypes[index] != column.type) {
+            for i in 0..<tasks.count {
+                tasks[i].data[index] = ""
             }
-            columnTypes[index] = column.type
+            sheet.columnTypes[index] = column.type
         }
-        columnWidths[index] = column.width
+        sheet.columnWidths[index] = column.width
         refreshData()
     }
     func deleteColumn(index: Int) {
-        columnTitles.remove(at: index)
-        columnTypes.remove(at: index)
-        columnWidths.remove(at: index)
-        for i in 0..<data.count {
-            data[i].remove(at: index)
+        sheet.columnTitles.remove(at: index)
+        sheet.columnTypes.remove(at: index)
+        sheet.columnWidths.remove(at: index)
+        for i in 0..<tasks.count {
+            tasks[i].data.remove(at: index)
         }
         refreshData()
     }
@@ -240,17 +242,18 @@ extension EditSheetViewController: HeaderSettingDelegate {
 
 extension EditSheetViewController: DataCellDelegate {
     func tappedCheckButton(_ isChecked: Bool, indexPath: IndexPath) {
-        data[indexPath.row-1][indexPath.column] = isChecked
+        tasks[indexPath.row-1].data[indexPath.column] = isChecked
         refreshData()
     }
 
     func updateTimeCell(_ time: Date, indexPath: IndexPath) {
-        data[indexPath.row-1][indexPath.column] = time
+        tasks[indexPath.row-1].data[indexPath.column] = time
         refreshData()
     }
 
     func updateTextCell(_ text: String, indexPath: IndexPath) {
-        data[indexPath.row-1][indexPath.column] = text
+        tasks[indexPath.row-1].data[indexPath.column] = text
+        tasksRelay.accept(tasks)
     }
     func openNoteDialog(_ note: Note?, indexPath: IndexPath) {
         let size: CGSize = UIScreen.main.bounds.size
@@ -293,7 +296,7 @@ extension EditSheetViewController: NoteDialogViewCellDelegate {
     func onCloseDialog(_ image: UIImage, note: Note, indexPath: IndexPath) {
         imageNameRelay.accept(note.imageName)
         imageRelay.accept(image)
-        data[indexPath.row-1][indexPath.column] = makeNoteJson(note)
+        tasks[indexPath.row-1].data[indexPath.column] = makeNoteJson(note)
         refreshData()
     }
 

@@ -23,7 +23,6 @@ public struct CellDataConverter {
             } catch {
                 cell.noteButton.tintColor = .lightGray
                 cell.noteButton.isEnabled = false
-                print("error")
             }
             cell.addNote()
             break

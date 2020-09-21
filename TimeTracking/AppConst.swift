@@ -17,4 +17,12 @@ final class AppConst {
     public let CELL_WIDTH_SMALL_DISPLAY = "狭い"
     public let CELL_WIDTH_MEDIUM_DISPLAY = "普通"
     public let CELL_WIDTH_LARGE_DISPLAY = "広い"
+
+    public let SHEET_TYPE_TOP = "top_sheets"
+    public let SHEET_TYPE_POSITION = "position_sheets"
+    public let SHEET_TYPE_SUBTASK = "subtask_sheets"
+
+    public let SHEET_TYPE_TOP_DISPLAY = "TOPシート"
+    public let SHEET_TYPE_POSITION_DISPLAY = "ポジションシート"
+    public let SHEET_TYPE_SUBTASK_DISPLAY = "サブタスクシート"
 }

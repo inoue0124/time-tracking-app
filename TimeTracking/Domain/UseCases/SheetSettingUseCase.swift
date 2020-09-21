@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-class HomeUseCase {
+class SheetSettingUseCase {
 
     let appConst = AppConst()
 
@@ -17,5 +17,13 @@ class HomeUseCase {
 
     func loadSubtaskSheets() -> Observable<[Sheet]> {
         return sheetRepository.read(with: appConst.SHEET_TYPE_SUBTASK)
+    }
+
+    func deletePositionSheets(with sheetId: String) -> Observable<Void> {
+        return sheetRepository.delete(sheetId, and: appConst.SHEET_TYPE_POSITION)
+    }
+
+    func deleteSubtaskSheets(with sheetId: String) -> Observable<Void> {
+        return sheetRepository.delete(sheetId, and: appConst.SHEET_TYPE_SUBTASK)
     }
 }

@@ -22,15 +22,11 @@ class HomeViewController: UIViewController {
         bindViewModel()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == R.segue.homeViewController.toTaskList.identifier {
+        if segue.identifier == R.segue.homeViewController.toSheetDetail.identifier {
             if let vc = segue.destination as? SheetViewController,
-                let positionSheet = sender as? Sheet {
-                vc.initializeViewModel(with: positionSheet)
+                let sheet = sender as? Sheet {
+                vc.initializeViewModel(with: sheet)
             }
         }
     }
@@ -57,9 +53,8 @@ class HomeViewController: UIViewController {
     }
 
     func initializeViewModel() {
-        homeViewModel = HomeViewModel.init(with: HomeUseCase(with: FireBasePositionSheetRepository(),
-                                                             and: FireBaseSubtaskSheetRepository()),
-                                               and: HomeNavigator(with: self))
+        homeViewModel = HomeViewModel.init(with: HomeUseCase(with: FireBaseSheetRepository()),
+                                           and: HomeNavigator(with: self))
     }
 
     func bindViewModel() {
@@ -74,7 +69,6 @@ class HomeViewController: UIViewController {
             cell.textLabel?.text = element.name
         }.disposed(by: disposeBag)
         output.selectPositionSheet.drive().disposed(by: disposeBag)
-
         output.loadSubtaskSheets.drive().disposed(by: disposeBag)
         output.subtaskSheets.drive(subtaskSheetTable.rx.items(cellIdentifier: R.reuseIdentifier.subtaskSheetCell.identifier)) {
             (row, element, cell) in

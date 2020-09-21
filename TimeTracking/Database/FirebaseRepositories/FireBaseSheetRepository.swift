@@ -2,7 +2,7 @@ import Firebase
 import FirebaseStorage
 import RxSwift
 
-class FireBasePositionSheetRepository: PositionSheetRepository {
+class FireBaseSheetRepository: SheetRepository {
 
     let db: Firestore
     let storage = Storage.storage()
@@ -15,15 +15,18 @@ class FireBasePositionSheetRepository: PositionSheetRepository {
         db.settings.isPersistenceEnabled = true
     }
 
-    func create(with name: String, and columnTitles: [String], and columnTypes: [String], and columnWidths: [Int]) -> Observable<String> {
+    func create(with sheet: Sheet) -> Observable<String> {
+        print(sheet)
         return Observable.create { [unowned self] observer in
-            var ref: DocumentReference? = nil
-            ref = self.db.collection("position_sheets").addDocument(data: [
-                "name": name,
+            let ref = self.db.collection(sheet.type).document()
+            ref.setData([
+                "id": ref.documentID,
+                "name": sheet.name,
+                "type": sheet.type,
                 "is_public": false,
-                "column_titles": columnTitles,
-                "column_types": columnTypes,
-                "column_widths": columnWidths,
+                "column_titles": sheet.columnTitles,
+                "column_types": sheet.columnTypes,
+                "column_widths": sheet.columnWidths,
                 "create_user": (Auth.auth().currentUser?.uid)!,
                 "created_at": Date(),
                 "update_user": (Auth.auth().currentUser?.uid)!,
@@ -33,18 +36,19 @@ class FireBasePositionSheetRepository: PositionSheetRepository {
                     observer.onError(e)
                     return
                 }
-                observer.onNext((ref!.documentID))
+                observer.onNext((ref.documentID))
             }
             return Disposables.create()
         }
     }
 
-    func read() -> Observable<[Sheet]> {
+    func read(with sheetType: String) -> Observable<[Sheet]> {
         let options = QueryListenOptions()
         options.includeQueryMetadataChanges(true)
 
         return Observable.create { [unowned self] observer in
-            self.listener = self.db.collection("position_sheets")
+            self.listener = self.db.collection(sheetType)
+                .whereField("create_user", isEqualTo: (Auth.auth().currentUser?.uid)!)
                 .order(by: "updated_at", descending: true)
                 .addSnapshotListener(options: options) { snapshot, error in
                     guard let snap = snapshot else {
@@ -65,6 +69,7 @@ class FireBasePositionSheetRepository: PositionSheetRepository {
                             positionSheets.append(Sheet(
                                 id: item.documentID,
                                 name: item["name"] as? String ?? "",
+                                type: item["type"] as? String ?? "",
                                 isPublic: item["is_public"] as? Bool ?? false,
                                 columnTitles: item["column_titles"] as? [String] ?? [],
                                 columnTypes: item["column_types"] as? [String] ?? [],
@@ -82,12 +87,14 @@ class FireBasePositionSheetRepository: PositionSheetRepository {
         }
     }
 
-    func update(_ positionSheet: Sheet) -> Observable<Void> {
+    func update(_ sheet: Sheet) -> Observable<Void> {
         return Observable.create { [unowned self] observer in
-            self.db.collection("position_sheets").document(positionSheet.id).updateData([
-                "name": positionSheet.name,
-                "is_public": positionSheet.isPublic,
-                "columnTit": positionSheet.columnTitles,
+            self.db.collection(sheet.type).document(sheet.id).updateData([
+                "name": sheet.name,
+                "is_public": false,
+                "column_titles": sheet.columnTitles,
+                "column_types": sheet.columnTypes,
+                "column_widths": sheet.columnWidths,
                 "update_user": (Auth.auth().currentUser?.uid)!,
                 "updated_at": Date()
                 ]) { error in
@@ -101,9 +108,9 @@ class FireBasePositionSheetRepository: PositionSheetRepository {
         }
     }
 
-    func delete(_ positionSheetId: String) -> Observable<Void> {
+    func delete(_ sheetId: String, and sheetType: String) -> Observable<Void> {
         return Observable.create { [unowned self] observer in
-            self.db.collection("position_sheets").document(positionSheetId).delete() { error in
+            self.db.collection(sheetType).document(sheetId).delete() { error in
                 if let e = error {
                     observer.onError(e)
                     return

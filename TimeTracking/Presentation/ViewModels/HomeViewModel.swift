@@ -55,7 +55,7 @@ class HomeViewModel: ViewModelType {
         }
         let selectPositionSheet = input.selectPositionSheetTrigger
             .withLatestFrom(loadPositionSheetsState.positionSheetsArray) { [unowned self] (index: Int, positionSheets: [Sheet]) in
-                self.navigator.toTaskList(with: positionSheets[index])
+                self.navigator.toSheetDetail(with: positionSheets[index])
         }
         
         let loadSubtaskSheetsState = State()
@@ -70,18 +70,8 @@ class HomeViewModel: ViewModelType {
         }
         let selectSubtaskSheet = input.selectSubtaskSheetTrigger
             .withLatestFrom(loadSubtaskSheetsState.subtaskSheetsArray) { [unowned self] (index: Int, subtaskSheets: [Sheet]) in
-                self.navigator.toTaskList(with: subtaskSheets[index])
+                self.navigator.toSheetDetail(with: subtaskSheets[index])
         }
-//        let openTaskList = input.openTaskListTrigger
-//            .withLatestFrom(state.contentArray) { [unowned self] (_, positionSeet: [Sheet]) in
-//                self.navigator.toTaskList(with: positionSeet.first)
-//            }
-//        let executeTest = input.testTrigger
-//            .flatMapLatest { [unowned self] _ in
-//            return self.homeUseCase.executeTest(with: "test")
-//                .trackError(state.error)
-//                .asDriverOnErrorJustComplete()
-//        }
         return HomeViewModel.Output(
             loadPositionSheets: loadPositionSheets,
             positionSheets: loadPositionSheetsState.positionSheetsArray.asDriver(),
