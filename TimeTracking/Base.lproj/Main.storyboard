@@ -781,11 +781,54 @@
                         <outlet property="submitButton" destination="IEl-JD-ztX" id="7by-L7-81L"/>
                         <outlet property="templateButton" destination="jdX-a7-aB0" id="agJ-wq-9Th"/>
                         <segue destination="Svd-Af-xoA" kind="presentation" identifier="toCreateSheet" modalPresentationStyle="fullScreen" id="13t-ou-pb6"/>
+                        <segue destination="Kat-Wh-SPL" kind="presentation" identifier="toCreateTopSheet" modalPresentationStyle="fullScreen" id="o61-Zk-QnX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NAm-XC-SP3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1438" y="1487"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="b3d-z3-ivJ">
+            <objects>
+                <navigationController id="Kat-Wh-SPL" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="m9v-SK-nfK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" name="theme"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="OlQ-Fc-QFX" kind="relationship" relationship="rootViewController" id="gIR-He-Jrp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1uY-El-JYU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2398" y="2446"/>
+        </scene>
+        <!--TOPシート作成-->
+        <scene sceneID="aha-uw-rny">
+            <objects>
+                <viewController id="OlQ-Fc-QFX" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KTn-od-QlE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="2DL-G1-gJa"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="TOPシート作成" id="NnV-Y0-oxj">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="EOv-U6-emF"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="m0I-CO-QBk"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xz5-I7-VSM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3356" y="2445"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ko2-f7-UAf">
@@ -846,7 +889,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="gpK-0t-aVc"/>
+        <segue reference="13t-ou-pb6"/>
         <segue reference="mqw-I1-wrc"/>
     </inferredMetricsTieBreakers>
     <resources>

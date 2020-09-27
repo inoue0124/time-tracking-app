@@ -10,18 +10,23 @@ class AddSheetViewController: UIViewController {
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var sheetNameTextField: UITextField!
 
+    var addSheetViewModel: AddSheetViewModel!
+
     let sheetDropDown = DropDown()
+    let templateDropDown = DropDown()
     let disposeBag = DisposeBag()
     let appConst = AppConst()
 
     var sheetType: String?
-    var sheet: Sheet?
+    var sheetTypeRelay = BehaviorRelay<String>(value: "")
+    var sheet = Sheet()
+    var sheetRelay = BehaviorRelay<Sheet>(value: Sheet())
 
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeUI()
-//        initializeViewModel()
-//        bindViewModel()
+        initializeViewModel()
+        bindViewModel()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -40,20 +45,30 @@ class AddSheetViewController: UIViewController {
         sheetButton.rx.tap.subscribe { [unowned self] _ in
             self.sheetDropDown.show()
         }.disposed(by: disposeBag)
+        templateButton.rx.tap.subscribe { [unowned self] _ in
+            self.templateDropDown.show()
+        }.disposed(by: disposeBag)
         sheetNameTextField.rx.text.subscribe(onNext: { _ in
             self.changeSubmitButtonState()
         }).disposed(by: disposeBag)
-        submitButton.rx.tap.subscribe { [unowned self] _ in
-            self.sheet = Sheet()
-            self.sheet!.name = self.sheetNameTextField.text!
-            self.sheet!.type = self.sheetType!
-            self.performSegue(withIdentifier: R.segue.addSheetViewController.toCreateSheet.identifier, sender: self.sheet)
-        }.disposed(by: disposeBag)
     }
 
+    func initializeViewModel() {
+        addSheetViewModel = AddSheetViewModel.init(with: AddSheetUseCase(with: FireBaseSheetRepository()),
+                                                           and: AddSheetNavigator(with: self))
+    }
 
-    func setupDropDowns() {
-        setupSheetDropDown()
+    func bindViewModel() {
+        let input = AddSheetViewModel.Input(loadTemplateTrigger: sheetTypeRelay.asDriver(),
+                                            createTrigger: submitButton.rx.tap.asDriver(),
+                                            sheet: sheetRelay.asDriver())
+
+        let output = addSheetViewModel.transform(input: input)
+        output.create.drive().disposed(by: disposeBag)
+        output.loadTemplate.drive().disposed(by: disposeBag)
+        output.templates.drive(onNext: { sheet in
+            self.setupTemplateDropDown(templates: sheet)
+        }).disposed(by: disposeBag)
     }
 
     func setupSheetDropDown() {
@@ -75,13 +90,29 @@ class AddSheetViewController: UIViewController {
             default:
                 break
             }
+            self?.sheetTypeRelay.accept(self?.sheetType as! String)
             self?.sheetButton.setTitle(item, for: .normal)
             self?.changeSubmitButtonState()
         }
     }
 
+    func setupTemplateDropDown(templates: [Sheet]) {
+        templateDropDown.anchorView = templateButton
+        templateDropDown.bottomOffset = CGPoint(x: 0, y: templateButton.bounds.height)
+        templateDropDown.dataSource = templates.map{ template in
+            return template.name
+        }
+        templateDropDown.selectionAction = { [weak self] (index, item) in
+            self?.sheet = templates[index]
+            self?.templateButton.setTitle(item, for: .normal)
+        }
+    }
+
     private func changeSubmitButtonState() {
         if (sheetNameTextField.text!.count > 0 && sheetType != nil) {
+            sheet.name = sheetNameTextField.text!
+            sheet.type = sheetType!
+            sheetRelay.accept(sheet)
             submitButton.isEnabled = true
             submitButton.backgroundColor = UIColor(named: R.color.theme.name)
         } else {

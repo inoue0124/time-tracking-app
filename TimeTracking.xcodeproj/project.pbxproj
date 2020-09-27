@@ -42,6 +42,9 @@
 		7020B11F251898D4007FB709 /* SheetSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020B11E251898D4007FB709 /* SheetSettingViewModel.swift */; };
 		7020B121251899B8007FB709 /* SheetSettingNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020B120251899B8007FB709 /* SheetSettingNavigator.swift */; };
 		7020B1252519058B007FB709 /* SheetSettingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020B1242519058B007FB709 /* SheetSettingUseCase.swift */; };
+		706BFF4E2520E069006AD077 /* AddSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706BFF4D2520E069006AD077 /* AddSheetViewModel.swift */; };
+		706BFF502520E0E4006AD077 /* AddSheetUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706BFF4F2520E0E4006AD077 /* AddSheetUseCase.swift */; };
+		706BFF522520E116006AD077 /* AddSheetNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706BFF512520E116006AD077 /* AddSheetNavigator.swift */; };
 		70B5933324F7769F00696E2A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933224F7769F00696E2A /* Task.swift */; };
 		70B5933524F7779600696E2A /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933424F7779600696E2A /* Sheet.swift */; };
 		70B5933724F779F200696E2A /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933624F779F200696E2A /* TaskRepository.swift */; };
@@ -108,6 +111,9 @@
 		7020B11E251898D4007FB709 /* SheetSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetSettingViewModel.swift; sourceTree = "<group>"; };
 		7020B120251899B8007FB709 /* SheetSettingNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetSettingNavigator.swift; sourceTree = "<group>"; };
 		7020B1242519058B007FB709 /* SheetSettingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetSettingUseCase.swift; sourceTree = "<group>"; };
+		706BFF4D2520E069006AD077 /* AddSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSheetViewModel.swift; sourceTree = "<group>"; };
+		706BFF4F2520E0E4006AD077 /* AddSheetUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSheetUseCase.swift; sourceTree = "<group>"; };
+		706BFF512520E116006AD077 /* AddSheetNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSheetNavigator.swift; sourceTree = "<group>"; };
 		70B5933224F7769F00696E2A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		70B5933424F7779600696E2A /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
 		70B5933624F779F200696E2A /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
@@ -250,6 +256,7 @@
 				70B5934224F7834900696E2A /* HomeUseCase.swift */,
 				4C3D43641FDACF30008C5F01 /* SheetUseCase.swift */,
 				7020B1242519058B007FB709 /* SheetSettingUseCase.swift */,
+				706BFF4F2520E0E4006AD077 /* AddSheetUseCase.swift */,
 				70D86BEB2504DE9200ABB1A9 /* EditSheetUseCase.swift */,
 			);
 			path = UseCases;
@@ -328,6 +335,7 @@
 				70B5934024F782F600696E2A /* HomeViewModel.swift */,
 				4C4924861FE75B3F0073FE0B /* SheetViewModel.swift */,
 				7020B11E251898D4007FB709 /* SheetSettingViewModel.swift */,
+				706BFF4D2520E069006AD077 /* AddSheetViewModel.swift */,
 				70D86BE92504DDB800ABB1A9 /* EditSheetViewModel.swift */,
 			);
 			path = ViewModels;
@@ -341,6 +349,7 @@
 				70B5934824F7BCEA00696E2A /* HomeNavigator.swift */,
 				4C4924911FE764380073FE0B /* SheetNavigator.swift */,
 				7020B120251899B8007FB709 /* SheetSettingNavigator.swift */,
+				706BFF512520E116006AD077 /* AddSheetNavigator.swift */,
 				70D86BED2504DF1200ABB1A9 /* EditSheetNavigator.swift */,
 			);
 			path = Navigators;
@@ -512,6 +521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				706BFF502520E0E4006AD077 /* AddSheetUseCase.swift in Sources */,
 				70B5933724F779F200696E2A /* TaskRepository.swift in Sources */,
 				7020B11B251779D1007FB709 /* ImageResizer.swift in Sources */,
 				70D86BE02504AAFB00ABB1A9 /* DataCell.swift in Sources */,
@@ -552,6 +562,7 @@
 				7020B11D2518976C007FB709 /* SheetSettingViewController.swift in Sources */,
 				70D86BEA2504DDB800ABB1A9 /* EditSheetViewModel.swift in Sources */,
 				70B5933D24F77E6D00696E2A /* FireBaseSheetRepository.swift in Sources */,
+				706BFF4E2520E069006AD077 /* AddSheetViewModel.swift in Sources */,
 				7020B11925176AB0007FB709 /* Note.swift in Sources */,
 				4C3D438B1FDAD020008C5F01 /* SignUpUseCase.swift in Sources */,
 				70B5934724F79DAD00696E2A /* R.generated.swift in Sources */,
@@ -565,6 +576,7 @@
 				4C45835C1FC957FB002AFB69 /* AppDelegate.swift in Sources */,
 				4C3D43871FDAD008008C5F01 /* LoginUseCase.swift in Sources */,
 				4CBB96F11FE1153F002C5DCC /* User.swift in Sources */,
+				706BFF522520E116006AD077 /* AddSheetNavigator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
