@@ -17,7 +17,7 @@ class EditPositionSheetUseCase {
         return taskRepository.read(with: sheetId, and: sheetType)
     }
 
-    func saveSheet(with sheet: Sheet) -> Observable<String> {
+    func saveSheet(with sheet: PositionSheet) -> Observable<String> {
         positionSheetRepository.create(with: sheet)
     }
 
@@ -25,7 +25,7 @@ class EditPositionSheetUseCase {
         taskRepository.create(with: tasks, and: sheetId, and: sheetType)
     }
 
-    func updateSheet(with sheet: Sheet) -> Observable<Void> {
+    func updateSheet(with sheet: PositionSheet) -> Observable<Void> {
         positionSheetRepository.update(sheet)
     }
 

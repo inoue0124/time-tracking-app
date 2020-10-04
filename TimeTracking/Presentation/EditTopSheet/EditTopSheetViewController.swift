@@ -81,7 +81,7 @@ class EditTopSheetViewController: UIViewController {
         }
     }
 
-    func setupPositionSheetsDropDown(positionSheets: [Sheet]) {
+    func setupPositionSheetsDropDown(positionSheets: [PositionSheet]) {
         positionSheetsDropDown.anchorView = addSheetButton
         positionSheetsDropDown.bottomOffset = CGPoint(x: 0, y: addSheetButton.bounds.height)
         positionSheetsDropDown.dataSource = positionSheets.map{ sheet in

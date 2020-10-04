@@ -18,8 +18,8 @@ class EditPositionSheetViewController: UIViewController {
     let cellDataConverter = CellDataConverter()
 
 
-    var sheet: Sheet = Sheet()
-    var sheetRelay = BehaviorRelay<Sheet>(value: Sheet())
+    var sheet: PositionSheet = PositionSheet()
+    var sheetRelay = BehaviorRelay<PositionSheet>(value: PositionSheet())
     var tasks: [Task] = []
     var tasksRelay = BehaviorRelay<[Task]>(value: [])
     var imageRelay = BehaviorRelay<UIImage>(value: UIImage())
@@ -45,7 +45,7 @@ class EditPositionSheetViewController: UIViewController {
         sheetView.register(AddButtonCell.self, forCellWithReuseIdentifier: String(describing: AddButtonCell.self))
     }
 
-    func initializeViewModel(with sheet: Sheet? = nil, and nvc: UINavigationController? = nil) {
+    func initializeViewModel(with sheet: PositionSheet? = nil, and nvc: UINavigationController? = nil) {
         guard editPositionSheetViewModel == nil else { return }
         editPositionSheetViewModel = EditPositionSheetViewModel(with: EditPositionSheetUseCase(with: FBPositionSheetRepository(),
                                                                                and: FBTaskRepository()),

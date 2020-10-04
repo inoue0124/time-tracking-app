@@ -19,9 +19,11 @@ class AddSheetViewController: UIViewController {
 
     var sheetType: String?
     var sheetTypeRelay = BehaviorRelay<String>(value: "")
-    var sheet = Sheet()
     var topSheet = TopSheet()
-    var sheetRelay = BehaviorRelay<Sheet>(value: Sheet())
+    var positionSheet = PositionSheet()
+    var subtaskSheet = SubtaskSheet()
+    var positionSheetRelay = BehaviorRelay<PositionSheet>(value: PositionSheet())
+    var subtaskSheetRelay = BehaviorRelay<SubtaskSheet>(value: SubtaskSheet())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,17 +33,24 @@ class AddSheetViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == R.segue.addSheetViewController.toCreateSubtaskSheet.identifier {
-            if let nc = segue.destination as? UINavigationController {
-                if let vc = nc.viewControllers[0] as? EditSubtaskSheetViewController {
-                    vc.initializeViewModel(with: self.sheet, and: self.navigationController)
-                }
-            }
-        }
         if segue.identifier == R.segue.addSheetViewController.toCreateTopSheet.identifier {
             if let nc = segue.destination as? UINavigationController {
                 if let vc = nc.viewControllers[0] as? EditTopSheetViewController {
                     vc.initializeViewModel(with: self.topSheet, and: self.navigationController)
+                }
+            }
+        }
+        if segue.identifier == R.segue.addSheetViewController.toCreatePositionSheet.identifier {
+            if let nc = segue.destination as? UINavigationController {
+                if let vc = nc.viewControllers[0] as? EditPositionSheetViewController {
+                    vc.initializeViewModel(with: self.positionSheet, and: self.navigationController)
+                }
+            }
+        }
+        if segue.identifier == R.segue.addSheetViewController.toCreateSubtaskSheet.identifier {
+            if let nc = segue.destination as? UINavigationController {
+                if let vc = nc.viewControllers[0] as? EditSubtaskSheetViewController {
+                    vc.initializeViewModel(with: self.subtaskSheet, and: self.navigationController)
                 }
             }
         }
@@ -71,12 +80,13 @@ class AddSheetViewController: UIViewController {
     func bindViewModel() {
         let input = AddSheetViewModel.Input(loadTemplateTrigger: sheetTypeRelay.asDriver(),
                                             createTrigger: submitButton.rx.tap.asDriver(),
-                                            sheet: sheetRelay.asDriver())
+                                            positionSheet: positionSheetRelay.asDriver(),
+                                            subtaskSheet: subtaskSheetRelay.asDriver())
 
         let output = addSheetViewModel.transform(input: input)
         output.create.drive().disposed(by: disposeBag)
         output.loadTemplate.drive().disposed(by: disposeBag)
-        output.templates.drive(onNext: { sheet in
+        output.positionSheetTemplates.drive(onNext: { sheet in
             self.setupTemplateDropDown(templates: sheet)
         }).disposed(by: disposeBag)
     }
@@ -106,23 +116,23 @@ class AddSheetViewController: UIViewController {
         }
     }
 
-    func setupTemplateDropDown(templates: [Sheet]) {
+    func setupTemplateDropDown(templates: [PositionSheet]) {
         templateDropDown.anchorView = templateButton
         templateDropDown.bottomOffset = CGPoint(x: 0, y: templateButton.bounds.height)
         templateDropDown.dataSource = templates.map{ template in
             return template.name
         }
         templateDropDown.selectionAction = { [weak self] (index, item) in
-            self?.sheet = templates[index]
+            self?.positionSheet = templates[index]
             self?.templateButton.setTitle(item, for: .normal)
         }
     }
 
     private func changeSubmitButtonState() {
         if (sheetNameTextField.text!.count > 0 && sheetType != nil) {
-            sheet.name = sheetNameTextField.text!
-            sheet.type = sheetType!
-            sheetRelay.accept(sheet)
+            positionSheet.name = sheetNameTextField.text!
+            positionSheet.type = sheetType!
+            positionSheetRelay.accept(positionSheet)
             submitButton.isEnabled = true
             submitButton.backgroundColor = UIColor(named: R.color.theme.name)
         } else {

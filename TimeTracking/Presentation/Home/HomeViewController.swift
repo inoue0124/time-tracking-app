@@ -25,13 +25,13 @@ class HomeViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == R.segue.homeViewController.toPositionSheetDetail.identifier {
             if let vc = segue.destination as? PositionSheetDetailViewController,
-                let sheet = sender as? Sheet {
+                let sheet = sender as? PositionSheet {
                 vc.initializeViewModel(with: sheet)
             }
         }
         if segue.identifier == R.segue.homeViewController.toSubtaskSheetDetail.identifier {
             if let vc = segue.destination as? SubtaskSheetDetailViewController,
-                let sheet = sender as? Sheet {
+                let sheet = sender as? SubtaskSheet {
                 vc.initializeViewModel(with: sheet)
             }
         }

@@ -15,7 +15,7 @@ class FBSubtaskSheetRepository: SubtaskSheetRepository {
         db.settings.isPersistenceEnabled = true
     }
 
-    func create(with sheet: Sheet) -> Observable<String> {
+    func create(with sheet: SubtaskSheet) -> Observable<String> {
         print(sheet)
         return Observable.create { [unowned self] observer in
             let ref = self.db.collection(sheet.type).document()
@@ -42,7 +42,7 @@ class FBSubtaskSheetRepository: SubtaskSheetRepository {
         }
     }
 
-    func read(with sheetType: String) -> Observable<[Sheet]> {
+    func read(with sheetType: String) -> Observable<[SubtaskSheet]> {
         let options = QueryListenOptions()
         options.includeQueryMetadataChanges(true)
 
@@ -63,10 +63,10 @@ class FBSubtaskSheetRepository: SubtaskSheetRepository {
                     }
                     print("Current data: \(snap)")
 
-                    var positionSheets: [Sheet] = []
+                    var positionSheets: [SubtaskSheet] = []
                     if !snap.isEmpty {
                         for item in snap.documents {
-                            positionSheets.append(Sheet(
+                            positionSheets.append(SubtaskSheet(
                                 id: item.documentID,
                                 name: item["name"] as? String ?? "",
                                 type: item["type"] as? String ?? "",
@@ -87,7 +87,7 @@ class FBSubtaskSheetRepository: SubtaskSheetRepository {
         }
     }
 
-    func update(_ sheet: Sheet) -> Observable<Void> {
+    func update(_ sheet: SubtaskSheet) -> Observable<Void> {
         return Observable.create { [unowned self] observer in
             self.db.collection(sheet.type).document(sheet.id).updateData([
                 "name": sheet.name,

@@ -982,17 +982,37 @@
             </objects>
             <point key="canvasLocation" x="2561" y="1574"/>
         </scene>
-        <!--Edit Position Sheet View Controller-->
+        <!--シート編集-->
         <scene sceneID="04x-CK-Y7T">
             <objects>
                 <viewController id="9tb-QQ-dQm" customClass="EditPositionSheetViewController" customModule="TimeTracking" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uaW-6T-OQz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kv8-UC-0aG" customClass="SpreadsheetView" customModule="SpreadsheetView">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="kv8-UC-0aG" firstAttribute="leading" secondItem="X8n-vI-zAN" secondAttribute="leading" id="EbK-L8-q9C"/>
+                            <constraint firstItem="kv8-UC-0aG" firstAttribute="bottom" secondItem="X8n-vI-zAN" secondAttribute="bottom" id="H1P-VX-dQl"/>
+                            <constraint firstItem="kv8-UC-0aG" firstAttribute="trailing" secondItem="X8n-vI-zAN" secondAttribute="trailing" id="mxU-Cf-5yV"/>
+                            <constraint firstItem="kv8-UC-0aG" firstAttribute="top" secondItem="X8n-vI-zAN" secondAttribute="top" id="zS8-52-vtD"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="X8n-vI-zAN"/>
                     </view>
-                    <navigationItem key="navigationItem" id="OPB-Ou-OuI"/>
+                    <navigationItem key="navigationItem" title="シート編集" id="OPB-Ou-OuI">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="GqJ-Hb-P2y"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="9lE-t7-WkD"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="dismissButton" destination="GqJ-Hb-P2y" id="mPx-CR-KNW"/>
+                        <outlet property="saveButton" destination="9lE-t7-WkD" id="c93-mr-BxA"/>
+                        <outlet property="sheetView" destination="kv8-UC-0aG" id="hka-Zf-TwB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w79-Db-8Wi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1065,7 +1085,7 @@
         <segue reference="fzu-bY-NN6"/>
         <segue reference="gpK-0t-aVc"/>
         <segue reference="zxG-A0-wjB"/>
-        <segue reference="mqw-I1-wrc"/>
+        <segue reference="Nhw-9h-N7U"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="edit" width="16" height="16"/>

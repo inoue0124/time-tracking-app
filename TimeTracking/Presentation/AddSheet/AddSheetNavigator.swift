@@ -11,11 +11,11 @@ class AddSheetNavigator {
         viewController?.performSegue(withIdentifier: R.segue.addSheetViewController.toCreateTopSheet, sender: nil)
     }
 
-    func toCreatePositionSheet(with sheet: Sheet? = nil) {
+    func toCreatePositionSheet(with sheet: PositionSheet? = nil) {
         viewController?.performSegue(withIdentifier: R.segue.addSheetViewController.toCreatePositionSheet, sender: sheet)
     }
 
-    func toCreateSubtaskSheet(with sheet: Sheet? = nil) {
+    func toCreateSubtaskSheet(with sheet: SubtaskSheet? = nil) {
         viewController?.performSegue(withIdentifier: R.segue.addSheetViewController.toCreateSubtaskSheet, sender: sheet)
     }
 }

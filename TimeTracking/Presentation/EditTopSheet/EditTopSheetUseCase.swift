@@ -13,11 +13,11 @@ class EditTopSheetUseCase {
         self.positionSheetRepository = positionSheetRepository
     }
 
-    func loadPositionSheets() -> Observable<[Sheet]> {
+    func loadPositionSheets() -> Observable<[PositionSheet]> {
         return positionSheetRepository.read(with: appConst.SHEET_TYPE_POSITION)
     }
 
-    func loadPositionSheetsByIds(with: [String]) -> Observable<[Sheet]> {
+    func loadPositionSheetsByIds(with: [String]) -> Observable<[PositionSheet]> {
         return positionSheetRepository.read(with: appConst.SHEET_TYPE_POSITION)
     }
 

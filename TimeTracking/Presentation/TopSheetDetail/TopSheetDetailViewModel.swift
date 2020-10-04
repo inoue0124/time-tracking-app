@@ -11,7 +11,7 @@ class TopSheetDetailViewModel: ViewModelType {
     struct Output {
         let load: Driver<Void>
         let tasks: Driver<[Task]>
-        let sheet: Driver<Sheet>
+        let sheet: Driver<PositionSheet>
         let isLoading: Driver<Bool>
         let error: Driver<Error>
     }
@@ -24,9 +24,9 @@ class TopSheetDetailViewModel: ViewModelType {
     
     private let useCase: TopSheetDetailUseCase
     private let navigator: TopSheetDetailNavigator
-    private let sheet: Sheet?
+    private let sheet: PositionSheet?
     
-    init(with useCase: TopSheetDetailUseCase, and navigator: TopSheetDetailNavigator, and sheet: Sheet? = nil) {
+    init(with useCase: TopSheetDetailUseCase, and navigator: TopSheetDetailNavigator, and sheet: PositionSheet? = nil) {
         self.useCase = useCase
         self.navigator = navigator
         self.sheet = sheet

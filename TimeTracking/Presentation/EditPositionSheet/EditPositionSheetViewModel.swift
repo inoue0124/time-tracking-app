@@ -7,7 +7,7 @@ class EditPositionSheetViewModel: ViewModelType {
     struct Input {
         let loadTrigger: Driver<Void>
         let saveTrigger: Driver<Void>
-        let sheet: Driver<Sheet>
+        let sheet: Driver<PositionSheet>
         let tasks: Driver<[Task]>
         let uploadImageTrigger: Driver<UIImage>
         let imageName: Driver<String>
@@ -16,7 +16,7 @@ class EditPositionSheetViewModel: ViewModelType {
     struct Output {
         let load: Driver<Void>
         let tasks: Driver<[Task]>
-        let sheet: Driver<Sheet>
+        let sheet: Driver<PositionSheet>
         let save: Driver<Void>
         let uploadImage: Driver<Void>
         let isLoading: Driver<Bool>
@@ -31,9 +31,9 @@ class EditPositionSheetViewModel: ViewModelType {
 
     private let editPositionSheetUseCase: EditPositionSheetUseCase
     private let navigator: EditPositionSheetNavigator
-    private let sheet: Sheet?
+    private let sheet: PositionSheet?
 
-    init(with editPositionSheetUseCase: EditPositionSheetUseCase, and navigator: EditPositionSheetNavigator, and sheet: Sheet? = nil) {
+    init(with editPositionSheetUseCase: EditPositionSheetUseCase, and navigator: EditPositionSheetNavigator, and sheet: PositionSheet? = nil) {
         self.editPositionSheetUseCase = editPositionSheetUseCase
         self.navigator = navigator
         self.sheet = sheet
@@ -57,7 +57,7 @@ class EditPositionSheetViewModel: ViewModelType {
         let requiredInputs = Driver.combineLatest(input.sheet, input.tasks)
         let save = input.saveTrigger
             .withLatestFrom(requiredInputs)
-            .flatMapLatest { [unowned self] (sheet: Sheet, tasks: [Task]) -> Driver<Void> in
+            .flatMapLatest { [unowned self] (sheet: PositionSheet, tasks: [Task]) -> Driver<Void> in
                 if (self.sheet!.id != "" && self.sheet!.type != "") {
                     return self.editPositionSheetUseCase.updateSheet(with: sheet)
                     .flatMap { [unowned self] _ in

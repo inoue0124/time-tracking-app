@@ -17,7 +17,7 @@ class EditSubtaskSheetUseCase {
         return taskRepository.read(with: sheetId, and: sheetType)
     }
 
-    func saveSheet(with sheet: Sheet) -> Observable<String> {
+    func saveSheet(with sheet: SubtaskSheet) -> Observable<String> {
         subtaskSheetRepository.create(with: sheet)
     }
 
@@ -25,7 +25,7 @@ class EditSubtaskSheetUseCase {
         taskRepository.create(with: tasks, and: sheetId, and: sheetType)
     }
 
-    func updateSheet(with sheet: Sheet) -> Observable<Void> {
+    func updateSheet(with sheet: SubtaskSheet) -> Observable<Void> {
         subtaskSheetRepository.update(sheet)
     }
 

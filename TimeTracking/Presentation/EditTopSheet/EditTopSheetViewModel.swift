@@ -12,14 +12,14 @@ class EditTopSheetViewModel: ViewModelType {
 
     struct Output {
         let load: Driver<Void>
-        let positionSheets: Driver<[Sheet]>
+        let positionSheets: Driver<[PositionSheet]>
         let save: Driver<Void>
         let isLoading: Driver<Bool>
         let error: Driver<Error>
     }
 
     struct State {
-        let contentArray = ArrayTracker<Sheet>()
+        let contentArray = ArrayTracker<PositionSheet>()
         let isLoading = ActivityIndicator()
         let error = ErrorTracker()
     }

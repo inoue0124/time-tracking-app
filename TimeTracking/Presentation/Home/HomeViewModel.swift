@@ -12,24 +12,24 @@ class HomeViewModel: ViewModelType {
 
     struct Output {
         let loadTopSheets: Driver<Void>
-        let topSheets: Driver<[Sheet]>
+        let topSheets: Driver<[PositionSheet]>
         let selectTopSheet: Driver<Void>
         let isLoadingTopSheets: Driver<Bool>
         let errorLoadingTopSheets: Driver<Error>
 
         let loadSubtaskSheets: Driver<Void>
-        let subtaskSheets: Driver<[Sheet]>
+        let subtaskSheets: Driver<[SubtaskSheet]>
         let selectSubtaskSheet: Driver<Void>
         let isLoadingSubtaskSheets: Driver<Bool>
         let errorLoadingSubtaskSheets: Driver<Error>
     }
 
     struct State {
-        let positionSheetsArray = ArrayTracker<Sheet>()
+        let positionSheetsArray = ArrayTracker<PositionSheet>()
         let isLoadingTopSheets = ActivityIndicator()
         let errorLoadingTopSheets = ErrorTracker()
 
-        let subtaskSheetsArray = ArrayTracker<Sheet>()
+        let subtaskSheetsArray = ArrayTracker<SubtaskSheet>()
         let isLoadingSubtaskSheets = ActivityIndicator()
         let errorLoadingSubtaskSheets = ErrorTracker()
     }
@@ -54,9 +54,9 @@ class HomeViewModel: ViewModelType {
                 .asDriverOnErrorJustComplete()
         }
         let selectTopSheet = input.selectTopSheetTrigger
-            .withLatestFrom(loadTopSheetsState.positionSheetsArray) { [unowned self] (index: Int, positionSheets: [Sheet]) in
+            .withLatestFrom(loadTopSheetsState.positionSheetsArray) { [unowned self] (index: Int, positionSheets: [PositionSheet]) in
                 if (index==0) {
-                    self.navigator.toTopSheetDetail(with: positionSheets[index])
+                    self.navigator.toTopSheetDetail()
                 } else {
                     self.navigator.toPositionSheetDetail(with: positionSheets[index])
                 }
@@ -73,7 +73,7 @@ class HomeViewModel: ViewModelType {
                 .asDriverOnErrorJustComplete()
         }
         let selectSubtaskSheet = input.selectSubtaskSheetTrigger
-            .withLatestFrom(loadSubtaskSheetsState.subtaskSheetsArray) { [unowned self] (index: Int, subtaskSheets: [Sheet]) in
+            .withLatestFrom(loadSubtaskSheetsState.subtaskSheetsArray) { [unowned self] (index: Int, subtaskSheets: [SubtaskSheet]) in
                 self.navigator.toSubtaskSheetDetail(with: subtaskSheets[index])
         }
 

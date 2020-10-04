@@ -18,8 +18,8 @@ class EditSubtaskSheetViewController: UIViewController {
     let cellDataConverter = CellDataConverter()
 
 
-    var sheet: Sheet = Sheet()
-    var sheetRelay = BehaviorRelay<Sheet>(value: Sheet())
+    var sheet: SubtaskSheet = SubtaskSheet()
+    var sheetRelay = BehaviorRelay<SubtaskSheet>(value: SubtaskSheet())
     var tasks: [Task] = []
     var tasksRelay = BehaviorRelay<[Task]>(value: [])
     var imageRelay = BehaviorRelay<UIImage>(value: UIImage())
@@ -45,7 +45,7 @@ class EditSubtaskSheetViewController: UIViewController {
         sheetView.register(AddButtonCell.self, forCellWithReuseIdentifier: String(describing: AddButtonCell.self))
     }
 
-    func initializeViewModel(with sheet: Sheet? = nil, and nvc: UINavigationController? = nil) {
+    func initializeViewModel(with sheet: SubtaskSheet? = nil, and nvc: UINavigationController? = nil) {
         guard editSubtaskSheetViewModel == nil else { return }
         editSubtaskSheetViewModel = EditSubtaskSheetViewModel(with: EditSubtaskSheetUseCase(with: FBSubtaskSheetRepository(),
                                                                        and: FBTaskRepository()),

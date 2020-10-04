@@ -18,21 +18,21 @@ class SheetSettingViewModel: ViewModelType {
 
     struct Output {
         let loadTopSheets: Driver<Void>
-        let topSheets: Driver<[Sheet]>
+        let topSheets: Driver<[TopSheet]>
         let selectTopSheet: Driver<Void>
         let deleteTopSheet: Driver<Void>
         let isLoadingTopSheets: Driver<Bool>
         let errorLoadingTopSheets: Driver<Error>
 
         let loadPositionSheets: Driver<Void>
-        let positionSheets: Driver<[Sheet]>
+        let positionSheets: Driver<[PositionSheet]>
         let selectPositionSheet: Driver<Void>
         let deletePositionSheet: Driver<Void>
         let isLoadingPositionSheets: Driver<Bool>
         let errorLoadingPositionSheets: Driver<Error>
 
         let loadSubtaskSheets: Driver<Void>
-        let subtaskSheets: Driver<[Sheet]>
+        let subtaskSheets: Driver<[SubtaskSheet]>
         let selectSubtaskSheet: Driver<Void>
         let deleteSubtaskSheet: Driver<Void>
         let isLoadingSubtaskSheets: Driver<Bool>
@@ -40,15 +40,15 @@ class SheetSettingViewModel: ViewModelType {
     }
 
     struct State {
-        let topSheetsArray = ArrayTracker<Sheet>()
+        let topSheetsArray = ArrayTracker<TopSheet>()
         let isLoadingTopSheets = ActivityIndicator()
         let errorLoadingTopSheets = ErrorTracker()
 
-        let positionSheetsArray = ArrayTracker<Sheet>()
+        let positionSheetsArray = ArrayTracker<PositionSheet>()
         let isLoadingPositionSheets = ActivityIndicator()
         let errorLoadingPositionSheets = ErrorTracker()
 
-        let subtaskSheetsArray = ArrayTracker<Sheet>()
+        let subtaskSheetsArray = ArrayTracker<SubtaskSheet>()
         let isLoadingSubtaskSheets = ActivityIndicator()
         let errorLoadingSubtaskSheets = ErrorTracker()
     }
@@ -74,8 +74,8 @@ class SheetSettingViewModel: ViewModelType {
                 .asDriverOnErrorJustComplete()
             }
         let selectTopSheet = input.selectTopSheetTrigger
-            .withLatestFrom(state.positionSheetsArray) { [unowned self] (index: Int, positionSheets: [Sheet]) in
-                self.navigator.toEditSheet(with: positionSheets[index])
+            .withLatestFrom(state.topSheetsArray) { [unowned self] (index: Int, topSheets: [TopSheet]) in
+                self.navigator.toEditTopSheet(with: topSheets[index])
             }
         let deleteTopSheet = input.deleteTopSheetTrigger
             .flatMapLatest { [unowned self] index -> Driver<Void> in
@@ -93,8 +93,8 @@ class SheetSettingViewModel: ViewModelType {
                 .asDriverOnErrorJustComplete()
             }
         let selectPositionSheet = input.selectPositionSheetTrigger
-            .withLatestFrom(state.positionSheetsArray) { [unowned self] (index: Int, positionSheets: [Sheet]) in
-                self.navigator.toEditSheet(with: positionSheets[index])
+            .withLatestFrom(state.positionSheetsArray) { [unowned self] (index: Int, positionSheets: [PositionSheet]) in
+                self.navigator.toEditPositionSheet(with: positionSheets[index])
             }
         let deletePositionSheet = input.deletePositionSheetTrigger
             .flatMapLatest { [unowned self] index -> Driver<Void> in
@@ -112,8 +112,8 @@ class SheetSettingViewModel: ViewModelType {
                 .asDriverOnErrorJustComplete()
             }
         let selectSubtaskSheet = input.selectSubtaskSheetTrigger
-            .withLatestFrom(state.subtaskSheetsArray) { [unowned self] (index: Int, subtaskSheets: [Sheet]) in
-                self.navigator.toEditSheet(with: subtaskSheets[index])
+            .withLatestFrom(state.subtaskSheetsArray) { [unowned self] (index: Int, subtaskSheets: [SubtaskSheet]) in
+                self.navigator.toEditSubtaskSheet(with: subtaskSheets[index])
             }
         let deleteSubtaskSheet = input.deleteSubtaskSheetTrigger
             .flatMapLatest { [unowned self] index -> Driver<Void> in

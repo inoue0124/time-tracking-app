@@ -38,7 +38,7 @@ class FBTopSheetRepository: TopSheetRepository {
         }
     }
 
-    func read(with id: String) -> Observable<[Sheet]> {
+    func read(with id: String) -> Observable<[PositionSheet]> {
         let options = QueryListenOptions()
         options.includeQueryMetadataChanges(true)
 
@@ -58,12 +58,12 @@ class FBTopSheetRepository: TopSheetRepository {
                     }
                     print("Current data: \(snap)")
 
-                    var positionSheets: [Sheet] = []
+                    var positionSheets: [PositionSheet] = []
 
                     if !snap.isEmpty {
                         for item in snap.documents {
 
-                            positionSheets.append(Sheet(
+                            positionSheets.append(PositionSheet(
                                 id: item.documentID,
                                 name: item["name"] as? String ?? "",
                                 type: "",
@@ -95,7 +95,7 @@ class FBTopSheetRepository: TopSheetRepository {
 
                                         if !snap.isEmpty {
                                             for item in snap.documents {
-                                                positionSheets.append(Sheet(
+                                                positionSheets.append(PositionSheet(
                                                     id: item.documentID,
                                                     name: item["name"] as? String ?? "",
                                                     type: item["type"] as? String ?? "",

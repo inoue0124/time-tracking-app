@@ -15,7 +15,7 @@ class FBPositionSheetRepository: PositionSheetRepository {
         db.settings.isPersistenceEnabled = true
     }
 
-    func create(with sheet: Sheet) -> Observable<String> {
+    func create(with sheet: PositionSheet) -> Observable<String> {
         print(sheet)
         return Observable.create { [unowned self] observer in
             let ref = self.db.collection(sheet.type).document()
@@ -42,7 +42,7 @@ class FBPositionSheetRepository: PositionSheetRepository {
         }
     }
 
-    func read(with sheetType: String) -> Observable<[Sheet]> {
+    func read(with sheetType: String) -> Observable<[PositionSheet]> {
         let options = QueryListenOptions()
         options.includeQueryMetadataChanges(true)
 
@@ -63,10 +63,10 @@ class FBPositionSheetRepository: PositionSheetRepository {
                     }
                     print("Current data: \(snap)")
 
-                    var positionSheets: [Sheet] = []
+                    var positionSheets: [PositionSheet] = []
                     if !snap.isEmpty {
                         for item in snap.documents {
-                            positionSheets.append(Sheet(
+                            positionSheets.append(PositionSheet(
                                 id: item.documentID,
                                 name: item["name"] as? String ?? "",
                                 type: item["type"] as? String ?? "",
@@ -87,7 +87,7 @@ class FBPositionSheetRepository: PositionSheetRepository {
         }
     }
 
-    func update(_ sheet: Sheet) -> Observable<Void> {
+    func update(_ sheet: PositionSheet) -> Observable<Void> {
         return Observable.create { [unowned self] observer in
             self.db.collection(sheet.type).document(sheet.id).updateData([
                 "name": sheet.name,

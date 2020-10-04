@@ -7,7 +7,7 @@ class EditSubtaskSheetViewModel: ViewModelType {
     struct Input {
         let loadTrigger: Driver<Void>
         let saveTrigger: Driver<Void>
-        let sheet: Driver<Sheet>
+        let sheet: Driver<SubtaskSheet>
         let tasks: Driver<[Task]>
         let uploadImageTrigger: Driver<UIImage>
         let imageName: Driver<String>
@@ -16,7 +16,7 @@ class EditSubtaskSheetViewModel: ViewModelType {
     struct Output {
         let load: Driver<Void>
         let tasks: Driver<[Task]>
-        let sheet: Driver<Sheet>
+        let sheet: Driver<SubtaskSheet>
         let save: Driver<Void>
         let uploadImage: Driver<Void>
         let isLoading: Driver<Bool>
@@ -31,9 +31,9 @@ class EditSubtaskSheetViewModel: ViewModelType {
 
     private let editSheetUseCase: EditSubtaskSheetUseCase
     private let navigator: EditSubtaskSheetNavigator
-    private let sheet: Sheet?
+    private let sheet: SubtaskSheet?
 
-    init(with editSheetUseCase: EditSubtaskSheetUseCase, and navigator: EditSubtaskSheetNavigator, and sheet: Sheet? = nil) {
+    init(with editSheetUseCase: EditSubtaskSheetUseCase, and navigator: EditSubtaskSheetNavigator, and sheet: SubtaskSheet? = nil) {
         self.editSheetUseCase = editSheetUseCase
         self.navigator = navigator
         self.sheet = sheet
@@ -57,7 +57,7 @@ class EditSubtaskSheetViewModel: ViewModelType {
         let requiredInputs = Driver.combineLatest(input.sheet, input.tasks)
         let save = input.saveTrigger
             .withLatestFrom(requiredInputs)
-            .flatMapLatest { [unowned self] (sheet: Sheet, tasks: [Task]) -> Driver<Void> in
+            .flatMapLatest { [unowned self] (sheet: SubtaskSheet, tasks: [Task]) -> Driver<Void> in
                 if (self.sheet!.id != "" && self.sheet!.type != "") {
                     return self.editSheetUseCase.updateSheet(with: sheet)
                     .flatMap { [unowned self] _ in

@@ -9,7 +9,7 @@ class SubtaskSheetDetailViewController: UIViewController {
 
     var subtaskSheetDetailViewModel: SubtaskSheetDetailViewModel!
     let disposeBag = DisposeBag()
-    var sheet: Sheet?
+    var sheet: SubtaskSheet?
     let cellDataConverter = CellDataConverter()
     var noteDialogView = NoteDialogView()
     var tasks: [Task] = []
@@ -31,7 +31,7 @@ class SubtaskSheetDetailViewController: UIViewController {
         sheetView.register(DataCell.self, forCellWithReuseIdentifier: String(describing: DataCell.self))
     }
     
-    func initializeViewModel(with sheet: Sheet? = nil) {
+    func initializeViewModel(with sheet: SubtaskSheet? = nil) {
         guard subtaskSheetDetailViewModel == nil else { return }
         subtaskSheetDetailViewModel = SubtaskSheetDetailViewModel(with: SubtaskSheetDetailUseCase(withTask: FBTaskRepository()),
                                         and: SubtaskSheetDetailNavigator(with: self),

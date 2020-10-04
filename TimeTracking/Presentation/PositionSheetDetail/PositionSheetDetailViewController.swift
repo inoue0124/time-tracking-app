@@ -9,7 +9,7 @@ class PositionSheetDetailViewController: UIViewController {
 
     var positionSheetDetailViewModel: PositionSheetDetailViewModel!
     let disposeBag = DisposeBag()
-    var sheet: Sheet?
+    var sheet: PositionSheet?
     let cellDataConverter = CellDataConverter()
     var noteDialogView = NoteDialogView()
     var tasks: [Task] = []
@@ -31,7 +31,7 @@ class PositionSheetDetailViewController: UIViewController {
         sheetView.register(DataCell.self, forCellWithReuseIdentifier: String(describing: DataCell.self))
     }
     
-    func initializeViewModel(with sheet: Sheet? = nil) {
+    func initializeViewModel(with sheet: PositionSheet? = nil) {
         guard positionSheetDetailViewModel == nil else { return }
         positionSheetDetailViewModel = PositionSheetDetailViewModel(with: PositionSheetDetailUseCase(withTask: FBTaskRepository()),
                                         and: PositionSheetDetailNavigator(with: self),

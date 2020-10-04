@@ -21,10 +21,26 @@ class SheetSettingViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == R.segue.sheetSettingViewController.toEditTopSheet.identifier {
+            if let nvc = segue.destination as? UINavigationController {
+                if let vc = nvc.viewControllers.last as? EditTopSheetViewController,
+                    let sheet = sender as? TopSheet {
+                    vc.initializeViewModel(with: sheet)
+                }
+            }
+        }
+        if segue.identifier == R.segue.sheetSettingViewController.toEditPositionSheet.identifier {
+            if let nvc = segue.destination as? UINavigationController {
+                if let vc = nvc.viewControllers.last as? EditPositionSheetViewController,
+                    let sheet = sender as? PositionSheet {
+                    vc.initializeViewModel(with: sheet)
+                }
+            }
+        }
         if segue.identifier == R.segue.sheetSettingViewController.toEditSubtaskSheet.identifier {
             if let nvc = segue.destination as? UINavigationController {
                 if let vc = nvc.viewControllers.last as? EditSubtaskSheetViewController,
-                    let sheet = sender as? Sheet {
+                    let sheet = sender as? SubtaskSheet {
                     vc.initializeViewModel(with: sheet)
                 }
             }

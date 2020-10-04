@@ -1,6 +1,6 @@
 import Foundation
 
-struct Sheet {
+struct PositionSheet {
     var id: String
     var name: String
     var type: String

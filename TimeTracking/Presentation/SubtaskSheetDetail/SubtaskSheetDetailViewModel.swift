@@ -11,7 +11,7 @@ class SubtaskSheetDetailViewModel: ViewModelType {
     struct Output {
         let load: Driver<Void>
         let tasks: Driver<[Task]>
-        let sheet: Driver<Sheet>
+        let sheet: Driver<SubtaskSheet>
         let isLoading: Driver<Bool>
         let error: Driver<Error>
     }
@@ -24,9 +24,9 @@ class SubtaskSheetDetailViewModel: ViewModelType {
     
     private let useCase: SubtaskSheetDetailUseCase
     private let navigator: SubtaskSheetDetailNavigator
-    private let sheet: Sheet?
+    private let sheet: SubtaskSheet?
     
-    init(with useCase: SubtaskSheetDetailUseCase, and navigator: SubtaskSheetDetailNavigator, and sheet: Sheet? = nil) {
+    init(with useCase: SubtaskSheetDetailUseCase, and navigator: SubtaskSheetDetailNavigator, and sheet: SubtaskSheet? = nil) {
         self.useCase = useCase
         self.navigator = navigator
         self.sheet = sheet

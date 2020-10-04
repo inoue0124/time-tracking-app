@@ -17,15 +17,15 @@ class AddSheetUseCase {
         self.subtaskSheetRepository = subtaskSheetRepository
     }
 
-    func loadTopSheets() -> Observable<[Sheet]> {
+    func loadTopSheets() -> Observable<[PositionSheet]> {
         return topSheetRepository.read(with: appConst.SHEET_TYPE_POSITION)
     }
 
-    func loadPositionSheets() -> Observable<[Sheet]> {
+    func loadPositionSheets() -> Observable<[PositionSheet]> {
         return positionSheetRepository.read(with: appConst.SHEET_TYPE_POSITION)
     }
 
-    func loadSubtaskSheets() -> Observable<[Sheet]> {
+    func loadSubtaskSheets() -> Observable<[SubtaskSheet]> {
         return subtaskSheetRepository.read(with: appConst.SHEET_TYPE_SUBTASK)
     }
 }

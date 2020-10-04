@@ -9,7 +9,7 @@ class TopSheetDetailViewController: UIViewController {
 
     var topSheetDetailViewModel: TopSheetDetailViewModel!
     let disposeBag = DisposeBag()
-    var sheet: Sheet?
+    var sheet: PositionSheet?
     let cellDataConverter = CellDataConverter()
     var noteDialogView = NoteDialogView()
     var tasks: [Task] = []
@@ -31,7 +31,7 @@ class TopSheetDetailViewController: UIViewController {
         sheetView.register(DataCell.self, forCellWithReuseIdentifier: String(describing: DataCell.self))
     }
     
-    func initializeViewModel(with sheet: Sheet? = nil) {
+    func initializeViewModel(with sheet: PositionSheet? = nil) {
         guard topSheetDetailViewModel == nil else { return }
         topSheetDetailViewModel = TopSheetDetailViewModel(with: TopSheetDetailUseCase(withTask: FBTaskRepository()),
                                         and: TopSheetDetailNavigator(with: self),
