@@ -3,11 +3,11 @@ import RxSwift
 import RxCocoa
 import SpreadsheetView
 
-class TopSheetDetailViewController: UIViewController {
+class SubtaskSheetDetailViewController: UIViewController {
 
     @IBOutlet weak var sheetView: SpreadsheetView!
 
-    var topSheetDetailViewModel: TopSheetDetailViewModel!
+    var subtaskSheetDetailViewModel: SubtaskSheetDetailViewModel!
     let disposeBag = DisposeBag()
     var sheet: Sheet?
     let cellDataConverter = CellDataConverter()
@@ -32,30 +32,29 @@ class TopSheetDetailViewController: UIViewController {
     }
     
     func initializeViewModel(with sheet: Sheet? = nil) {
-        guard topSheetDetailViewModel == nil else { return }
-        topSheetDetailViewModel = TopSheetDetailViewModel(with: TopSheetDetailUseCase(withTask: FBTaskRepository()),
-                                        and: TopSheetDetailNavigator(with: self),
+        guard subtaskSheetDetailViewModel == nil else { return }
+        subtaskSheetDetailViewModel = SubtaskSheetDetailViewModel(with: SubtaskSheetDetailUseCase(withTask: FBTaskRepository()),
+                                        and: SubtaskSheetDetailNavigator(with: self),
                                         and: sheet
         )
     }
     
     func bindViewModel() {
-        let input = TopSheetDetailViewModel.Input(loadTrigger: Driver.just(()))
-        let output = topSheetDetailViewModel.transform(input: input)
+        let input = SubtaskSheetDetailViewModel.Input(loadTrigger: Driver.just(()))
+        let output = subtaskSheetDetailViewModel.transform(input: input)
         output.load.drive().disposed(by: disposeBag)
         output.tasks.drive(onNext: { tasks in
             self.tasks = tasks
-            print(tasks)
             self.sheetView.reloadData()
         }).disposed(by: disposeBag)
-//        output.sheet.drive(onNext: { sheet in
-//            self.sheet = sheet
-//        }).disposed(by: disposeBag)
+        output.sheet.drive(onNext: { sheet in
+            self.sheet = sheet
+        }).disposed(by: disposeBag)
     }
 }
 
 
-extension TopSheetDetailViewController: SpreadsheetViewDataSource {
+extension SubtaskSheetDetailViewController: SpreadsheetViewDataSource {
     func numberOfColumns(in spreadsheetView: SpreadsheetView) -> Int {
         return sheet?.columnTitles.count ?? 0
     }
@@ -92,7 +91,7 @@ extension TopSheetDetailViewController: SpreadsheetViewDataSource {
     }
 }
 
-extension TopSheetDetailViewController: DataCellDelegate {
+extension SubtaskSheetDetailViewController: DataCellDelegate {
     func tappedCheckButton(_ isChecked: Bool, indexPath: IndexPath) {
         tasks[indexPath.row-1].data[indexPath.column] = isChecked
         sheetView.reloadData()
@@ -120,7 +119,7 @@ extension TopSheetDetailViewController: DataCellDelegate {
 
 }
 
-extension TopSheetDetailViewController: NoteDialogViewCellDelegate {
+extension SubtaskSheetDetailViewController: NoteDialogViewCellDelegate {
     func openCamera() {}
 
     func openGallary() {}

@@ -6,13 +6,24 @@ class SheetSettingViewModel: ViewModelType {
 
     struct Input {
         let loadTrigger: Driver<Void>
+        let selectTopSheetTrigger: Driver<Int>
+        let deleteTopSheetTrigger: Driver<Int>
+
         let selectPositionSheetTrigger: Driver<Int>
         let deletePositionSheetTrigger: Driver<Int>
+
         let selectSubtaskSheetTrigger: Driver<Int>
         let deleteSubtaskSheetTrigger: Driver<Int>
     }
 
     struct Output {
+        let loadTopSheets: Driver<Void>
+        let topSheets: Driver<[Sheet]>
+        let selectTopSheet: Driver<Void>
+        let deleteTopSheet: Driver<Void>
+        let isLoadingTopSheets: Driver<Bool>
+        let errorLoadingTopSheets: Driver<Error>
+
         let loadPositionSheets: Driver<Void>
         let positionSheets: Driver<[Sheet]>
         let selectPositionSheet: Driver<Void>
@@ -29,6 +40,10 @@ class SheetSettingViewModel: ViewModelType {
     }
 
     struct State {
+        let topSheetsArray = ArrayTracker<Sheet>()
+        let isLoadingTopSheets = ActivityIndicator()
+        let errorLoadingTopSheets = ErrorTracker()
+
         let positionSheetsArray = ArrayTracker<Sheet>()
         let isLoadingPositionSheets = ActivityIndicator()
         let errorLoadingPositionSheets = ErrorTracker()
@@ -48,6 +63,26 @@ class SheetSettingViewModel: ViewModelType {
 
     func transform(input: SheetSettingViewModel.Input) -> SheetSettingViewModel.Output {
         let state = State()
+
+        let loadTopSheets = input.loadTrigger
+            .flatMap { [unowned self] _ in
+            return self.sheetSettingUseCase.loadTopSheets()
+                .trackArray(state.positionSheetsArray)
+                .trackError(state.errorLoadingTopSheets)
+                .trackActivity(state.isLoadingTopSheets)
+                .mapToVoid()
+                .asDriverOnErrorJustComplete()
+            }
+        let selectTopSheet = input.selectTopSheetTrigger
+            .withLatestFrom(state.positionSheetsArray) { [unowned self] (index: Int, positionSheets: [Sheet]) in
+                self.navigator.toEditSheet(with: positionSheets[index])
+            }
+        let deleteTopSheet = input.deleteTopSheetTrigger
+            .flatMapLatest { [unowned self] index -> Driver<Void> in
+                return self.sheetSettingUseCase.deleteTopSheets(with: state.positionSheetsArray.array[index].id)
+                    .asDriver(onErrorJustReturn: ())
+            }
+
         let loadPositionSheets = input.loadTrigger
             .flatMap { [unowned self] _ in
             return self.sheetSettingUseCase.loadPositionSheets()
@@ -87,6 +122,13 @@ class SheetSettingViewModel: ViewModelType {
             }
 
         return SheetSettingViewModel.Output(
+            loadTopSheets: loadTopSheets,
+            topSheets: state.topSheetsArray.asDriver(),
+            selectTopSheet: selectTopSheet,
+            deleteTopSheet: deleteTopSheet,
+            isLoadingTopSheets: state.isLoadingTopSheets.asDriver(),
+            errorLoadingTopSheets: state.errorLoadingTopSheets.asDriver(),
+
             loadPositionSheets: loadPositionSheets,
             positionSheets: state.positionSheetsArray.asDriver(),
             selectPositionSheet: selectPositionSheet,

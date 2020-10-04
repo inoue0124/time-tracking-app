@@ -137,10 +137,10 @@
             </objects>
             <point key="canvasLocation" x="495" y="-142"/>
         </scene>
-        <!--Sheet Detail View Controller-->
+        <!--Position Sheet Detail View Controller-->
         <scene sceneID="ns6-SH-udc">
             <objects>
-                <viewController id="c5f-3z-sNd" customClass="SheetDetailViewController" customModule="TimeTracking" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="c5f-3z-sNd" customClass="PositionSheetDetailViewController" customModule="TimeTracking" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bai-J6-OAn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -166,7 +166,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rQn-Lx-dH0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2561" y="-143"/>
+            <point key="canvasLocation" x="2561" y="-895"/>
         </scene>
         <!--ログイン-->
         <scene sceneID="x2w-SX-NnF">
@@ -483,9 +483,10 @@
                         <outlet property="menuBarButton" destination="aUj-xE-okd" id="HZu-9j-zoF"/>
                         <outlet property="subtaskSheetTable" destination="5kP-JX-45M" id="h3D-Fe-73D"/>
                         <outlet property="topSheetTable" destination="FWw-74-Eou" id="PHw-N4-LPv"/>
-                        <segue destination="c5f-3z-sNd" kind="show" identifier="toSheetDetail" id="Cyx-5x-BUh"/>
+                        <segue destination="c5f-3z-sNd" kind="show" identifier="toPositionSheetDetail" id="Cyx-5x-BUh"/>
                         <segue destination="0Mc-ae-4W3" kind="show" identifier="toSetting" id="1bb-3a-OZ5"/>
                         <segue destination="G4t-CN-mgA" kind="show" identifier="toTopSheetDetail" id="rah-Ta-yBK"/>
+                        <segue destination="7BR-qx-ZTf" kind="show" identifier="toSubtaskSheetDetail" id="kZC-6u-f61"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WLi-I0-i83" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -651,12 +652,14 @@
                         <outlet property="positionSheetTable" destination="EvJ-Ju-Twe" id="P7b-5s-YTh"/>
                         <outlet property="subtaskSheetTable" destination="7AS-Ek-gcN" id="Py9-go-sH0"/>
                         <outlet property="topSheetTable" destination="Akh-uJ-rux" id="7TK-sM-3Bq"/>
-                        <segue destination="Svd-Af-xoA" kind="presentation" identifier="toEditSheet" modalPresentationStyle="fullScreen" id="gpK-0t-aVc"/>
+                        <segue destination="Svd-Af-xoA" kind="presentation" identifier="toEditSubtaskSheet" modalPresentationStyle="fullScreen" id="gpK-0t-aVc"/>
+                        <segue destination="jUg-p7-pZX" kind="presentation" identifier="toEditPositionSheet" modalPresentationStyle="fullScreen" id="fzu-bY-NN6"/>
+                        <segue destination="Kat-Wh-SPL" kind="presentation" identifier="toEditTopSheet" modalPresentationStyle="fullScreen" id="zxG-A0-wjB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ppZ-bn-Vgc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1438" y="654"/>
+            <point key="canvasLocation" x="1438" y="962"/>
         </scene>
         <!--新規シート追加-->
         <scene sceneID="Y2g-yY-XE3">
@@ -781,13 +784,14 @@
                         <outlet property="sheetNameTextField" destination="4do-2o-O4G" id="cQV-8u-JMQ"/>
                         <outlet property="submitButton" destination="IEl-JD-ztX" id="7by-L7-81L"/>
                         <outlet property="templateButton" destination="jdX-a7-aB0" id="agJ-wq-9Th"/>
-                        <segue destination="Svd-Af-xoA" kind="presentation" identifier="toCreateSheet" modalPresentationStyle="fullScreen" id="13t-ou-pb6"/>
+                        <segue destination="Svd-Af-xoA" kind="presentation" identifier="toCreateSubtaskSheet" modalPresentationStyle="fullScreen" id="13t-ou-pb6"/>
                         <segue destination="Kat-Wh-SPL" kind="presentation" identifier="toCreateTopSheet" modalPresentationStyle="fullScreen" id="o61-Zk-QnX"/>
+                        <segue destination="jUg-p7-pZX" kind="presentation" identifier="toCreatePositionSheet" modalPresentationStyle="fullScreen" id="icT-La-5U9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NAm-XC-SP3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1438" y="1487"/>
+            <point key="canvasLocation" x="1438" y="1912"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="b3d-z3-ivJ">
@@ -808,7 +812,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1uY-El-JYU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2398" y="2446"/>
+            <point key="canvasLocation" x="2561" y="654"/>
         </scene>
         <!--TOPシート作成-->
         <scene sceneID="aha-uw-rny">
@@ -898,7 +902,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xz5-I7-VSM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3356" y="2445"/>
+            <point key="canvasLocation" x="3609" y="654"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ko2-f7-UAf">
@@ -919,12 +923,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bXj-le-vWk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2398" y="1487"/>
+            <point key="canvasLocation" x="2561" y="2442"/>
         </scene>
         <!--シート編集-->
         <scene sceneID="E8s-Ft-Lam">
             <objects>
-                <viewController id="Va1-Du-8fS" customClass="EditSheetViewController" customModule="TimeTracking" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Va1-Du-8fS" customClass="EditSubtaskSheetViewController" customModule="TimeTracking" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZC4-CQ-dCd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -955,7 +959,44 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mwt-2x-mY3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3356" y="1486.5067466266867"/>
+            <point key="canvasLocation" x="3609" y="2442"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="yEu-u3-bwS">
+            <objects>
+                <navigationController id="jUg-p7-pZX" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9I6-tl-BT3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" name="theme"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="9tb-QQ-dQm" kind="relationship" relationship="rootViewController" id="9AU-hJ-2cg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uk0-z0-1xN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2561" y="1574"/>
+        </scene>
+        <!--Edit Position Sheet View Controller-->
+        <scene sceneID="04x-CK-Y7T">
+            <objects>
+                <viewController id="9tb-QQ-dQm" customClass="EditPositionSheetViewController" customModule="TimeTracking" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uaW-6T-OQz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="X8n-vI-zAN"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="OPB-Ou-OuI"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w79-Db-8Wi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3609" y="1574"/>
         </scene>
         <!--Top Sheet Detail View Controller-->
         <scene sceneID="0lV-W3-rpb">
@@ -986,11 +1027,44 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NqL-lj-PYL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2562" y="-1025"/>
+            <point key="canvasLocation" x="2561" y="-1650"/>
+        </scene>
+        <!--Subtask Sheet Detail View Controller-->
+        <scene sceneID="8Gw-zh-mk4">
+            <objects>
+                <viewController id="7BR-qx-ZTf" customClass="SubtaskSheetDetailViewController" customModule="TimeTracking" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qlN-IL-L8c">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PMu-UZ-Q1J" customClass="SpreadsheetView" customModule="SpreadsheetView">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PMu-UZ-Q1J" firstAttribute="top" secondItem="NGB-tZ-ajs" secondAttribute="top" id="LiV-kp-vpa"/>
+                            <constraint firstItem="PMu-UZ-Q1J" firstAttribute="leading" secondItem="NGB-tZ-ajs" secondAttribute="leading" id="e5a-QM-seN"/>
+                            <constraint firstItem="NGB-tZ-ajs" firstAttribute="trailing" secondItem="PMu-UZ-Q1J" secondAttribute="trailing" id="eMJ-Ox-0ce"/>
+                            <constraint firstItem="NGB-tZ-ajs" firstAttribute="bottom" secondItem="PMu-UZ-Q1J" secondAttribute="bottom" id="rvD-Rp-Qhe"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="NGB-tZ-ajs"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="RJa-uE-gWx"/>
+                    <connections>
+                        <outlet property="sheetView" destination="PMu-UZ-Q1J" id="BpC-dp-cG7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kJ6-gI-y9H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2561" y="-142"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="fzu-bY-NN6"/>
         <segue reference="gpK-0t-aVc"/>
+        <segue reference="zxG-A0-wjB"/>
         <segue reference="mqw-I1-wrc"/>
     </inferredMetricsTieBreakers>
     <resources>

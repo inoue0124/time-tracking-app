@@ -5,20 +5,20 @@ class EditTopSheetUseCase {
 
     let appConst = AppConst()
 
-    private let sheetRepository: SheetRepository
+    private let positionSheetRepository: PositionSheetRepository
     private let topSheetRepository: TopSheetRepository
 
-    init(with topSheetRepository: TopSheetRepository, and sheetRepository: SheetRepository) {
+    init(with topSheetRepository: TopSheetRepository, and positionSheetRepository: PositionSheetRepository) {
         self.topSheetRepository = topSheetRepository
-        self.sheetRepository = sheetRepository
+        self.positionSheetRepository = positionSheetRepository
     }
 
     func loadPositionSheets() -> Observable<[Sheet]> {
-        return sheetRepository.read(with: appConst.SHEET_TYPE_POSITION)
+        return positionSheetRepository.read(with: appConst.SHEET_TYPE_POSITION)
     }
 
     func loadPositionSheetsByIds(with: [String]) -> Observable<[Sheet]> {
-        return sheetRepository.read(with: appConst.SHEET_TYPE_POSITION)
+        return positionSheetRepository.read(with: appConst.SHEET_TYPE_POSITION)
     }
 
     func saveSheet(with sheet: TopSheet) -> Observable<String> {

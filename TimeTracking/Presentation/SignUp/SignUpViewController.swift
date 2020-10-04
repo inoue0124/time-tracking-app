@@ -38,7 +38,7 @@ class SignUpViewController: UIViewController {
     }
 
     func initializeViewModel() {
-        signUpViewModel = SignUpViewModel.init(with: SignUpUseCase(with: FireBaseAuthRepository()),
+        signUpViewModel = SignUpViewModel.init(with: SignUpUseCase(with: FBAuthRepository()),
                                                and: SignUpNavigator(with: self))
     }
     

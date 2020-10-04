@@ -5,17 +5,27 @@ class AddSheetUseCase {
 
     let appConst = AppConst()
 
-    private let sheetRepository: SheetRepository
+    private let topSheetRepository: TopSheetRepository
+    private let positionSheetRepository: PositionSheetRepository
+    private let subtaskSheetRepository: SubtaskSheetRepository
 
-    init(with sheetRepository: SheetRepository) {
-        self.sheetRepository = sheetRepository
+    init(with topSheetRepository: TopSheetRepository, and positionSheetRepository: PositionSheetRepository,
+         and subtaskSheetRepository: SubtaskSheetRepository) {
+
+        self.topSheetRepository = topSheetRepository
+        self.positionSheetRepository = positionSheetRepository
+        self.subtaskSheetRepository = subtaskSheetRepository
+    }
+
+    func loadTopSheets() -> Observable<[Sheet]> {
+        return topSheetRepository.read(with: appConst.SHEET_TYPE_POSITION)
     }
 
     func loadPositionSheets() -> Observable<[Sheet]> {
-        return sheetRepository.read(with: appConst.SHEET_TYPE_POSITION)
+        return positionSheetRepository.read(with: appConst.SHEET_TYPE_POSITION)
     }
 
     func loadSubtaskSheets() -> Observable<[Sheet]> {
-        return sheetRepository.read(with: appConst.SHEET_TYPE_SUBTASK)
+        return subtaskSheetRepository.read(with: appConst.SHEET_TYPE_SUBTASK)
     }
 }

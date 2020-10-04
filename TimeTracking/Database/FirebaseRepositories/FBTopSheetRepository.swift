@@ -2,7 +2,7 @@ import Firebase
 import FirebaseStorage
 import RxSwift
 
-class FireBaseTopSheetRepository: TopSheetRepository {
+class FBTopSheetRepository: TopSheetRepository {
 
     let db: Firestore
     let storage = Storage.storage()
@@ -118,5 +118,9 @@ class FireBaseTopSheetRepository: TopSheetRepository {
             }
             return Disposables.create()
         }
+    }
+
+    func delete(_ id: String) -> Observable<Void> {
+        return Observable.create { [unowned self] observer in Disposables.create() }
     }
 }

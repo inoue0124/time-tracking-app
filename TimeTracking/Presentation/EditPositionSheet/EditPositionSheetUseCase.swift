@@ -1,15 +1,15 @@
 import Foundation
 import RxSwift
 
-class EditSheetUseCase {
+class EditPositionSheetUseCase {
 
-    private let sheetRepository: SheetRepository
+    private let positionSheetRepository: PositionSheetRepository
     private let taskRepository: TaskRepository
 
     let disposeBag = DisposeBag()
 
-    init(with sheetRepository: SheetRepository, and taskRepository: TaskRepository) {
-        self.sheetRepository = sheetRepository
+    init(with positionSheetRepository: PositionSheetRepository, and taskRepository: TaskRepository) {
+        self.positionSheetRepository = positionSheetRepository
         self.taskRepository = taskRepository
     }
 
@@ -18,7 +18,7 @@ class EditSheetUseCase {
     }
 
     func saveSheet(with sheet: Sheet) -> Observable<String> {
-        sheetRepository.create(with: sheet)
+        positionSheetRepository.create(with: sheet)
     }
 
     func saveTasks(with tasks: [Task], and sheetId: String, and sheetType: String) -> Observable<Void> {
@@ -26,7 +26,7 @@ class EditSheetUseCase {
     }
 
     func updateSheet(with sheet: Sheet) -> Observable<Void> {
-        sheetRepository.update(sheet)
+        positionSheetRepository.update(sheet)
     }
 
     func updateTasks(with tasks: [Task], and sheetId: String, and sheetType: String) -> Observable<Void> {
@@ -34,7 +34,7 @@ class EditSheetUseCase {
     }
 
     func uploadImage(_ image: UIImage, name: String) -> Observable<Void> {
-        sheetRepository.uploadImage(image, name: name)
+        positionSheetRepository.uploadImage(image, name: name)
     }
 }
 

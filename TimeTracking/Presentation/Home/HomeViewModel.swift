@@ -58,7 +58,7 @@ class HomeViewModel: ViewModelType {
                 if (index==0) {
                     self.navigator.toTopSheetDetail(with: positionSheets[index])
                 } else {
-                    self.navigator.toSheetDetail(with: positionSheets[index])
+                    self.navigator.toPositionSheetDetail(with: positionSheets[index])
                 }
         }
         
@@ -74,7 +74,7 @@ class HomeViewModel: ViewModelType {
         }
         let selectSubtaskSheet = input.selectSubtaskSheetTrigger
             .withLatestFrom(loadSubtaskSheetsState.subtaskSheetsArray) { [unowned self] (index: Int, subtaskSheets: [Sheet]) in
-                self.navigator.toSheetDetail(with: subtaskSheets[index])
+                self.navigator.toSubtaskSheetDetail(with: subtaskSheets[index])
         }
 
         return HomeViewModel.Output(

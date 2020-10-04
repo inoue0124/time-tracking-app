@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class EditSheetViewModel: ViewModelType {
+class EditSubtaskSheetViewModel: ViewModelType {
 
     struct Input {
         let loadTrigger: Driver<Void>
@@ -29,17 +29,17 @@ class EditSheetViewModel: ViewModelType {
         let error = ErrorTracker()
     }
 
-    private let editSheetUseCase: EditSheetUseCase
-    private let navigator: EditSheetNavigator
+    private let editSheetUseCase: EditSubtaskSheetUseCase
+    private let navigator: EditSubtaskSheetNavigator
     private let sheet: Sheet?
 
-    init(with editSheetUseCase: EditSheetUseCase, and navigator: EditSheetNavigator, and sheet: Sheet? = nil) {
+    init(with editSheetUseCase: EditSubtaskSheetUseCase, and navigator: EditSubtaskSheetNavigator, and sheet: Sheet? = nil) {
         self.editSheetUseCase = editSheetUseCase
         self.navigator = navigator
         self.sheet = sheet
     }
 
-    func transform(input: EditSheetViewModel.Input) -> EditSheetViewModel.Output {
+    func transform(input: EditSubtaskSheetViewModel.Input) -> EditSubtaskSheetViewModel.Output {
         let state = State()
         let load = input.loadTrigger
             .flatMap { [unowned self] _ -> Driver<Void> in
@@ -85,7 +85,7 @@ class EditSheetViewModel: ViewModelType {
             .flatMapLatest { [unowned self] (image: UIImage, imageName: String) -> Driver<Void> in
                 return self.editSheetUseCase.uploadImage(image, name: imageName).asDriver(onErrorJustReturn: ())
         }
-        return EditSheetViewModel.Output(load: load,
+        return EditSubtaskSheetViewModel.Output(load: load,
                                          tasks: state.contentArray.asDriver(),
                                          sheet: Observable.create { [unowned self] observer in
                                             if (self.sheet == nil) {

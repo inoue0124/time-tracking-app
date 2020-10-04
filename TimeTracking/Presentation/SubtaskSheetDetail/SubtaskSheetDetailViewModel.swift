@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class SheetDetailViewModel: ViewModelType {
+class SubtaskSheetDetailViewModel: ViewModelType {
     
     struct Input {
         let loadTrigger: Driver<Void>
@@ -22,17 +22,17 @@ class SheetDetailViewModel: ViewModelType {
         let error = ErrorTracker()
     }
     
-    private let useCase: SheetDetailUseCase
-    private let navigator: SheetDetailNavigator
+    private let useCase: SubtaskSheetDetailUseCase
+    private let navigator: SubtaskSheetDetailNavigator
     private let sheet: Sheet?
     
-    init(with useCase: SheetDetailUseCase, and navigator: SheetDetailNavigator, and sheet: Sheet? = nil) {
+    init(with useCase: SubtaskSheetDetailUseCase, and navigator: SubtaskSheetDetailNavigator, and sheet: Sheet? = nil) {
         self.useCase = useCase
         self.navigator = navigator
         self.sheet = sheet
     }
     
-    func transform(input: SheetDetailViewModel.Input) -> SheetDetailViewModel.Output {
+    func transform(input: SubtaskSheetDetailViewModel.Input) -> SubtaskSheetDetailViewModel.Output {
         let state = State()
         let load = input.loadTrigger
             .flatMap { [unowned self] _ in
@@ -43,7 +43,7 @@ class SheetDetailViewModel: ViewModelType {
                     .mapToVoid()
                     .asDriverOnErrorJustComplete()
         }
-        return SheetDetailViewModel.Output(load: load,
+        return SubtaskSheetDetailViewModel.Output(load: load,
                                      tasks: state.contentArray.asDriver(),
                                      sheet: Observable.create { [unowned self] observer in
                                         if (self.sheet == nil) {

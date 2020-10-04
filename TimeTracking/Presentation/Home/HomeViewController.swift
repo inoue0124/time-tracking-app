@@ -23,8 +23,14 @@ class HomeViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == R.segue.homeViewController.toSheetDetail.identifier {
-            if let vc = segue.destination as? SheetDetailViewController,
+        if segue.identifier == R.segue.homeViewController.toPositionSheetDetail.identifier {
+            if let vc = segue.destination as? PositionSheetDetailViewController,
+                let sheet = sender as? Sheet {
+                vc.initializeViewModel(with: sheet)
+            }
+        }
+        if segue.identifier == R.segue.homeViewController.toSubtaskSheetDetail.identifier {
+            if let vc = segue.destination as? SubtaskSheetDetailViewController,
                 let sheet = sender as? Sheet {
                 vc.initializeViewModel(with: sheet)
             }
@@ -53,8 +59,9 @@ class HomeViewController: UIViewController {
     }
 
     func initializeViewModel() {
-        homeViewModel = HomeViewModel.init(with: HomeUseCase(with: FireBaseTopSheetRepository(),
-                                                             and: FireBaseSheetRepository()),
+        homeViewModel = HomeViewModel.init(with: HomeUseCase(with: FBTopSheetRepository(),
+                                                             and: FBPositionSheetRepository(),
+                                                             and: FBSubtaskSheetRepository()),
                                            and: HomeNavigator(with: self))
     }
 

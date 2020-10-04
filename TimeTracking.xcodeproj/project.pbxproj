@@ -12,11 +12,11 @@
 		4C04772F1FE96468005A8A45 /* ErrorTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C04772E1FE96468005A8A45 /* ErrorTracker.swift */; };
 		4C0477311FE96482005A8A45 /* ArrayTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0477301FE96482005A8A45 /* ArrayTracker.swift */; };
 		4C0477331FE964A4005A8A45 /* Observable+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0477321FE964A4005A8A45 /* Observable+Ext.swift */; };
-		4C3D43791FDACF49008C5F01 /* SheetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D436F1FDACF38008C5F01 /* SheetDetailViewController.swift */; };
+		4C3D43791FDACF49008C5F01 /* SubtaskSheetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D436F1FDACF38008C5F01 /* SubtaskSheetDetailViewController.swift */; };
 		4C3D437A1FDACF49008C5F01 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D43701FDACF38008C5F01 /* LoginViewController.swift */; };
 		4C3D437C1FDACF49008C5F01 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D43721FDACF38008C5F01 /* SignUpViewController.swift */; };
-		4C3D437D1FDACF5B008C5F01 /* FireBaseAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D435E1FDACF29008C5F01 /* FireBaseAuthRepository.swift */; };
-		4C3D437F1FDACF60008C5F01 /* SheetDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D43641FDACF30008C5F01 /* SheetDetailUseCase.swift */; };
+		4C3D437D1FDACF5B008C5F01 /* FBAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D435E1FDACF29008C5F01 /* FBAuthRepository.swift */; };
+		4C3D437F1FDACF60008C5F01 /* SubtaskSheetDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D43641FDACF30008C5F01 /* SubtaskSheetDetailUseCase.swift */; };
 		4C3D43831FDACFDD008C5F01 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D43821FDACFDD008C5F01 /* AuthRepository.swift */; };
 		4C3D43871FDAD008008C5F01 /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D43861FDAD008008C5F01 /* LoginUseCase.swift */; };
 		4C3D438B1FDAD020008C5F01 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D438A1FDAD020008C5F01 /* SignUpUseCase.swift */; };
@@ -24,11 +24,11 @@
 		4C4583611FC957FB002AFB69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C45835F1FC957FB002AFB69 /* Main.storyboard */; };
 		4C4583631FC957FB002AFB69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C4583621FC957FB002AFB69 /* Assets.xcassets */; };
 		4C4583661FC957FB002AFB69 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C4583641FC957FB002AFB69 /* LaunchScreen.storyboard */; };
-		4C4924871FE75B3F0073FE0B /* SheetDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4924861FE75B3F0073FE0B /* SheetDetailViewModel.swift */; };
+		4C4924871FE75B3F0073FE0B /* SubtaskSheetDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4924861FE75B3F0073FE0B /* SubtaskSheetDetailViewModel.swift */; };
 		4C4924891FE75B530073FE0B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4924881FE75B530073FE0B /* LoginViewModel.swift */; };
 		4C49248B1FE75B650073FE0B /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49248A1FE75B650073FE0B /* SignUpViewModel.swift */; };
 		4C4924901FE75BDF0073FE0B /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49248F1FE75BDF0073FE0B /* ViewModelType.swift */; };
-		4C4924921FE764380073FE0B /* SheeDetailtNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4924911FE764380073FE0B /* SheeDetailtNavigator.swift */; };
+		4C4924921FE764380073FE0B /* SubtaskSheeDetailtNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4924911FE764380073FE0B /* SubtaskSheeDetailtNavigator.swift */; };
 		4C4924951FE768F10073FE0B /* SignUpNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4924941FE768F10073FE0B /* SignUpNavigator.swift */; };
 		4C4924971FE769080073FE0B /* LoginNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4924961FE769080073FE0B /* LoginNavigator.swift */; };
 		4C7234F71FE699D100677DCC /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234F61FE699D100677DCC /* Exception.swift */; };
@@ -51,32 +51,42 @@
 		7095627E25273A120043A35B /* EditTopSheetNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7095627D25273A120043A35B /* EditTopSheetNavigator.swift */; };
 		7095628025288F260043A35B /* TopSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7095627F25288F260043A35B /* TopSheet.swift */; };
 		709562822528CB5F0043A35B /* TopSheetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562812528CB5F0043A35B /* TopSheetRepository.swift */; };
-		709562842528CC580043A35B /* FireBaseTopSheetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562832528CC580043A35B /* FireBaseTopSheetRepository.swift */; };
+		709562842528CC580043A35B /* FBTopSheetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562832528CC580043A35B /* FBTopSheetRepository.swift */; };
 		709562912529F7660043A35B /* TopSheetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7095628F2529F6DF0043A35B /* TopSheetDetailViewController.swift */; };
 		709562922529F7690043A35B /* TopSheetDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562902529F6DF0043A35B /* TopSheetDetailViewModel.swift */; };
 		709562932529F76B0043A35B /* TopSheeDetailtNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7095628E2529F6DF0043A35B /* TopSheeDetailtNavigator.swift */; };
 		709562952529F7CB0043A35B /* TopSheetDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562942529F7CB0043A35B /* TopSheetDetailUseCase.swift */; };
+		7095629B252A11230043A35B /* EditPositionSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70956299252A111F0043A35B /* EditPositionSheetViewController.swift */; };
+		7095629C252A11260043A35B /* EditPositionSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70956297252A111F0043A35B /* EditPositionSheetViewModel.swift */; };
+		7095629D252A11290043A35B /* EditPositionSheetNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70956298252A111F0043A35B /* EditPositionSheetNavigator.swift */; };
+		7095629E252A112B0043A35B /* EditPositionSheetUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7095629A252A111F0043A35B /* EditPositionSheetUseCase.swift */; };
+		709562A4252A15900043A35B /* PositionSheeDetailtNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562A2252A14F90043A35B /* PositionSheeDetailtNavigator.swift */; };
+		709562A5252A15930043A35B /* PositionSheetDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562A0252A14F90043A35B /* PositionSheetDetailUseCase.swift */; };
+		709562A6252A15B80043A35B /* PositionSheetDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562A3252A14F90043A35B /* PositionSheetDetailViewModel.swift */; };
+		709562A7252A15BA0043A35B /* PositionSheetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562A1252A14F90043A35B /* PositionSheetDetailViewController.swift */; };
+		709562A9252A1A8E0043A35B /* PositionSheetRepository copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562A8252A1A8E0043A35B /* PositionSheetRepository copy.swift */; };
+		709562AB252A1CF70043A35B /* FBSubtaskSheetRepository copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562AA252A1CF70043A35B /* FBSubtaskSheetRepository copy.swift */; };
 		70B5933324F7769F00696E2A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933224F7769F00696E2A /* Task.swift */; };
 		70B5933524F7779600696E2A /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933424F7779600696E2A /* Sheet.swift */; };
 		70B5933724F779F200696E2A /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933624F779F200696E2A /* TaskRepository.swift */; };
-		70B5933B24F77E0500696E2A /* SheetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933A24F77E0500696E2A /* SheetRepository.swift */; };
-		70B5933D24F77E6D00696E2A /* FireBaseSheetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933C24F77E6D00696E2A /* FireBaseSheetRepository.swift */; };
+		70B5933B24F77E0500696E2A /* SubtaskSheetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933A24F77E0500696E2A /* SubtaskSheetRepository.swift */; };
+		70B5933D24F77E6D00696E2A /* FBPositionSheetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933C24F77E6D00696E2A /* FBPositionSheetRepository.swift */; };
 		70B5933F24F7825D00696E2A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933E24F7825D00696E2A /* HomeViewController.swift */; };
 		70B5934124F782F600696E2A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5934024F782F600696E2A /* HomeViewModel.swift */; };
 		70B5934324F7834900696E2A /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5934224F7834900696E2A /* HomeUseCase.swift */; };
-		70B5934524F78B9C00696E2A /* FireBaseTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5934424F78B9C00696E2A /* FireBaseTaskRepository.swift */; };
+		70B5934524F78B9C00696E2A /* FBTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5934424F78B9C00696E2A /* FBTaskRepository.swift */; };
 		70B5934724F79DAD00696E2A /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5934624F79DAD00696E2A /* R.generated.swift */; };
 		70B5934924F7BCEA00696E2A /* HomeNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5934824F7BCEA00696E2A /* HomeNavigator.swift */; };
-		70B5D9AB2500FEBE00032B0F /* EditSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5D9AA2500FEBE00032B0F /* EditSheetViewController.swift */; };
+		70B5D9AB2500FEBE00032B0F /* EditSubtaskSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5D9AA2500FEBE00032B0F /* EditSubtaskSheetViewController.swift */; };
 		70B9C88724F502700007E314 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70B9C88624F502700007E314 /* GoogleService-Info.plist */; };
 		70BD769D24FCDF5700031D98 /* AddSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BD769C24FCDF5700031D98 /* AddSheetViewController.swift */; };
 		70D86BDE2504AA6F00ABB1A9 /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BDD2504AA6F00ABB1A9 /* HeaderCell.swift */; };
 		70D86BE02504AAFB00ABB1A9 /* DataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BDF2504AAFB00ABB1A9 /* DataCell.swift */; };
 		70D86BE22504ADB300ABB1A9 /* CellDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE12504ADB300ABB1A9 /* CellDataConverter.swift */; };
 		70D86BE42504CE0800ABB1A9 /* AddButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE32504CE0800ABB1A9 /* AddButtonCell.swift */; };
-		70D86BEA2504DDB800ABB1A9 /* EditSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE92504DDB800ABB1A9 /* EditSheetViewModel.swift */; };
-		70D86BEC2504DE9200ABB1A9 /* EditSheetUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BEB2504DE9200ABB1A9 /* EditSheetUseCase.swift */; };
-		70D86BEE2504DF1200ABB1A9 /* EditSheetNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BED2504DF1200ABB1A9 /* EditSheetNavigator.swift */; };
+		70D86BEA2504DDB800ABB1A9 /* EditSubtaskSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BE92504DDB800ABB1A9 /* EditSubtaskSheetViewModel.swift */; };
+		70D86BEC2504DE9200ABB1A9 /* EditSubtaskSheetUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BEB2504DE9200ABB1A9 /* EditSubtaskSheetUseCase.swift */; };
+		70D86BEE2504DF1200ABB1A9 /* EditSubtaskSheetNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D86BED2504DF1200ABB1A9 /* EditSubtaskSheetNavigator.swift */; };
 		70ED1C252507A91B0059B3BB /* HeaderSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ED1C232507A91B0059B3BB /* HeaderSettingViewController.swift */; };
 		70ED1C262507A91B0059B3BB /* HeaderSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70ED1C242507A91B0059B3BB /* HeaderSettingViewController.xib */; };
 		70ED1C282507B8750059B3BB /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ED1C272507B8750059B3BB /* Column.swift */; };
@@ -89,9 +99,9 @@
 		4C04772E1FE96468005A8A45 /* ErrorTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTracker.swift; sourceTree = "<group>"; };
 		4C0477301FE96482005A8A45 /* ArrayTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTracker.swift; sourceTree = "<group>"; };
 		4C0477321FE964A4005A8A45 /* Observable+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Ext.swift"; sourceTree = "<group>"; };
-		4C3D435E1FDACF29008C5F01 /* FireBaseAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseAuthRepository.swift; sourceTree = "<group>"; };
-		4C3D43641FDACF30008C5F01 /* SheetDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetDetailUseCase.swift; sourceTree = "<group>"; };
-		4C3D436F1FDACF38008C5F01 /* SheetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetDetailViewController.swift; sourceTree = "<group>"; };
+		4C3D435E1FDACF29008C5F01 /* FBAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBAuthRepository.swift; sourceTree = "<group>"; };
+		4C3D43641FDACF30008C5F01 /* SubtaskSheetDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskSheetDetailUseCase.swift; sourceTree = "<group>"; };
+		4C3D436F1FDACF38008C5F01 /* SubtaskSheetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskSheetDetailViewController.swift; sourceTree = "<group>"; };
 		4C3D43701FDACF38008C5F01 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4C3D43721FDACF38008C5F01 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		4C3D43821FDACFDD008C5F01 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
@@ -103,11 +113,11 @@
 		4C4583621FC957FB002AFB69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C4583651FC957FB002AFB69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C4583671FC957FB002AFB69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4C4924861FE75B3F0073FE0B /* SheetDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetDetailViewModel.swift; sourceTree = "<group>"; };
+		4C4924861FE75B3F0073FE0B /* SubtaskSheetDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskSheetDetailViewModel.swift; sourceTree = "<group>"; };
 		4C4924881FE75B530073FE0B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		4C49248A1FE75B650073FE0B /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		4C49248F1FE75BDF0073FE0B /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
-		4C4924911FE764380073FE0B /* SheeDetailtNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheeDetailtNavigator.swift; sourceTree = "<group>"; };
+		4C4924911FE764380073FE0B /* SubtaskSheeDetailtNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskSheeDetailtNavigator.swift; sourceTree = "<group>"; };
 		4C4924941FE768F10073FE0B /* SignUpNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNavigator.swift; sourceTree = "<group>"; };
 		4C4924961FE769080073FE0B /* LoginNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNavigator.swift; sourceTree = "<group>"; };
 		4C7234F61FE699D100677DCC /* Exception.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exception.swift; sourceTree = "<group>"; };
@@ -131,32 +141,42 @@
 		7095627D25273A120043A35B /* EditTopSheetNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTopSheetNavigator.swift; sourceTree = "<group>"; };
 		7095627F25288F260043A35B /* TopSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSheet.swift; sourceTree = "<group>"; };
 		709562812528CB5F0043A35B /* TopSheetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSheetRepository.swift; sourceTree = "<group>"; };
-		709562832528CC580043A35B /* FireBaseTopSheetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseTopSheetRepository.swift; sourceTree = "<group>"; };
+		709562832528CC580043A35B /* FBTopSheetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBTopSheetRepository.swift; sourceTree = "<group>"; };
 		7095628E2529F6DF0043A35B /* TopSheeDetailtNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSheeDetailtNavigator.swift; sourceTree = "<group>"; };
 		7095628F2529F6DF0043A35B /* TopSheetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSheetDetailViewController.swift; sourceTree = "<group>"; };
 		709562902529F6DF0043A35B /* TopSheetDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSheetDetailViewModel.swift; sourceTree = "<group>"; };
 		709562942529F7CB0043A35B /* TopSheetDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSheetDetailUseCase.swift; sourceTree = "<group>"; };
+		70956297252A111F0043A35B /* EditPositionSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPositionSheetViewModel.swift; sourceTree = "<group>"; };
+		70956298252A111F0043A35B /* EditPositionSheetNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPositionSheetNavigator.swift; sourceTree = "<group>"; };
+		70956299252A111F0043A35B /* EditPositionSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPositionSheetViewController.swift; sourceTree = "<group>"; };
+		7095629A252A111F0043A35B /* EditPositionSheetUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPositionSheetUseCase.swift; sourceTree = "<group>"; };
+		709562A0252A14F90043A35B /* PositionSheetDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionSheetDetailUseCase.swift; sourceTree = "<group>"; };
+		709562A1252A14F90043A35B /* PositionSheetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionSheetDetailViewController.swift; sourceTree = "<group>"; };
+		709562A2252A14F90043A35B /* PositionSheeDetailtNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionSheeDetailtNavigator.swift; sourceTree = "<group>"; };
+		709562A3252A14F90043A35B /* PositionSheetDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionSheetDetailViewModel.swift; sourceTree = "<group>"; };
+		709562A8252A1A8E0043A35B /* PositionSheetRepository copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PositionSheetRepository copy.swift"; sourceTree = "<group>"; };
+		709562AA252A1CF70043A35B /* FBSubtaskSheetRepository copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FBSubtaskSheetRepository copy.swift"; sourceTree = "<group>"; };
 		70B5933224F7769F00696E2A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		70B5933424F7779600696E2A /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
 		70B5933624F779F200696E2A /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
-		70B5933A24F77E0500696E2A /* SheetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetRepository.swift; sourceTree = "<group>"; };
-		70B5933C24F77E6D00696E2A /* FireBaseSheetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseSheetRepository.swift; sourceTree = "<group>"; };
+		70B5933A24F77E0500696E2A /* SubtaskSheetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskSheetRepository.swift; sourceTree = "<group>"; };
+		70B5933C24F77E6D00696E2A /* FBPositionSheetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBPositionSheetRepository.swift; sourceTree = "<group>"; };
 		70B5933E24F7825D00696E2A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		70B5934024F782F600696E2A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		70B5934224F7834900696E2A /* HomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
-		70B5934424F78B9C00696E2A /* FireBaseTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseTaskRepository.swift; sourceTree = "<group>"; };
+		70B5934424F78B9C00696E2A /* FBTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBTaskRepository.swift; sourceTree = "<group>"; };
 		70B5934624F79DAD00696E2A /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		70B5934824F7BCEA00696E2A /* HomeNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigator.swift; sourceTree = "<group>"; };
-		70B5D9AA2500FEBE00032B0F /* EditSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSheetViewController.swift; sourceTree = "<group>"; };
+		70B5D9AA2500FEBE00032B0F /* EditSubtaskSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSubtaskSheetViewController.swift; sourceTree = "<group>"; };
 		70B9C88624F502700007E314 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		70BD769C24FCDF5700031D98 /* AddSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSheetViewController.swift; sourceTree = "<group>"; };
 		70D86BDD2504AA6F00ABB1A9 /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		70D86BDF2504AAFB00ABB1A9 /* DataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCell.swift; sourceTree = "<group>"; };
 		70D86BE12504ADB300ABB1A9 /* CellDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDataConverter.swift; sourceTree = "<group>"; };
 		70D86BE32504CE0800ABB1A9 /* AddButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButtonCell.swift; sourceTree = "<group>"; };
-		70D86BE92504DDB800ABB1A9 /* EditSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSheetViewModel.swift; sourceTree = "<group>"; };
-		70D86BEB2504DE9200ABB1A9 /* EditSheetUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSheetUseCase.swift; sourceTree = "<group>"; };
-		70D86BED2504DF1200ABB1A9 /* EditSheetNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSheetNavigator.swift; sourceTree = "<group>"; };
+		70D86BE92504DDB800ABB1A9 /* EditSubtaskSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSubtaskSheetViewModel.swift; sourceTree = "<group>"; };
+		70D86BEB2504DE9200ABB1A9 /* EditSubtaskSheetUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSubtaskSheetUseCase.swift; sourceTree = "<group>"; };
+		70D86BED2504DF1200ABB1A9 /* EditSubtaskSheetNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSubtaskSheetNavigator.swift; sourceTree = "<group>"; };
 		70ED1C232507A91B0059B3BB /* HeaderSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSettingViewController.swift; sourceTree = "<group>"; };
 		70ED1C242507A91B0059B3BB /* HeaderSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderSettingViewController.xib; sourceTree = "<group>"; };
 		70ED1C272507B8750059B3BB /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
@@ -222,12 +242,14 @@
 				709562852529EF580043A35B /* SignUp */,
 				709562862529EF8B0043A35B /* Login */,
 				709562872529EFA50043A35B /* Home */,
-				709562882529EFBD0043A35B /* SheetDetail */,
-				7095628D2529F6B40043A35B /* TopSheetDetail */,
 				709562892529EFD10043A35B /* SheetSetting */,
-				7095628B2529EFF90043A35B /* EditSheet */,
-				7095628C2529F0080043A35B /* EditTopSheet */,
 				7095628A2529EFE80043A35B /* AddSheet */,
+				7095628D2529F6B40043A35B /* TopSheetDetail */,
+				7095629F252A14D30043A35B /* PositionSheetDetail */,
+				709562882529EFBD0043A35B /* SubtaskSheetDetail */,
+				7095628C2529F0080043A35B /* EditTopSheet */,
+				70956296252A10EC0043A35B /* EditPositionSheet */,
+				7095628B2529EFF90043A35B /* EditSubtaskSheet */,
 				4C3D436C1FDACF38008C5F01 /* Cells */,
 			);
 			path = Presentation;
@@ -236,10 +258,11 @@
 		4C3D435D1FDACF29008C5F01 /* FirebaseRepositories */ = {
 			isa = PBXGroup;
 			children = (
-				4C3D435E1FDACF29008C5F01 /* FireBaseAuthRepository.swift */,
-				70B5933C24F77E6D00696E2A /* FireBaseSheetRepository.swift */,
-				70B5934424F78B9C00696E2A /* FireBaseTaskRepository.swift */,
-				709562832528CC580043A35B /* FireBaseTopSheetRepository.swift */,
+				4C3D435E1FDACF29008C5F01 /* FBAuthRepository.swift */,
+				709562832528CC580043A35B /* FBTopSheetRepository.swift */,
+				70B5933C24F77E6D00696E2A /* FBPositionSheetRepository.swift */,
+				709562AA252A1CF70043A35B /* FBSubtaskSheetRepository copy.swift */,
+				70B5934424F78B9C00696E2A /* FBTaskRepository.swift */,
 			);
 			path = FirebaseRepositories;
 			sourceTree = "<group>";
@@ -271,9 +294,10 @@
 			isa = PBXGroup;
 			children = (
 				4C3D43821FDACFDD008C5F01 /* AuthRepository.swift */,
-				70B5933A24F77E0500696E2A /* SheetRepository.swift */,
-				70B5933624F779F200696E2A /* TaskRepository.swift */,
 				709562812528CB5F0043A35B /* TopSheetRepository.swift */,
+				709562A8252A1A8E0043A35B /* PositionSheetRepository copy.swift */,
+				70B5933A24F77E0500696E2A /* SubtaskSheetRepository.swift */,
+				70B5933624F779F200696E2A /* TaskRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -362,15 +386,15 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		709562882529EFBD0043A35B /* SheetDetail */ = {
+		709562882529EFBD0043A35B /* SubtaskSheetDetail */ = {
 			isa = PBXGroup;
 			children = (
-				4C3D436F1FDACF38008C5F01 /* SheetDetailViewController.swift */,
-				4C4924861FE75B3F0073FE0B /* SheetDetailViewModel.swift */,
-				4C4924911FE764380073FE0B /* SheeDetailtNavigator.swift */,
-				4C3D43641FDACF30008C5F01 /* SheetDetailUseCase.swift */,
+				4C3D436F1FDACF38008C5F01 /* SubtaskSheetDetailViewController.swift */,
+				4C4924861FE75B3F0073FE0B /* SubtaskSheetDetailViewModel.swift */,
+				4C4924911FE764380073FE0B /* SubtaskSheeDetailtNavigator.swift */,
+				4C3D43641FDACF30008C5F01 /* SubtaskSheetDetailUseCase.swift */,
 			);
-			path = SheetDetail;
+			path = SubtaskSheetDetail;
 			sourceTree = "<group>";
 		};
 		709562892529EFD10043A35B /* SheetSetting */ = {
@@ -395,15 +419,15 @@
 			path = AddSheet;
 			sourceTree = "<group>";
 		};
-		7095628B2529EFF90043A35B /* EditSheet */ = {
+		7095628B2529EFF90043A35B /* EditSubtaskSheet */ = {
 			isa = PBXGroup;
 			children = (
-				70B5D9AA2500FEBE00032B0F /* EditSheetViewController.swift */,
-				70D86BE92504DDB800ABB1A9 /* EditSheetViewModel.swift */,
-				70D86BED2504DF1200ABB1A9 /* EditSheetNavigator.swift */,
-				70D86BEB2504DE9200ABB1A9 /* EditSheetUseCase.swift */,
+				70B5D9AA2500FEBE00032B0F /* EditSubtaskSheetViewController.swift */,
+				70D86BE92504DDB800ABB1A9 /* EditSubtaskSheetViewModel.swift */,
+				70D86BED2504DF1200ABB1A9 /* EditSubtaskSheetNavigator.swift */,
+				70D86BEB2504DE9200ABB1A9 /* EditSubtaskSheetUseCase.swift */,
 			);
-			path = EditSheet;
+			path = EditSubtaskSheet;
 			sourceTree = "<group>";
 		};
 		7095628C2529F0080043A35B /* EditTopSheet */ = {
@@ -426,6 +450,28 @@
 				709562942529F7CB0043A35B /* TopSheetDetailUseCase.swift */,
 			);
 			path = TopSheetDetail;
+			sourceTree = "<group>";
+		};
+		70956296252A10EC0043A35B /* EditPositionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				70956299252A111F0043A35B /* EditPositionSheetViewController.swift */,
+				70956297252A111F0043A35B /* EditPositionSheetViewModel.swift */,
+				70956298252A111F0043A35B /* EditPositionSheetNavigator.swift */,
+				7095629A252A111F0043A35B /* EditPositionSheetUseCase.swift */,
+			);
+			path = EditPositionSheet;
+			sourceTree = "<group>";
+		};
+		7095629F252A14D30043A35B /* PositionSheetDetail */ = {
+			isa = PBXGroup;
+			children = (
+				709562A1252A14F90043A35B /* PositionSheetDetailViewController.swift */,
+				709562A3252A14F90043A35B /* PositionSheetDetailViewModel.swift */,
+				709562A2252A14F90043A35B /* PositionSheeDetailtNavigator.swift */,
+				709562A0252A14F90043A35B /* PositionSheetDetailUseCase.swift */,
+			);
+			path = PositionSheetDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -598,41 +644,46 @@
 				70B5933724F779F200696E2A /* TaskRepository.swift in Sources */,
 				7020B11B251779D1007FB709 /* ImageResizer.swift in Sources */,
 				70D86BE02504AAFB00ABB1A9 /* DataCell.swift in Sources */,
-				70B5D9AB2500FEBE00032B0F /* EditSheetViewController.swift in Sources */,
+				70B5D9AB2500FEBE00032B0F /* EditSubtaskSheetViewController.swift in Sources */,
 				70ED1C282507B8750059B3BB /* Column.swift in Sources */,
 				4C0477311FE96482005A8A45 /* ArrayTracker.swift in Sources */,
 				4C3D437C1FDACF49008C5F01 /* SignUpViewController.swift in Sources */,
 				70B5934924F7BCEA00696E2A /* HomeNavigator.swift in Sources */,
+				7095629D252A11290043A35B /* EditPositionSheetNavigator.swift in Sources */,
 				7095628025288F260043A35B /* TopSheet.swift in Sources */,
 				7020B11725167D36007FB709 /* Extension_UIView.swift in Sources */,
 				7095627C252739DE0043A35B /* EditTopSheetUseCase.swift in Sources */,
 				4C3D437A1FDACF49008C5F01 /* LoginViewController.swift in Sources */,
+				709562A6252A15B80043A35B /* PositionSheetDetailViewModel.swift in Sources */,
 				70B5933F24F7825D00696E2A /* HomeViewController.swift in Sources */,
 				70B5934324F7834900696E2A /* HomeUseCase.swift in Sources */,
-				70D86BEC2504DE9200ABB1A9 /* EditSheetUseCase.swift in Sources */,
+				70D86BEC2504DE9200ABB1A9 /* EditSubtaskSheetUseCase.swift in Sources */,
 				7020B11F251898D4007FB709 /* SheetSettingViewModel.swift in Sources */,
+				709562A5252A15930043A35B /* PositionSheetDetailUseCase.swift in Sources */,
 				70D86BE42504CE0800ABB1A9 /* AddButtonCell.swift in Sources */,
 				4C04772C1FE96435005A8A45 /* ActivityIndicator.swift in Sources */,
 				4C4924971FE769080073FE0B /* LoginNavigator.swift in Sources */,
 				70BD769D24FCDF5700031D98 /* AddSheetViewController.swift in Sources */,
-				4C4924921FE764380073FE0B /* SheeDetailtNavigator.swift in Sources */,
+				4C4924921FE764380073FE0B /* SubtaskSheeDetailtNavigator.swift in Sources */,
 				7020B11525165F82007FB709 /* NoteDialogView.swift in Sources */,
 				70B5934124F782F600696E2A /* HomeViewModel.swift in Sources */,
 				70D86BE22504ADB300ABB1A9 /* CellDataConverter.swift in Sources */,
 				4C4924951FE768F10073FE0B /* SignUpNavigator.swift in Sources */,
-				709562842528CC580043A35B /* FireBaseTopSheetRepository.swift in Sources */,
+				709562842528CC580043A35B /* FBTopSheetRepository.swift in Sources */,
 				4C7234F71FE699D100677DCC /* Exception.swift in Sources */,
-				4C3D437D1FDACF5B008C5F01 /* FireBaseAuthRepository.swift in Sources */,
+				4C3D437D1FDACF5B008C5F01 /* FBAuthRepository.swift in Sources */,
 				7020B1252519058B007FB709 /* SheetSettingUseCase.swift in Sources */,
-				70B5933B24F77E0500696E2A /* SheetRepository.swift in Sources */,
+				70B5933B24F77E0500696E2A /* SubtaskSheetRepository.swift in Sources */,
 				709562922529F7690043A35B /* TopSheetDetailViewModel.swift in Sources */,
 				70ED1C2B2507BDDD0059B3BB /* AppConst.swift in Sources */,
+				7095629E252A112B0043A35B /* EditPositionSheetUseCase.swift in Sources */,
 				70D86BDE2504AA6F00ABB1A9 /* HeaderCell.swift in Sources */,
 				7095627E25273A120043A35B /* EditTopSheetNavigator.swift in Sources */,
 				4C0477331FE964A4005A8A45 /* Observable+Ext.swift in Sources */,
 				4C4924891FE75B530073FE0B /* LoginViewModel.swift in Sources */,
 				706BFF5625261ECB006AD077 /* EditTopSheetViewModel.swift in Sources */,
-				70D86BEE2504DF1200ABB1A9 /* EditSheetNavigator.swift in Sources */,
+				7095629B252A11230043A35B /* EditPositionSheetViewController.swift in Sources */,
+				70D86BEE2504DF1200ABB1A9 /* EditSubtaskSheetNavigator.swift in Sources */,
 				4C04772F1FE96468005A8A45 /* ErrorTracker.swift in Sources */,
 				709562912529F7660043A35B /* TopSheetDetailViewController.swift in Sources */,
 				70B5933524F7779600696E2A /* Sheet.swift in Sources */,
@@ -642,25 +693,30 @@
 				4C3D43831FDACFDD008C5F01 /* AuthRepository.swift in Sources */,
 				709562822528CB5F0043A35B /* TopSheetRepository.swift in Sources */,
 				7020B11D2518976C007FB709 /* SheetSettingViewController.swift in Sources */,
-				70D86BEA2504DDB800ABB1A9 /* EditSheetViewModel.swift in Sources */,
-				70B5933D24F77E6D00696E2A /* FireBaseSheetRepository.swift in Sources */,
+				70D86BEA2504DDB800ABB1A9 /* EditSubtaskSheetViewModel.swift in Sources */,
+				70B5933D24F77E6D00696E2A /* FBPositionSheetRepository.swift in Sources */,
 				706BFF4E2520E069006AD077 /* AddSheetViewModel.swift in Sources */,
 				7020B11925176AB0007FB709 /* Note.swift in Sources */,
 				4C3D438B1FDAD020008C5F01 /* SignUpUseCase.swift in Sources */,
 				70B5934724F79DAD00696E2A /* R.generated.swift in Sources */,
 				4C49248B1FE75B650073FE0B /* SignUpViewModel.swift in Sources */,
 				709562952529F7CB0043A35B /* TopSheetDetailUseCase.swift in Sources */,
-				4C3D437F1FDACF60008C5F01 /* SheetDetailUseCase.swift in Sources */,
+				709562AB252A1CF70043A35B /* FBSubtaskSheetRepository copy.swift in Sources */,
+				4C3D437F1FDACF60008C5F01 /* SubtaskSheetDetailUseCase.swift in Sources */,
+				709562A7252A15BA0043A35B /* PositionSheetDetailViewController.swift in Sources */,
+				7095629C252A11260043A35B /* EditPositionSheetViewModel.swift in Sources */,
 				709562932529F76B0043A35B /* TopSheeDetailtNavigator.swift in Sources */,
 				70B5933324F7769F00696E2A /* Task.swift in Sources */,
 				70ED1C252507A91B0059B3BB /* HeaderSettingViewController.swift in Sources */,
-				4C4924871FE75B3F0073FE0B /* SheetDetailViewModel.swift in Sources */,
-				4C3D43791FDACF49008C5F01 /* SheetDetailViewController.swift in Sources */,
-				70B5934524F78B9C00696E2A /* FireBaseTaskRepository.swift in Sources */,
+				4C4924871FE75B3F0073FE0B /* SubtaskSheetDetailViewModel.swift in Sources */,
+				4C3D43791FDACF49008C5F01 /* SubtaskSheetDetailViewController.swift in Sources */,
+				70B5934524F78B9C00696E2A /* FBTaskRepository.swift in Sources */,
 				4C45835C1FC957FB002AFB69 /* AppDelegate.swift in Sources */,
 				4C3D43871FDAD008008C5F01 /* LoginUseCase.swift in Sources */,
+				709562A4252A15900043A35B /* PositionSheeDetailtNavigator.swift in Sources */,
 				4CBB96F11FE1153F002C5DCC /* User.swift in Sources */,
 				706BFF522520E116006AD077 /* AddSheetNavigator.swift in Sources */,
+				709562A9252A1A8E0043A35B /* PositionSheetRepository copy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

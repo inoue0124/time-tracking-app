@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-class SheetDetailUseCase {
+class SubtaskSheetDetailUseCase {
     
     private let taskRepository: TaskRepository
     

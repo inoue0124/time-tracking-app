@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-protocol SheetRepository {
+protocol SubtaskSheetRepository {
     func create(with sheet: Sheet) -> Observable<String>
     func read(with sheetType: String) -> Observable<[Sheet]>
     func update(_ positionSheet: Sheet) -> Observable<Void>

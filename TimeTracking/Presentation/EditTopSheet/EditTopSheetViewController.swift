@@ -45,7 +45,7 @@ class EditTopSheetViewController: UIViewController {
 
     func initializeViewModel(with topSheet: TopSheet? = nil, and nvc: UINavigationController? = nil) {
         guard editTopSheetViewModel == nil else { return }
-        editTopSheetViewModel = EditTopSheetViewModel(with: EditTopSheetUseCase(with: FireBaseTopSheetRepository(), and: FireBaseSheetRepository()),
+        editTopSheetViewModel = EditTopSheetViewModel(with: EditTopSheetUseCase(with: FBTopSheetRepository(), and: FBPositionSheetRepository()),
                                                 and: EditTopSheetNavigator(with: self, and: nvc),
                                                 and: topSheet)
     }

@@ -1,7 +1,7 @@
 import Firebase
 import RxSwift
 
-class FireBaseAuthRepository: AuthRepository {
+class FBAuthRepository: AuthRepository {
     
     func checkLogin() -> Observable<Bool> {
         return Observable.create { observer in

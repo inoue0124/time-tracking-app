@@ -7,11 +7,15 @@ class AddSheetNavigator {
         self.viewController = viewController
     }
 
-    func toCreateSheet(with sheet: Sheet? = nil) {
-        viewController?.performSegue(withIdentifier: R.segue.addSheetViewController.toCreateSheet, sender: sheet)
-    }
-
     func toCreateTopSheet() {
         viewController?.performSegue(withIdentifier: R.segue.addSheetViewController.toCreateTopSheet, sender: nil)
+    }
+
+    func toCreatePositionSheet(with sheet: Sheet? = nil) {
+        viewController?.performSegue(withIdentifier: R.segue.addSheetViewController.toCreatePositionSheet, sender: sheet)
+    }
+
+    func toCreateSubtaskSheet(with sheet: Sheet? = nil) {
+        viewController?.performSegue(withIdentifier: R.segue.addSheetViewController.toCreateSubtaskSheet, sender: sheet)
     }
 }

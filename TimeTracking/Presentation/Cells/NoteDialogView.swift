@@ -65,7 +65,7 @@ class NoteDialogView: UIView {
         alert.addAction(UIAlertAction.init(title: "キャンセル", style: .cancel, handler: nil))
 
         if let parentNVC = self.parentViewController() as? UINavigationController {
-            if let parentVC = parentNVC.viewControllers[0] as? EditSheetViewController {
+            if let parentVC = parentNVC.viewControllers[0] as? EditSubtaskSheetViewController {
                 parentVC.present(alert, animated: true, completion: nil)
             }
         }

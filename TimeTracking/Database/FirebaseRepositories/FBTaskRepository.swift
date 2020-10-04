@@ -1,7 +1,7 @@
 import Firebase
 import RxSwift
 
-class FireBaseTaskRepository: TaskRepository {
+class FBTaskRepository: TaskRepository {
 
     let appConst = AppConst()
     let db: Firestore

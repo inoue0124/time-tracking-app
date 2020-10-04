@@ -60,7 +60,7 @@ class AddSheetViewModel: ViewModelType {
                 if (sheet.type == self.appConst.SHEET_TYPE_TOP) {
                     self.navigator.toCreateTopSheet()
                 } else {
-                    self.navigator.toCreateSheet(with: sheet)
+                    self.navigator.toCreateSubtaskSheet(with: sheet)
                 }
         }
         return AddSheetViewModel.Output(

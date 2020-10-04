@@ -31,9 +31,9 @@ class AddSheetViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == R.segue.addSheetViewController.toCreateSheet.identifier {
+        if segue.identifier == R.segue.addSheetViewController.toCreateSubtaskSheet.identifier {
             if let nc = segue.destination as? UINavigationController {
-                if let vc = nc.viewControllers[0] as? EditSheetViewController {
+                if let vc = nc.viewControllers[0] as? EditSubtaskSheetViewController {
                     vc.initializeViewModel(with: self.sheet, and: self.navigationController)
                 }
             }
@@ -62,7 +62,9 @@ class AddSheetViewController: UIViewController {
     }
 
     func initializeViewModel() {
-        addSheetViewModel = AddSheetViewModel.init(with: AddSheetUseCase(with: FireBaseSheetRepository()),
+        addSheetViewModel = AddSheetViewModel.init(with: AddSheetUseCase(with: FBTopSheetRepository(),
+                                                                         and: FBPositionSheetRepository(),
+                                                                         and: FBSubtaskSheetRepository()),
                                                            and: AddSheetNavigator(with: self))
     }
 

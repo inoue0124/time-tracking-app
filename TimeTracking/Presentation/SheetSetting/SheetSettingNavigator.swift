@@ -9,6 +9,6 @@ class SheetSettingNavigator {
 
     func toEditSheet(with sheet: Sheet? = nil) {
         assert(sheet != nil)
-        viewController?.performSegue(withIdentifier: R.segue.sheetSettingViewController.toEditSheet, sender: sheet)
+        viewController?.performSegue(withIdentifier: R.segue.sheetSettingViewController.toEditSubtaskSheet, sender: sheet)
     }
 }

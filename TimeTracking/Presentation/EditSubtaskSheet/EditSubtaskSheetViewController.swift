@@ -6,13 +6,13 @@ import SpreadsheetView
 import RxUIAlert
 import BottomHalfModal
 
-class EditSheetViewController: UIViewController {
+class EditSubtaskSheetViewController: UIViewController {
 
     @IBOutlet weak var dismissButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var sheetView: SpreadsheetView!
 
-    var editSheetViewModel: EditSheetViewModel!
+    var editSubtaskSheetViewModel: EditSubtaskSheetViewModel!
 
     let disposeBag = DisposeBag()
     let cellDataConverter = CellDataConverter()
@@ -46,21 +46,21 @@ class EditSheetViewController: UIViewController {
     }
 
     func initializeViewModel(with sheet: Sheet? = nil, and nvc: UINavigationController? = nil) {
-        guard editSheetViewModel == nil else { return }
-        editSheetViewModel = EditSheetViewModel(with: EditSheetUseCase(with: FireBaseSheetRepository(),
-                                                                       and: FireBaseTaskRepository()),
-                                                and: EditSheetNavigator(with: self, and: nvc),
+        guard editSubtaskSheetViewModel == nil else { return }
+        editSubtaskSheetViewModel = EditSubtaskSheetViewModel(with: EditSubtaskSheetUseCase(with: FBSubtaskSheetRepository(),
+                                                                       and: FBTaskRepository()),
+                                                and: EditSubtaskSheetNavigator(with: self, and: nvc),
                                                 and: sheet)
     }
 
     func bindViewModel() {
-        let input = EditSheetViewModel.Input(loadTrigger: Driver.just(()),
+        let input = EditSubtaskSheetViewModel.Input(loadTrigger: Driver.just(()),
                                              saveTrigger: saveButton.rx.tap.asDriver(),
                                              sheet: sheetRelay.asDriver(),
                                              tasks: tasksRelay.asDriver(),
                                              uploadImageTrigger: imageRelay.asDriver(),
                                              imageName: imageNameRelay.asDriver())
-        let output = editSheetViewModel.transform(input: input)
+        let output = editSubtaskSheetViewModel.transform(input: input)
         output.load.drive().disposed(by: disposeBag)
         output.tasks.drive(onNext: { tasks in
             self.tasks = tasks
@@ -76,7 +76,7 @@ class EditSheetViewController: UIViewController {
 }
 
 
-extension EditSheetViewController: SpreadsheetViewDataSource {
+extension EditSubtaskSheetViewController: SpreadsheetViewDataSource {
 
     func numberOfColumns(in spreadsheetView: SpreadsheetView) -> Int {
         // 1 == addColumnCell
@@ -178,7 +178,7 @@ extension EditSheetViewController: SpreadsheetViewDataSource {
     }
 }
 
-extension EditSheetViewController: AddButtonCellDelegate {
+extension EditSubtaskSheetViewController: AddButtonCellDelegate {
     func addColumn() {
         let headerSettingVC = HeaderSettingViewController()
         headerSettingVC.delegate = self
@@ -196,7 +196,7 @@ extension EditSheetViewController: AddButtonCellDelegate {
     }
 }
 
-extension EditSheetViewController: HeaderCellDelegate {
+extension EditSubtaskSheetViewController: HeaderCellDelegate {
     func openHeaderSetting(_ column: Column, index: Int) {
         let headerSettingVC = HeaderSettingViewController()
         headerSettingVC.delegate = self
@@ -207,7 +207,7 @@ extension EditSheetViewController: HeaderCellDelegate {
     }
 }
 
-extension EditSheetViewController: HeaderSettingDelegate {
+extension EditSubtaskSheetViewController: HeaderSettingDelegate {
     func createColumn(_ column: Column) {
         sheet.columnTitles.append(column.name)
         sheet.columnTypes.append(column.type)
@@ -240,7 +240,7 @@ extension EditSheetViewController: HeaderSettingDelegate {
     }
 }
 
-extension EditSheetViewController: DataCellDelegate {
+extension EditSubtaskSheetViewController: DataCellDelegate {
     func tappedCheckButton(_ isChecked: Bool, indexPath: IndexPath) {
         tasks[indexPath.row-1].data[indexPath.column] = isChecked
         refreshData()
@@ -271,7 +271,7 @@ extension EditSheetViewController: DataCellDelegate {
     }
 }
 
-extension EditSheetViewController: NoteDialogViewCellDelegate {
+extension EditSubtaskSheetViewController: NoteDialogViewCellDelegate {
 
     func openCamera(){
         if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera)) {
@@ -305,7 +305,7 @@ extension EditSheetViewController: NoteDialogViewCellDelegate {
     }
 }
 
-extension EditSheetViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension EditSubtaskSheetViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             noteDialogView.imageView.image = image
