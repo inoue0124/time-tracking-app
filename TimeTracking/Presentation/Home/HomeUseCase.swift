@@ -18,7 +18,7 @@ class HomeUseCase {
     }
 
     func loadTopSheets(with id: String) -> Observable<[PositionSheet]> {
-        return topSheetRepository.read(with: id)
+        return topSheetRepository.readPositionSheets(with: id)
     }
 
     func loadPositionSheets() -> Observable<[PositionSheet]> {

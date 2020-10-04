@@ -17,8 +17,8 @@ class SheetSettingUseCase {
         self.subtaskSheetRepository = subtaskSheetRepository
     }
 
-    func loadTopSheets() -> Observable<[PositionSheet]> {
-        return topSheetRepository.read(with: appConst.SHEET_TYPE_POSITION)
+    func loadTopSheets() -> Observable<[TopSheet]> {
+        return topSheetRepository.read()
     }
     func deleteTopSheets(with sheetId: String) -> Observable<Void> {
         return topSheetRepository.delete(sheetId)

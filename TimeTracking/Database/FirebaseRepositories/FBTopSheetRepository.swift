@@ -38,7 +38,49 @@ class FBTopSheetRepository: TopSheetRepository {
         }
     }
 
-    func read(with id: String) -> Observable<[PositionSheet]> {
+    func read() -> Observable<[TopSheet]> {
+        let options = QueryListenOptions()
+        options.includeQueryMetadataChanges(true)
+
+        return Observable.create { [unowned self] observer in
+            self.listener = self.db.collection("top_sheets")
+                .whereField("create_user", isEqualTo: (Auth.auth().currentUser?.uid)!)
+                .order(by: "updated_at", descending: true)
+                .addSnapshotListener(options: options) { snapshot, error in
+                    guard let snap = snapshot else {
+                        print("Error fetching document: \(error!)")
+                        observer.onError(error!)
+                        return
+                    }
+                    for diff in snap.documentChanges {
+                        if diff.type == .added {
+                            print("New data: \(diff.document.data())")
+                        }
+                    }
+                    print("Current data: \(snap)")
+
+                    var topSheets: [TopSheet] = []
+                    if !snap.isEmpty {
+                        for item in snap.documents {
+                            topSheets.append(TopSheet(
+                                id: item.documentID,
+                                name: item["name"] as? String ?? "",
+                                isPublic: item["is_public"] as? Bool ?? false,
+                                positionSheetIds: item["position_sheet_ids"] as? [String] ?? [],
+                                createUser: item["create_user"] as? String ?? "",
+                                createdAt: item["created_at"] as? Date ?? Date(),
+                                updateUser: item["update_user"] as? String ?? "",
+                                updatedAt: item["updated_at"] as? Date ?? Date()
+                            ))
+                        }
+                    }
+                    observer.onNext(topSheets)
+            }
+            return Disposables.create()
+        }
+    }
+
+    func readPositionSheets(with id: String) -> Observable<[PositionSheet]> {
         let options = QueryListenOptions()
         options.includeQueryMetadataChanges(true)
 

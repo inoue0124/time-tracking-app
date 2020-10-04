@@ -67,7 +67,7 @@ class SheetSettingViewModel: ViewModelType {
         let loadTopSheets = input.loadTrigger
             .flatMap { [unowned self] _ in
             return self.sheetSettingUseCase.loadTopSheets()
-                .trackArray(state.positionSheetsArray)
+                .trackArray(state.topSheetsArray)
                 .trackError(state.errorLoadingTopSheets)
                 .trackActivity(state.isLoadingTopSheets)
                 .mapToVoid()
@@ -79,7 +79,7 @@ class SheetSettingViewModel: ViewModelType {
             }
         let deleteTopSheet = input.deleteTopSheetTrigger
             .flatMapLatest { [unowned self] index -> Driver<Void> in
-                return self.sheetSettingUseCase.deleteTopSheets(with: state.positionSheetsArray.array[index].id)
+                return self.sheetSettingUseCase.deleteTopSheets(with: state.topSheetsArray.array[index].id)
                     .asDriver(onErrorJustReturn: ())
             }
 
