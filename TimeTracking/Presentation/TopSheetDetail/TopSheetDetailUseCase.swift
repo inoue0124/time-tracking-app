@@ -9,8 +9,8 @@ class TopSheetDetailUseCase {
         self.taskRepository = taskRepository
     }
     
-    func loadTasks(with sheetId: String, and sheetType: String) -> Observable<[Task]> {
-        return taskRepository.read(with: sheetId, and: sheetType)
+    func loadTasks(with positionSheetIds: [String]) -> Observable<[Task]> {
+        return taskRepository.read(with: positionSheetIds)
     }
     
     func delete(with taskId: String, and sheetId: String, and sheetType: String) -> Observable<Void> {

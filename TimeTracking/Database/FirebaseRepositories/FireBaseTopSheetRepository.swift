@@ -109,7 +109,6 @@ class FireBaseTopSheetRepository: TopSheetRepository {
                                                     updatedAt: item["updated_at"] as? Date ?? Date()
                                                 ))
                                             }
-
                                         }
                                         observer.onNext(positionSheets)
                                     }

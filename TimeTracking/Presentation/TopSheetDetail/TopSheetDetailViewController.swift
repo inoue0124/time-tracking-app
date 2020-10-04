@@ -45,11 +45,12 @@ class TopSheetDetailViewController: UIViewController {
         output.load.drive().disposed(by: disposeBag)
         output.tasks.drive(onNext: { tasks in
             self.tasks = tasks
+            print(tasks)
             self.sheetView.reloadData()
         }).disposed(by: disposeBag)
-        output.sheet.drive(onNext: { sheet in
-            self.sheet = sheet
-        }).disposed(by: disposeBag)
+//        output.sheet.drive(onNext: { sheet in
+//            self.sheet = sheet
+//        }).disposed(by: disposeBag)
     }
 }
 

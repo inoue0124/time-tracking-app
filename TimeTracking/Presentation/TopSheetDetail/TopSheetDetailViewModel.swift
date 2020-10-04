@@ -36,7 +36,7 @@ class TopSheetDetailViewModel: ViewModelType {
         let state = State()
         let load = input.loadTrigger
             .flatMap { [unowned self] _ in
-                return self.useCase.loadTasks(with: self.sheet!.id, and: self.sheet!.type)
+                return self.useCase.loadTasks(with: ["HXcCkW6ev3KP9Y9OC6Uh", "IqOzYKralPP0C40X6Ewn"])
                     .trackArray(state.contentArray)
                     .trackError(state.error)
                     .trackActivity(state.isLoading)

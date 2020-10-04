@@ -212,7 +212,7 @@ struct R: Rswift.Validatable {
       /// Segue identifier `toSheetDetail`.
       static let toSheetDetail: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, HomeViewController, SheetDetailViewController> = Rswift.StoryboardSegueIdentifier(identifier: "toSheetDetail")
       /// Segue identifier `toTopSheetDetail`.
-      static let toTopSheetDetail: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, HomeViewController, UIKit.UIViewController> = Rswift.StoryboardSegueIdentifier(identifier: "toTopSheetDetail")
+      static let toTopSheetDetail: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, HomeViewController, TopSheetDetailViewController> = Rswift.StoryboardSegueIdentifier(identifier: "toTopSheetDetail")
       
       /// Optionally returns a typed version of segue `toSetting`.
       /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
@@ -231,7 +231,7 @@ struct R: Rswift.Validatable {
       /// Optionally returns a typed version of segue `toTopSheetDetail`.
       /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
       /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func toTopSheetDetail(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, HomeViewController, UIKit.UIViewController>? {
+      static func toTopSheetDetail(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, HomeViewController, TopSheetDetailViewController>? {
         return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.homeViewController.toTopSheetDetail, segue: segue)
       }
       

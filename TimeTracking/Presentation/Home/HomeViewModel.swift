@@ -55,7 +55,11 @@ class HomeViewModel: ViewModelType {
         }
         let selectTopSheet = input.selectTopSheetTrigger
             .withLatestFrom(loadTopSheetsState.positionSheetsArray) { [unowned self] (index: Int, positionSheets: [Sheet]) in
-                self.navigator.toSheetDetail(with: positionSheets[index])
+                if (index==0) {
+                    self.navigator.toTopSheetDetail(with: positionSheets[index])
+                } else {
+                    self.navigator.toSheetDetail(with: positionSheets[index])
+                }
         }
         
         let loadSubtaskSheetsState = State()

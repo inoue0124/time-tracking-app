@@ -77,6 +77,48 @@ class FireBaseTaskRepository: TaskRepository {
         }
     }
 
+    func read(with positionSheetIds: [String]) -> Observable<[Task]> {
+        let options = QueryListenOptions()
+        options.includeQueryMetadataChanges(true)
+
+        return Observable.create { [unowned self] observer in
+            var tasks: [Task] = []
+            for sheetId in positionSheetIds {
+                self.listener = self.db.collection("position_sheets").document(sheetId).collection("tasks")
+                    .order(by: "created_at")
+                    .addSnapshotListener(options: options) { snapshot, error in
+                        guard let snap = snapshot else {
+                            print("Error fetching document: \(error!)")
+                            observer.onError(error!)
+                            return
+                        }
+                        for diff in snap.documentChanges {
+                            if diff.type == .added {
+                                print("New data: \(diff.document.data())")
+                            }
+                        }
+                        print("Current data: \(snap)")
+
+                        if !snap.isEmpty {
+                            for item in snap.documents {
+                                print(item)
+                                tasks.append(Task(id: item.documentID,
+                                                  data: item["data"] as? [Any] ?? [],
+                                                  createUser: item["create_user"] as? String ?? "",
+                                                  createdAt: item["created_at"] as? Date ?? Date(),
+                                                  updateUser: item["update_user"] as? String ?? "",
+                                                  updatedAt: item["updated_at"] as? Date ?? Date()
+                                ))
+                            }
+                        }
+                        observer.onNext(tasks)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+
+
     func update(with tasks: [Task], and sheetId: String, and sheetType: String) -> Observable<Void> {
         let batch = db.batch()
         for task in tasks {

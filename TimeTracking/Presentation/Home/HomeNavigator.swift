@@ -7,6 +7,10 @@ class HomeNavigator {
         self.viewController = viewController
     }
 
+    func toTopSheetDetail(with sheet: Sheet? = nil) {
+        viewController?.performSegue(withIdentifier: R.segue.homeViewController.toTopSheetDetail, sender: sheet)
+    }
+
     func toSheetDetail(with sheet: Sheet? = nil) {
         viewController?.performSegue(withIdentifier: R.segue.homeViewController.toSheetDetail, sender: sheet)
     }
