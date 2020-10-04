@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class SheetViewModel: ViewModelType {
+class TopSheetDetailViewModel: ViewModelType {
     
     struct Input {
         let loadTrigger: Driver<Void>
@@ -22,28 +22,28 @@ class SheetViewModel: ViewModelType {
         let error = ErrorTracker()
     }
     
-    private let sheetUseCase: SheetUseCase
-    private let navigator: SheetNavigator
+    private let useCase: TopSheetDetailUseCase
+    private let navigator: TopSheetDetailNavigator
     private let sheet: Sheet?
     
-    init(with sheetUseCase: SheetUseCase, and navigator: SheetNavigator, and sheet: Sheet? = nil) {
-        self.sheetUseCase = sheetUseCase
+    init(with useCase: TopSheetDetailUseCase, and navigator: TopSheetDetailNavigator, and sheet: Sheet? = nil) {
+        self.useCase = useCase
         self.navigator = navigator
         self.sheet = sheet
     }
     
-    func transform(input: SheetViewModel.Input) -> SheetViewModel.Output {
+    func transform(input: TopSheetDetailViewModel.Input) -> TopSheetDetailViewModel.Output {
         let state = State()
         let load = input.loadTrigger
             .flatMap { [unowned self] _ in
-                return self.sheetUseCase.loadTasks(with: self.sheet!.id, and: self.sheet!.type)
+                return self.useCase.loadTasks(with: self.sheet!.id, and: self.sheet!.type)
                     .trackArray(state.contentArray)
                     .trackError(state.error)
                     .trackActivity(state.isLoading)
                     .mapToVoid()
                     .asDriverOnErrorJustComplete()
         }
-        return SheetViewModel.Output(load: load,
+        return TopSheetDetailViewModel.Output(load: load,
                                      tasks: state.contentArray.asDriver(),
                                      sheet: Observable.create { [unowned self] observer in
                                         if (self.sheet == nil) {

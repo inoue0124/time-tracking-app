@@ -1,9 +1,9 @@
 import Foundation
 
-class SheetNavigator {
-    private weak var viewController: SheetViewController?
+class SheetDetailNavigator {
+    private weak var viewController: SheetDetailViewController?
     
-    init(with viewController: SheetViewController) {
+    init(with viewController: SheetDetailViewController) {
         self.viewController = viewController
     }
 

@@ -137,10 +137,10 @@
             </objects>
             <point key="canvasLocation" x="495" y="-142"/>
         </scene>
-        <!--Sheet View Controller-->
+        <!--Sheet Detail View Controller-->
         <scene sceneID="ns6-SH-udc">
             <objects>
-                <viewController id="c5f-3z-sNd" customClass="SheetViewController" customModule="TimeTracking" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="c5f-3z-sNd" customClass="SheetDetailViewController" customModule="TimeTracking" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bai-J6-OAn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -166,7 +166,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rQn-Lx-dH0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2399" y="-141"/>
+            <point key="canvasLocation" x="2561" y="-143"/>
         </scene>
         <!--ログイン-->
         <scene sceneID="x2w-SX-NnF">
@@ -398,7 +398,7 @@
                                                             <constraint firstAttribute="height" constant="150" id="KnI-ld-VFy"/>
                                                         </constraints>
                                                         <prototypes>
-                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="positionSheetCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="positionSheetCell" id="ynE-XV-vzM">
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="topSheetCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="topSheetCell" id="ynE-XV-vzM">
                                                                 <rect key="frame" x="0.0" y="28" width="335" height="43.5"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ynE-XV-vzM" id="kGc-Nt-StP">
@@ -481,10 +481,11 @@
                     <connections>
                         <outlet property="dateButton" destination="lHV-rE-587" id="LSh-3w-4Ne"/>
                         <outlet property="menuBarButton" destination="aUj-xE-okd" id="HZu-9j-zoF"/>
-                        <outlet property="positionSheetTable" destination="FWw-74-Eou" id="AGb-7D-Chv"/>
                         <outlet property="subtaskSheetTable" destination="5kP-JX-45M" id="h3D-Fe-73D"/>
+                        <outlet property="topSheetTable" destination="FWw-74-Eou" id="PHw-N4-LPv"/>
                         <segue destination="c5f-3z-sNd" kind="show" identifier="toSheetDetail" id="Cyx-5x-BUh"/>
                         <segue destination="0Mc-ae-4W3" kind="show" identifier="toSetting" id="1bb-3a-OZ5"/>
+                        <segue destination="G4t-CN-mgA" kind="show" identifier="toTopSheetDetail" id="rah-Ta-yBK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WLi-I0-i83" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -812,11 +813,73 @@
         <!--TOPシート作成-->
         <scene sceneID="aha-uw-rny">
             <objects>
-                <viewController id="OlQ-Fc-QFX" sceneMemberID="viewController">
+                <viewController id="OlQ-Fc-QFX" customClass="EditTopSheetViewController" customModule="TimeTracking" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KTn-od-QlE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="hv2-L2-qYg">
+                                <rect key="frame" x="50" y="64" width="275" height="84"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="jMe-ta-bq6">
+                                        <rect key="frame" x="0.0" y="0.0" width="275" height="34"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="シート名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Pl-TO-Rmk">
+                                                <rect key="frame" x="0.0" y="0.0" width="137.5" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v4F-8s-p9y">
+                                                <rect key="frame" x="137.5" y="0.0" width="137.5" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ni2-VY-4y1">
+                                        <rect key="frame" x="0.0" y="54" width="275" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="曜日設定" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K8R-62-3Gs">
+                                                <rect key="frame" x="0.0" y="0.0" width="69.5" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D6p-mY-qLv">
+                                                <rect key="frame" x="69.5" y="0.0" width="205.5" height="30"/>
+                                                <state key="normal" title="選択してください"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="jgd-Ip-GHe">
+                                <rect key="frame" x="172.5" y="208.5" width="30" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4h-8G-FIq">
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                        <state key="normal" title="+"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="・ポジションシート追加" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSf-97-6tB">
+                                <rect key="frame" x="10" y="168" width="191" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="GSf-97-6tB" firstAttribute="top" secondItem="hv2-L2-qYg" secondAttribute="bottom" constant="20" id="9ek-ht-PGK"/>
+                            <constraint firstItem="hv2-L2-qYg" firstAttribute="top" secondItem="2DL-G1-gJa" secondAttribute="top" constant="20" id="AKL-pQ-38n"/>
+                            <constraint firstItem="2DL-G1-gJa" firstAttribute="trailing" secondItem="hv2-L2-qYg" secondAttribute="trailing" constant="50" id="TPz-Nh-pKk"/>
+                            <constraint firstItem="GSf-97-6tB" firstAttribute="leading" secondItem="2DL-G1-gJa" secondAttribute="leading" constant="10" id="bma-Wp-WTG"/>
+                            <constraint firstItem="jgd-Ip-GHe" firstAttribute="centerX" secondItem="KTn-od-QlE" secondAttribute="centerX" id="dPO-uc-Jbh"/>
+                            <constraint firstItem="hv2-L2-qYg" firstAttribute="leading" secondItem="2DL-G1-gJa" secondAttribute="leading" constant="50" id="xbs-bm-Hkp"/>
+                            <constraint firstItem="jgd-Ip-GHe" firstAttribute="top" secondItem="GSf-97-6tB" secondAttribute="bottom" constant="20" id="xyX-vE-bt4"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="2DL-G1-gJa"/>
                     </view>
                     <toolbarItems/>
@@ -825,6 +888,13 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="m0I-CO-QBk"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="addSheetButton" destination="l4h-8G-FIq" id="a1S-gL-y1l"/>
+                        <outlet property="daysButton" destination="D6p-mY-qLv" id="I1F-IY-dl8"/>
+                        <outlet property="dismissButton" destination="EOv-U6-emF" id="3Vp-VF-exX"/>
+                        <outlet property="saveButton" destination="m0I-CO-QBk" id="m3T-MG-Tf9"/>
+                        <outlet property="sheetNameTextField" destination="v4F-8s-p9y" id="7cW-rz-Og8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xz5-I7-VSM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -887,9 +957,40 @@
             </objects>
             <point key="canvasLocation" x="3356" y="1486.5067466266867"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="0lV-W3-rpb">
+            <objects>
+                <viewController id="G4t-CN-mgA" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sNE-bk-sYt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Kq-hd-7aP" customClass="SpreadsheetView" customModule="SpreadsheetView">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Oka-Dd-Pm1" firstAttribute="bottom" secondItem="8Kq-hd-7aP" secondAttribute="bottom" id="2Vm-AR-5da"/>
+                            <constraint firstItem="Oka-Dd-Pm1" firstAttribute="trailing" secondItem="8Kq-hd-7aP" secondAttribute="trailing" id="UyI-Ks-GDh"/>
+                            <constraint firstItem="8Kq-hd-7aP" firstAttribute="top" secondItem="Oka-Dd-Pm1" secondAttribute="top" id="c5m-Fa-Ztg"/>
+                            <constraint firstItem="8Kq-hd-7aP" firstAttribute="leading" secondItem="Oka-Dd-Pm1" secondAttribute="leading" id="jwW-xt-IMS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Oka-Dd-Pm1"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="8QO-8w-Ny4"/>
+                    <connections>
+                        <outlet property="sheetView" destination="8Kq-hd-7aP" id="Qpg-M3-1JS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NqL-lj-PYL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2562" y="-1025"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="13t-ou-pb6"/>
+        <segue reference="gpK-0t-aVc"/>
         <segue reference="mqw-I1-wrc"/>
     </inferredMetricsTieBreakers>
     <resources>

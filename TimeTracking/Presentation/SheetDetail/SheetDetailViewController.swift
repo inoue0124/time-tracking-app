@@ -3,11 +3,11 @@ import RxSwift
 import RxCocoa
 import SpreadsheetView
 
-class SheetViewController: UIViewController {
+class SheetDetailViewController: UIViewController {
 
     @IBOutlet weak var sheetView: SpreadsheetView!
 
-    var sheetViewModel: SheetViewModel!
+    var sheetDetailViewModel: SheetDetailViewModel!
     let disposeBag = DisposeBag()
     var sheet: Sheet?
     let cellDataConverter = CellDataConverter()
@@ -32,16 +32,16 @@ class SheetViewController: UIViewController {
     }
     
     func initializeViewModel(with sheet: Sheet? = nil) {
-        guard sheetViewModel == nil else { return }
-        sheetViewModel = SheetViewModel(with: SheetUseCase(withTask: FireBaseTaskRepository()),
-                                        and: SheetNavigator(with: self),
+        guard sheetDetailViewModel == nil else { return }
+        sheetDetailViewModel = SheetDetailViewModel(with: SheetDetailUseCase(withTask: FireBaseTaskRepository()),
+                                        and: SheetDetailNavigator(with: self),
                                         and: sheet
         )
     }
     
     func bindViewModel() {
-        let input = SheetViewModel.Input(loadTrigger: Driver.just(()))
-        let output = sheetViewModel.transform(input: input)
+        let input = SheetDetailViewModel.Input(loadTrigger: Driver.just(()))
+        let output = sheetDetailViewModel.transform(input: input)
         output.load.drive().disposed(by: disposeBag)
         output.tasks.drive(onNext: { tasks in
             self.tasks = tasks
@@ -54,7 +54,7 @@ class SheetViewController: UIViewController {
 }
 
 
-extension SheetViewController: SpreadsheetViewDataSource {
+extension SheetDetailViewController: SpreadsheetViewDataSource {
     func numberOfColumns(in spreadsheetView: SpreadsheetView) -> Int {
         return sheet?.columnTitles.count ?? 0
     }
@@ -91,7 +91,7 @@ extension SheetViewController: SpreadsheetViewDataSource {
     }
 }
 
-extension SheetViewController: DataCellDelegate {
+extension SheetDetailViewController: DataCellDelegate {
     func tappedCheckButton(_ isChecked: Bool, indexPath: IndexPath) {
         tasks[indexPath.row-1].data[indexPath.column] = isChecked
         sheetView.reloadData()
@@ -119,7 +119,7 @@ extension SheetViewController: DataCellDelegate {
 
 }
 
-extension SheetViewController: NoteDialogViewCellDelegate {
+extension SheetDetailViewController: NoteDialogViewCellDelegate {
     func openCamera() {}
 
     func openGallary() {}

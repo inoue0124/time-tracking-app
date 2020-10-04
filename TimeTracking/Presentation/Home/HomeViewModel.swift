@@ -6,16 +6,16 @@ class HomeViewModel: ViewModelType {
 
     struct Input {
         let loadTrigger: Driver<Void>
-        let selectPositionSheetTrigger: Driver<Int>
+        let selectTopSheetTrigger: Driver<Int>
         let selectSubtaskSheetTrigger: Driver<Int>
     }
 
     struct Output {
-        let loadPositionSheets: Driver<Void>
-        let positionSheets: Driver<[Sheet]>
-        let selectPositionSheet: Driver<Void>
-        let isLoadingPositionSheets: Driver<Bool>
-        let errorLoadingPositionSheets: Driver<Error>
+        let loadTopSheets: Driver<Void>
+        let topSheets: Driver<[Sheet]>
+        let selectTopSheet: Driver<Void>
+        let isLoadingTopSheets: Driver<Bool>
+        let errorLoadingTopSheets: Driver<Error>
 
         let loadSubtaskSheets: Driver<Void>
         let subtaskSheets: Driver<[Sheet]>
@@ -26,8 +26,8 @@ class HomeViewModel: ViewModelType {
 
     struct State {
         let positionSheetsArray = ArrayTracker<Sheet>()
-        let isLoadingPositionSheets = ActivityIndicator()
-        let errorLoadingPositionSheets = ErrorTracker()
+        let isLoadingTopSheets = ActivityIndicator()
+        let errorLoadingTopSheets = ErrorTracker()
 
         let subtaskSheetsArray = ArrayTracker<Sheet>()
         let isLoadingSubtaskSheets = ActivityIndicator()
@@ -35,7 +35,7 @@ class HomeViewModel: ViewModelType {
     }
 
     private let homeUseCase: HomeUseCase
-    private let navigator: HomeNavigator
+    public let navigator: HomeNavigator
 
     init(with homeUseCase: HomeUseCase, and navigator: HomeNavigator) {
         self.homeUseCase = homeUseCase
@@ -43,18 +43,18 @@ class HomeViewModel: ViewModelType {
     }
 
     func transform(input: HomeViewModel.Input) -> HomeViewModel.Output {
-        let loadPositionSheetsState = State()
-        let loadPositionSheets = input.loadTrigger
+        let loadTopSheetsState = State()
+        let loadTopSheets = input.loadTrigger
             .flatMap { [unowned self] _ in
-            return self.homeUseCase.loadPositionSheets()
-                .trackArray(loadPositionSheetsState.positionSheetsArray)
-                .trackError(loadPositionSheetsState.errorLoadingPositionSheets)
-                .trackActivity(loadPositionSheetsState.isLoadingPositionSheets)
+            return self.homeUseCase.loadTopSheets(with: "vKb3NOPcXnwGh0bV4WMd")
+                .trackArray(loadTopSheetsState.positionSheetsArray)
+                .trackError(loadTopSheetsState.errorLoadingTopSheets)
+                .trackActivity(loadTopSheetsState.isLoadingTopSheets)
                 .mapToVoid()
                 .asDriverOnErrorJustComplete()
         }
-        let selectPositionSheet = input.selectPositionSheetTrigger
-            .withLatestFrom(loadPositionSheetsState.positionSheetsArray) { [unowned self] (index: Int, positionSheets: [Sheet]) in
+        let selectTopSheet = input.selectTopSheetTrigger
+            .withLatestFrom(loadTopSheetsState.positionSheetsArray) { [unowned self] (index: Int, positionSheets: [Sheet]) in
                 self.navigator.toSheetDetail(with: positionSheets[index])
         }
         
@@ -72,23 +72,20 @@ class HomeViewModel: ViewModelType {
             .withLatestFrom(loadSubtaskSheetsState.subtaskSheetsArray) { [unowned self] (index: Int, subtaskSheets: [Sheet]) in
                 self.navigator.toSheetDetail(with: subtaskSheets[index])
         }
+
         return HomeViewModel.Output(
-            loadPositionSheets: loadPositionSheets,
-            positionSheets: loadPositionSheetsState.positionSheetsArray.asDriver(),
-            selectPositionSheet: selectPositionSheet,
-            isLoadingPositionSheets: loadPositionSheetsState.isLoadingPositionSheets.asDriver(),
-            errorLoadingPositionSheets: loadPositionSheetsState.errorLoadingPositionSheets.asDriver(),
+            loadTopSheets: loadTopSheets,
+            topSheets: loadTopSheetsState.positionSheetsArray.asDriver(),
+            selectTopSheet: selectTopSheet,
+            isLoadingTopSheets: loadTopSheetsState.isLoadingTopSheets.asDriver(),
+            errorLoadingTopSheets: loadTopSheetsState.errorLoadingTopSheets.asDriver(),
 
             loadSubtaskSheets: loadSubtaskSheets,
             subtaskSheets: loadSubtaskSheetsState.subtaskSheetsArray.asDriver(),
             selectSubtaskSheet: selectSubtaskSheet,
             isLoadingSubtaskSheets: loadSubtaskSheetsState.isLoadingSubtaskSheets.asDriver(),
-            errorLoadingSubtaskSheets: loadSubtaskSheetsState.errorLoadingPositionSheets.asDriver()
+            errorLoadingSubtaskSheets: loadSubtaskSheetsState.errorLoadingSubtaskSheets.asDriver()
         )
-    }
-
-    func toSetting() {
-        navigator.toSetting()
     }
 
 }

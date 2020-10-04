@@ -20,6 +20,7 @@ class AddSheetViewController: UIViewController {
     var sheetType: String?
     var sheetTypeRelay = BehaviorRelay<String>(value: "")
     var sheet = Sheet()
+    var topSheet = TopSheet()
     var sheetRelay = BehaviorRelay<Sheet>(value: Sheet())
 
     override func viewDidLoad() {
@@ -34,6 +35,13 @@ class AddSheetViewController: UIViewController {
             if let nc = segue.destination as? UINavigationController {
                 if let vc = nc.viewControllers[0] as? EditSheetViewController {
                     vc.initializeViewModel(with: self.sheet, and: self.navigationController)
+                }
+            }
+        }
+        if segue.identifier == R.segue.addSheetViewController.toCreateTopSheet.identifier {
+            if let nc = segue.destination as? UINavigationController {
+                if let vc = nc.viewControllers[0] as? EditTopSheetViewController {
+                    vc.initializeViewModel(with: self.topSheet, and: self.navigationController)
                 }
             }
         }

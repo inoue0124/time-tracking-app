@@ -12,11 +12,11 @@
 		4C04772F1FE96468005A8A45 /* ErrorTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C04772E1FE96468005A8A45 /* ErrorTracker.swift */; };
 		4C0477311FE96482005A8A45 /* ArrayTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0477301FE96482005A8A45 /* ArrayTracker.swift */; };
 		4C0477331FE964A4005A8A45 /* Observable+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0477321FE964A4005A8A45 /* Observable+Ext.swift */; };
-		4C3D43791FDACF49008C5F01 /* SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D436F1FDACF38008C5F01 /* SheetViewController.swift */; };
+		4C3D43791FDACF49008C5F01 /* SheetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D436F1FDACF38008C5F01 /* SheetDetailViewController.swift */; };
 		4C3D437A1FDACF49008C5F01 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D43701FDACF38008C5F01 /* LoginViewController.swift */; };
 		4C3D437C1FDACF49008C5F01 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D43721FDACF38008C5F01 /* SignUpViewController.swift */; };
 		4C3D437D1FDACF5B008C5F01 /* FireBaseAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D435E1FDACF29008C5F01 /* FireBaseAuthRepository.swift */; };
-		4C3D437F1FDACF60008C5F01 /* SheetUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D43641FDACF30008C5F01 /* SheetUseCase.swift */; };
+		4C3D437F1FDACF60008C5F01 /* SheetDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D43641FDACF30008C5F01 /* SheetDetailUseCase.swift */; };
 		4C3D43831FDACFDD008C5F01 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D43821FDACFDD008C5F01 /* AuthRepository.swift */; };
 		4C3D43871FDAD008008C5F01 /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D43861FDAD008008C5F01 /* LoginUseCase.swift */; };
 		4C3D438B1FDAD020008C5F01 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D438A1FDAD020008C5F01 /* SignUpUseCase.swift */; };
@@ -24,11 +24,11 @@
 		4C4583611FC957FB002AFB69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C45835F1FC957FB002AFB69 /* Main.storyboard */; };
 		4C4583631FC957FB002AFB69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C4583621FC957FB002AFB69 /* Assets.xcassets */; };
 		4C4583661FC957FB002AFB69 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C4583641FC957FB002AFB69 /* LaunchScreen.storyboard */; };
-		4C4924871FE75B3F0073FE0B /* SheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4924861FE75B3F0073FE0B /* SheetViewModel.swift */; };
+		4C4924871FE75B3F0073FE0B /* SheetDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4924861FE75B3F0073FE0B /* SheetDetailViewModel.swift */; };
 		4C4924891FE75B530073FE0B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4924881FE75B530073FE0B /* LoginViewModel.swift */; };
 		4C49248B1FE75B650073FE0B /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49248A1FE75B650073FE0B /* SignUpViewModel.swift */; };
 		4C4924901FE75BDF0073FE0B /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49248F1FE75BDF0073FE0B /* ViewModelType.swift */; };
-		4C4924921FE764380073FE0B /* SheetNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4924911FE764380073FE0B /* SheetNavigator.swift */; };
+		4C4924921FE764380073FE0B /* SheeDetailtNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4924911FE764380073FE0B /* SheeDetailtNavigator.swift */; };
 		4C4924951FE768F10073FE0B /* SignUpNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4924941FE768F10073FE0B /* SignUpNavigator.swift */; };
 		4C4924971FE769080073FE0B /* LoginNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4924961FE769080073FE0B /* LoginNavigator.swift */; };
 		4C7234F71FE699D100677DCC /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234F61FE699D100677DCC /* Exception.swift */; };
@@ -45,6 +45,17 @@
 		706BFF4E2520E069006AD077 /* AddSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706BFF4D2520E069006AD077 /* AddSheetViewModel.swift */; };
 		706BFF502520E0E4006AD077 /* AddSheetUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706BFF4F2520E0E4006AD077 /* AddSheetUseCase.swift */; };
 		706BFF522520E116006AD077 /* AddSheetNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706BFF512520E116006AD077 /* AddSheetNavigator.swift */; };
+		706BFF5425220340006AD077 /* EditTopSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706BFF5325220340006AD077 /* EditTopSheetViewController.swift */; };
+		706BFF5625261ECB006AD077 /* EditTopSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706BFF5525261ECB006AD077 /* EditTopSheetViewModel.swift */; };
+		7095627C252739DE0043A35B /* EditTopSheetUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7095627B252739DE0043A35B /* EditTopSheetUseCase.swift */; };
+		7095627E25273A120043A35B /* EditTopSheetNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7095627D25273A120043A35B /* EditTopSheetNavigator.swift */; };
+		7095628025288F260043A35B /* TopSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7095627F25288F260043A35B /* TopSheet.swift */; };
+		709562822528CB5F0043A35B /* TopSheetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562812528CB5F0043A35B /* TopSheetRepository.swift */; };
+		709562842528CC580043A35B /* FireBaseTopSheetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562832528CC580043A35B /* FireBaseTopSheetRepository.swift */; };
+		709562912529F7660043A35B /* TopSheetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7095628F2529F6DF0043A35B /* TopSheetDetailViewController.swift */; };
+		709562922529F7690043A35B /* TopSheetDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562902529F6DF0043A35B /* TopSheetDetailViewModel.swift */; };
+		709562932529F76B0043A35B /* TopSheeDetailtNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7095628E2529F6DF0043A35B /* TopSheeDetailtNavigator.swift */; };
+		709562952529F7CB0043A35B /* TopSheetDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562942529F7CB0043A35B /* TopSheetDetailUseCase.swift */; };
 		70B5933324F7769F00696E2A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933224F7769F00696E2A /* Task.swift */; };
 		70B5933524F7779600696E2A /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933424F7779600696E2A /* Sheet.swift */; };
 		70B5933724F779F200696E2A /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933624F779F200696E2A /* TaskRepository.swift */; };
@@ -79,8 +90,8 @@
 		4C0477301FE96482005A8A45 /* ArrayTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTracker.swift; sourceTree = "<group>"; };
 		4C0477321FE964A4005A8A45 /* Observable+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Ext.swift"; sourceTree = "<group>"; };
 		4C3D435E1FDACF29008C5F01 /* FireBaseAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseAuthRepository.swift; sourceTree = "<group>"; };
-		4C3D43641FDACF30008C5F01 /* SheetUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetUseCase.swift; sourceTree = "<group>"; };
-		4C3D436F1FDACF38008C5F01 /* SheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewController.swift; sourceTree = "<group>"; };
+		4C3D43641FDACF30008C5F01 /* SheetDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetDetailUseCase.swift; sourceTree = "<group>"; };
+		4C3D436F1FDACF38008C5F01 /* SheetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetDetailViewController.swift; sourceTree = "<group>"; };
 		4C3D43701FDACF38008C5F01 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4C3D43721FDACF38008C5F01 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		4C3D43821FDACFDD008C5F01 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
@@ -92,11 +103,11 @@
 		4C4583621FC957FB002AFB69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C4583651FC957FB002AFB69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C4583671FC957FB002AFB69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4C4924861FE75B3F0073FE0B /* SheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewModel.swift; sourceTree = "<group>"; };
+		4C4924861FE75B3F0073FE0B /* SheetDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetDetailViewModel.swift; sourceTree = "<group>"; };
 		4C4924881FE75B530073FE0B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		4C49248A1FE75B650073FE0B /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		4C49248F1FE75BDF0073FE0B /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
-		4C4924911FE764380073FE0B /* SheetNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetNavigator.swift; sourceTree = "<group>"; };
+		4C4924911FE764380073FE0B /* SheeDetailtNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheeDetailtNavigator.swift; sourceTree = "<group>"; };
 		4C4924941FE768F10073FE0B /* SignUpNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNavigator.swift; sourceTree = "<group>"; };
 		4C4924961FE769080073FE0B /* LoginNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNavigator.swift; sourceTree = "<group>"; };
 		4C7234F61FE699D100677DCC /* Exception.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exception.swift; sourceTree = "<group>"; };
@@ -114,6 +125,17 @@
 		706BFF4D2520E069006AD077 /* AddSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSheetViewModel.swift; sourceTree = "<group>"; };
 		706BFF4F2520E0E4006AD077 /* AddSheetUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSheetUseCase.swift; sourceTree = "<group>"; };
 		706BFF512520E116006AD077 /* AddSheetNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSheetNavigator.swift; sourceTree = "<group>"; };
+		706BFF5325220340006AD077 /* EditTopSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTopSheetViewController.swift; sourceTree = "<group>"; };
+		706BFF5525261ECB006AD077 /* EditTopSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTopSheetViewModel.swift; sourceTree = "<group>"; };
+		7095627B252739DE0043A35B /* EditTopSheetUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTopSheetUseCase.swift; sourceTree = "<group>"; };
+		7095627D25273A120043A35B /* EditTopSheetNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTopSheetNavigator.swift; sourceTree = "<group>"; };
+		7095627F25288F260043A35B /* TopSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSheet.swift; sourceTree = "<group>"; };
+		709562812528CB5F0043A35B /* TopSheetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSheetRepository.swift; sourceTree = "<group>"; };
+		709562832528CC580043A35B /* FireBaseTopSheetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseTopSheetRepository.swift; sourceTree = "<group>"; };
+		7095628E2529F6DF0043A35B /* TopSheeDetailtNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSheeDetailtNavigator.swift; sourceTree = "<group>"; };
+		7095628F2529F6DF0043A35B /* TopSheetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSheetDetailViewController.swift; sourceTree = "<group>"; };
+		709562902529F6DF0043A35B /* TopSheetDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSheetDetailViewModel.swift; sourceTree = "<group>"; };
+		709562942529F7CB0043A35B /* TopSheetDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSheetDetailUseCase.swift; sourceTree = "<group>"; };
 		70B5933224F7769F00696E2A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		70B5933424F7779600696E2A /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
 		70B5933624F779F200696E2A /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
@@ -197,10 +219,16 @@
 		4C25B0471FE7824800C9A939 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				4C4924931FE764430073FE0B /* Navigators */,
-				4C3D436B1FDACF38008C5F01 /* Views */,
-				4C49248E1FE75B7F0073FE0B /* ViewModels */,
-				4C04772D1FE96440005A8A45 /* Utilities */,
+				709562852529EF580043A35B /* SignUp */,
+				709562862529EF8B0043A35B /* Login */,
+				709562872529EFA50043A35B /* Home */,
+				709562882529EFBD0043A35B /* SheetDetail */,
+				7095628D2529F6B40043A35B /* TopSheetDetail */,
+				709562892529EFD10043A35B /* SheetSetting */,
+				7095628B2529EFF90043A35B /* EditSheet */,
+				7095628C2529F0080043A35B /* EditTopSheet */,
+				7095628A2529EFE80043A35B /* AddSheet */,
+				4C3D436C1FDACF38008C5F01 /* Cells */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -211,6 +239,7 @@
 				4C3D435E1FDACF29008C5F01 /* FireBaseAuthRepository.swift */,
 				70B5933C24F77E6D00696E2A /* FireBaseSheetRepository.swift */,
 				70B5934424F78B9C00696E2A /* FireBaseTaskRepository.swift */,
+				709562832528CC580043A35B /* FireBaseTopSheetRepository.swift */,
 			);
 			path = FirebaseRepositories;
 			sourceTree = "<group>";
@@ -218,9 +247,9 @@
 		4C3D43601FDACF30008C5F01 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				4C3D43631FDACF30008C5F01 /* UseCases */,
 				4C3D43621FDACF30008C5F01 /* Repositories */,
 				4C3D43611FDACF30008C5F01 /* Entities */,
-				4C3D43631FDACF30008C5F01 /* UseCases */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -230,6 +259,7 @@
 			children = (
 				4CBB96F01FE1153F002C5DCC /* User.swift */,
 				70B5933424F7779600696E2A /* Sheet.swift */,
+				7095627F25288F260043A35B /* TopSheet.swift */,
 				4C7234F61FE699D100677DCC /* Exception.swift */,
 				70B5933224F7769F00696E2A /* Task.swift */,
 				70ED1C272507B8750059B3BB /* Column.swift */,
@@ -244,6 +274,7 @@
 				4C3D43821FDACFDD008C5F01 /* AuthRepository.swift */,
 				70B5933A24F77E0500696E2A /* SheetRepository.swift */,
 				70B5933624F779F200696E2A /* TaskRepository.swift */,
+				709562812528CB5F0043A35B /* TopSheetRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -254,27 +285,14 @@
 				4C3D438A1FDAD020008C5F01 /* SignUpUseCase.swift */,
 				4C3D43861FDAD008008C5F01 /* LoginUseCase.swift */,
 				70B5934224F7834900696E2A /* HomeUseCase.swift */,
-				4C3D43641FDACF30008C5F01 /* SheetUseCase.swift */,
+				4C3D43641FDACF30008C5F01 /* SheetDetailUseCase.swift */,
+				709562942529F7CB0043A35B /* TopSheetDetailUseCase.swift */,
 				7020B1242519058B007FB709 /* SheetSettingUseCase.swift */,
 				706BFF4F2520E0E4006AD077 /* AddSheetUseCase.swift */,
 				70D86BEB2504DE9200ABB1A9 /* EditSheetUseCase.swift */,
+				7095627B252739DE0043A35B /* EditTopSheetUseCase.swift */,
 			);
 			path = UseCases;
-			sourceTree = "<group>";
-		};
-		4C3D436B1FDACF38008C5F01 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				4C3D436C1FDACF38008C5F01 /* Cells */,
-				4C3D43721FDACF38008C5F01 /* SignUpViewController.swift */,
-				4C3D43701FDACF38008C5F01 /* LoginViewController.swift */,
-				70B5933E24F7825D00696E2A /* HomeViewController.swift */,
-				4C3D436F1FDACF38008C5F01 /* SheetViewController.swift */,
-				7020B11C2518976C007FB709 /* SheetSettingViewController.swift */,
-				70BD769C24FCDF5700031D98 /* AddSheetViewController.swift */,
-				70B5D9AA2500FEBE00032B0F /* EditSheetViewController.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		4C3D436C1FDACF38008C5F01 /* Cells */ = {
@@ -315,6 +333,7 @@
 				4C25B0471FE7824800C9A939 /* Presentation */,
 				4C3D43601FDACF30008C5F01 /* Domain */,
 				4C25B0461FE7823200C9A939 /* Database */,
+				4C04772D1FE96440005A8A45 /* Utilities */,
 				4C4583671FC957FB002AFB69 /* Info.plist */,
 				70B9C88624F502700007E314 /* GoogleService-Info.plist */,
 				70B5934624F79DAD00696E2A /* R.generated.swift */,
@@ -327,32 +346,94 @@
 			path = TimeTracking;
 			sourceTree = "<group>";
 		};
-		4C49248E1FE75B7F0073FE0B /* ViewModels */ = {
+		709562852529EF580043A35B /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				4C3D43721FDACF38008C5F01 /* SignUpViewController.swift */,
 				4C49248A1FE75B650073FE0B /* SignUpViewModel.swift */,
-				4C4924881FE75B530073FE0B /* LoginViewModel.swift */,
-				70B5934024F782F600696E2A /* HomeViewModel.swift */,
-				4C4924861FE75B3F0073FE0B /* SheetViewModel.swift */,
-				7020B11E251898D4007FB709 /* SheetSettingViewModel.swift */,
-				706BFF4D2520E069006AD077 /* AddSheetViewModel.swift */,
-				70D86BE92504DDB800ABB1A9 /* EditSheetViewModel.swift */,
+				4C4924941FE768F10073FE0B /* SignUpNavigator.swift */,
 			);
-			path = ViewModels;
+			path = SignUp;
 			sourceTree = "<group>";
 		};
-		4C4924931FE764430073FE0B /* Navigators */ = {
+		709562862529EF8B0043A35B /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				4C4924941FE768F10073FE0B /* SignUpNavigator.swift */,
+				4C3D43701FDACF38008C5F01 /* LoginViewController.swift */,
+				4C4924881FE75B530073FE0B /* LoginViewModel.swift */,
 				4C4924961FE769080073FE0B /* LoginNavigator.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		709562872529EFA50043A35B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				70B5933E24F7825D00696E2A /* HomeViewController.swift */,
+				70B5934024F782F600696E2A /* HomeViewModel.swift */,
 				70B5934824F7BCEA00696E2A /* HomeNavigator.swift */,
-				4C4924911FE764380073FE0B /* SheetNavigator.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		709562882529EFBD0043A35B /* SheetDetail */ = {
+			isa = PBXGroup;
+			children = (
+				4C3D436F1FDACF38008C5F01 /* SheetDetailViewController.swift */,
+				4C4924861FE75B3F0073FE0B /* SheetDetailViewModel.swift */,
+				4C4924911FE764380073FE0B /* SheeDetailtNavigator.swift */,
+			);
+			path = SheetDetail;
+			sourceTree = "<group>";
+		};
+		709562892529EFD10043A35B /* SheetSetting */ = {
+			isa = PBXGroup;
+			children = (
+				7020B11C2518976C007FB709 /* SheetSettingViewController.swift */,
+				7020B11E251898D4007FB709 /* SheetSettingViewModel.swift */,
 				7020B120251899B8007FB709 /* SheetSettingNavigator.swift */,
+			);
+			path = SheetSetting;
+			sourceTree = "<group>";
+		};
+		7095628A2529EFE80043A35B /* AddSheet */ = {
+			isa = PBXGroup;
+			children = (
+				70BD769C24FCDF5700031D98 /* AddSheetViewController.swift */,
+				706BFF4D2520E069006AD077 /* AddSheetViewModel.swift */,
 				706BFF512520E116006AD077 /* AddSheetNavigator.swift */,
+			);
+			path = AddSheet;
+			sourceTree = "<group>";
+		};
+		7095628B2529EFF90043A35B /* EditSheet */ = {
+			isa = PBXGroup;
+			children = (
+				70B5D9AA2500FEBE00032B0F /* EditSheetViewController.swift */,
+				70D86BE92504DDB800ABB1A9 /* EditSheetViewModel.swift */,
 				70D86BED2504DF1200ABB1A9 /* EditSheetNavigator.swift */,
 			);
-			path = Navigators;
+			path = EditSheet;
+			sourceTree = "<group>";
+		};
+		7095628C2529F0080043A35B /* EditTopSheet */ = {
+			isa = PBXGroup;
+			children = (
+				706BFF5525261ECB006AD077 /* EditTopSheetViewModel.swift */,
+				706BFF5325220340006AD077 /* EditTopSheetViewController.swift */,
+				7095627D25273A120043A35B /* EditTopSheetNavigator.swift */,
+			);
+			path = EditTopSheet;
+			sourceTree = "<group>";
+		};
+		7095628D2529F6B40043A35B /* TopSheetDetail */ = {
+			isa = PBXGroup;
+			children = (
+				7095628F2529F6DF0043A35B /* TopSheetDetailViewController.swift */,
+				709562902529F6DF0043A35B /* TopSheetDetailViewModel.swift */,
+				7095628E2529F6DF0043A35B /* TopSheeDetailtNavigator.swift */,
+			);
+			path = TopSheetDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -530,7 +611,9 @@
 				4C0477311FE96482005A8A45 /* ArrayTracker.swift in Sources */,
 				4C3D437C1FDACF49008C5F01 /* SignUpViewController.swift in Sources */,
 				70B5934924F7BCEA00696E2A /* HomeNavigator.swift in Sources */,
+				7095628025288F260043A35B /* TopSheet.swift in Sources */,
 				7020B11725167D36007FB709 /* Extension_UIView.swift in Sources */,
+				7095627C252739DE0043A35B /* EditTopSheetUseCase.swift in Sources */,
 				4C3D437A1FDACF49008C5F01 /* LoginViewController.swift in Sources */,
 				70B5933F24F7825D00696E2A /* HomeViewController.swift in Sources */,
 				70B5934324F7834900696E2A /* HomeUseCase.swift in Sources */,
@@ -540,25 +623,32 @@
 				4C04772C1FE96435005A8A45 /* ActivityIndicator.swift in Sources */,
 				4C4924971FE769080073FE0B /* LoginNavigator.swift in Sources */,
 				70BD769D24FCDF5700031D98 /* AddSheetViewController.swift in Sources */,
-				4C4924921FE764380073FE0B /* SheetNavigator.swift in Sources */,
+				4C4924921FE764380073FE0B /* SheeDetailtNavigator.swift in Sources */,
 				7020B11525165F82007FB709 /* NoteDialogView.swift in Sources */,
 				70B5934124F782F600696E2A /* HomeViewModel.swift in Sources */,
 				70D86BE22504ADB300ABB1A9 /* CellDataConverter.swift in Sources */,
 				4C4924951FE768F10073FE0B /* SignUpNavigator.swift in Sources */,
+				709562842528CC580043A35B /* FireBaseTopSheetRepository.swift in Sources */,
 				4C7234F71FE699D100677DCC /* Exception.swift in Sources */,
 				4C3D437D1FDACF5B008C5F01 /* FireBaseAuthRepository.swift in Sources */,
 				7020B1252519058B007FB709 /* SheetSettingUseCase.swift in Sources */,
 				70B5933B24F77E0500696E2A /* SheetRepository.swift in Sources */,
+				709562922529F7690043A35B /* TopSheetDetailViewModel.swift in Sources */,
 				70ED1C2B2507BDDD0059B3BB /* AppConst.swift in Sources */,
 				70D86BDE2504AA6F00ABB1A9 /* HeaderCell.swift in Sources */,
+				7095627E25273A120043A35B /* EditTopSheetNavigator.swift in Sources */,
 				4C0477331FE964A4005A8A45 /* Observable+Ext.swift in Sources */,
 				4C4924891FE75B530073FE0B /* LoginViewModel.swift in Sources */,
+				706BFF5625261ECB006AD077 /* EditTopSheetViewModel.swift in Sources */,
 				70D86BEE2504DF1200ABB1A9 /* EditSheetNavigator.swift in Sources */,
 				4C04772F1FE96468005A8A45 /* ErrorTracker.swift in Sources */,
+				709562912529F7660043A35B /* TopSheetDetailViewController.swift in Sources */,
 				70B5933524F7779600696E2A /* Sheet.swift in Sources */,
+				706BFF5425220340006AD077 /* EditTopSheetViewController.swift in Sources */,
 				4C4924901FE75BDF0073FE0B /* ViewModelType.swift in Sources */,
 				7020B121251899B8007FB709 /* SheetSettingNavigator.swift in Sources */,
 				4C3D43831FDACFDD008C5F01 /* AuthRepository.swift in Sources */,
+				709562822528CB5F0043A35B /* TopSheetRepository.swift in Sources */,
 				7020B11D2518976C007FB709 /* SheetSettingViewController.swift in Sources */,
 				70D86BEA2504DDB800ABB1A9 /* EditSheetViewModel.swift in Sources */,
 				70B5933D24F77E6D00696E2A /* FireBaseSheetRepository.swift in Sources */,
@@ -567,11 +657,13 @@
 				4C3D438B1FDAD020008C5F01 /* SignUpUseCase.swift in Sources */,
 				70B5934724F79DAD00696E2A /* R.generated.swift in Sources */,
 				4C49248B1FE75B650073FE0B /* SignUpViewModel.swift in Sources */,
-				4C3D437F1FDACF60008C5F01 /* SheetUseCase.swift in Sources */,
+				709562952529F7CB0043A35B /* TopSheetDetailUseCase.swift in Sources */,
+				4C3D437F1FDACF60008C5F01 /* SheetDetailUseCase.swift in Sources */,
+				709562932529F76B0043A35B /* TopSheeDetailtNavigator.swift in Sources */,
 				70B5933324F7769F00696E2A /* Task.swift in Sources */,
 				70ED1C252507A91B0059B3BB /* HeaderSettingViewController.swift in Sources */,
-				4C4924871FE75B3F0073FE0B /* SheetViewModel.swift in Sources */,
-				4C3D43791FDACF49008C5F01 /* SheetViewController.swift in Sources */,
+				4C4924871FE75B3F0073FE0B /* SheetDetailViewModel.swift in Sources */,
+				4C3D43791FDACF49008C5F01 /* SheetDetailViewController.swift in Sources */,
 				70B5934524F78B9C00696E2A /* FireBaseTaskRepository.swift in Sources */,
 				4C45835C1FC957FB002AFB69 /* AppDelegate.swift in Sources */,
 				4C3D43871FDAD008008C5F01 /* LoginUseCase.swift in Sources */,
