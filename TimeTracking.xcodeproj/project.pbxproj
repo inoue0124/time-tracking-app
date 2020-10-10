@@ -67,6 +67,9 @@
 		709562A9252A1A8E0043A35B /* PositionSheetRepository copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562A8252A1A8E0043A35B /* PositionSheetRepository copy.swift */; };
 		709562AB252A1CF70043A35B /* FBSubtaskSheetRepository copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562AA252A1CF70043A35B /* FBSubtaskSheetRepository copy.swift */; };
 		709562AD252A20240043A35B /* PositionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562AC252A20240043A35B /* PositionSheet.swift */; };
+		709562AF252CB88E0043A35B /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562AE252CB88E0043A35B /* Sheet.swift */; };
+		709562B1252CBEA60043A35B /* TemplateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562B0252CBEA60043A35B /* TemplateRepository.swift */; };
+		709562B3252CBED50043A35B /* FBTemplateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562B2252CBED50043A35B /* FBTemplateRepository.swift */; };
 		70B5933324F7769F00696E2A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933224F7769F00696E2A /* Task.swift */; };
 		70B5933524F7779600696E2A /* SubtaskSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933424F7779600696E2A /* SubtaskSheet.swift */; };
 		70B5933724F779F200696E2A /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933624F779F200696E2A /* TaskRepository.swift */; };
@@ -158,6 +161,9 @@
 		709562A8252A1A8E0043A35B /* PositionSheetRepository copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PositionSheetRepository copy.swift"; sourceTree = "<group>"; };
 		709562AA252A1CF70043A35B /* FBSubtaskSheetRepository copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FBSubtaskSheetRepository copy.swift"; sourceTree = "<group>"; };
 		709562AC252A20240043A35B /* PositionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionSheet.swift; sourceTree = "<group>"; };
+		709562AE252CB88E0043A35B /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
+		709562B0252CBEA60043A35B /* TemplateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateRepository.swift; sourceTree = "<group>"; };
+		709562B2252CBED50043A35B /* FBTemplateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBTemplateRepository.swift; sourceTree = "<group>"; };
 		70B5933224F7769F00696E2A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		70B5933424F7779600696E2A /* SubtaskSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskSheet.swift; sourceTree = "<group>"; };
 		70B5933624F779F200696E2A /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
@@ -261,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				4C3D435E1FDACF29008C5F01 /* FBAuthRepository.swift */,
+				709562B2252CBED50043A35B /* FBTemplateRepository.swift */,
 				709562832528CC580043A35B /* FBTopSheetRepository.swift */,
 				70B5933C24F77E6D00696E2A /* FBPositionSheetRepository.swift */,
 				709562AA252A1CF70043A35B /* FBSubtaskSheetRepository copy.swift */,
@@ -282,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				4CBB96F01FE1153F002C5DCC /* User.swift */,
+				709562AE252CB88E0043A35B /* Sheet.swift */,
 				7095627F25288F260043A35B /* TopSheet.swift */,
 				709562AC252A20240043A35B /* PositionSheet.swift */,
 				70B5933424F7779600696E2A /* SubtaskSheet.swift */,
@@ -297,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				4C3D43821FDACFDD008C5F01 /* AuthRepository.swift */,
+				709562B0252CBEA60043A35B /* TemplateRepository.swift */,
 				709562812528CB5F0043A35B /* TopSheetRepository.swift */,
 				709562A8252A1A8E0043A35B /* PositionSheetRepository copy.swift */,
 				70B5933A24F77E0500696E2A /* SubtaskSheetRepository.swift */,
@@ -436,8 +445,8 @@
 		7095628C2529F0080043A35B /* EditTopSheet */ = {
 			isa = PBXGroup;
 			children = (
-				706BFF5525261ECB006AD077 /* EditTopSheetViewModel.swift */,
 				706BFF5325220340006AD077 /* EditTopSheetViewController.swift */,
+				706BFF5525261ECB006AD077 /* EditTopSheetViewModel.swift */,
 				7095627D25273A120043A35B /* EditTopSheetNavigator.swift */,
 				7095627B252739DE0043A35B /* EditTopSheetUseCase.swift */,
 			);
@@ -664,6 +673,7 @@
 				70D86BEC2504DE9200ABB1A9 /* EditSubtaskSheetUseCase.swift in Sources */,
 				7020B11F251898D4007FB709 /* SheetSettingViewModel.swift in Sources */,
 				709562A5252A15930043A35B /* PositionSheetDetailUseCase.swift in Sources */,
+				709562AF252CB88E0043A35B /* Sheet.swift in Sources */,
 				70D86BE42504CE0800ABB1A9 /* AddButtonCell.swift in Sources */,
 				4C04772C1FE96435005A8A45 /* ActivityIndicator.swift in Sources */,
 				4C4924971FE769080073FE0B /* LoginNavigator.swift in Sources */,
@@ -689,6 +699,7 @@
 				7095629B252A11230043A35B /* EditPositionSheetViewController.swift in Sources */,
 				70D86BEE2504DF1200ABB1A9 /* EditSubtaskSheetNavigator.swift in Sources */,
 				4C04772F1FE96468005A8A45 /* ErrorTracker.swift in Sources */,
+				709562B1252CBEA60043A35B /* TemplateRepository.swift in Sources */,
 				709562912529F7660043A35B /* TopSheetDetailViewController.swift in Sources */,
 				70B5933524F7779600696E2A /* SubtaskSheet.swift in Sources */,
 				706BFF5425220340006AD077 /* EditTopSheetViewController.swift in Sources */,
@@ -720,6 +731,7 @@
 				709562A4252A15900043A35B /* PositionSheeDetailtNavigator.swift in Sources */,
 				4CBB96F11FE1153F002C5DCC /* User.swift in Sources */,
 				706BFF522520E116006AD077 /* AddSheetNavigator.swift in Sources */,
+				709562B3252CBED50043A35B /* FBTemplateRepository.swift in Sources */,
 				709562A9252A1A8E0043A35B /* PositionSheetRepository copy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -31,11 +31,12 @@ class SubtaskSheetDetailViewController: UIViewController {
         sheetView.register(DataCell.self, forCellWithReuseIdentifier: String(describing: DataCell.self))
     }
     
-    func initializeViewModel(with sheet: SubtaskSheet? = nil) {
+    func initializeViewModel(with sheetId: String? = nil) {
         guard subtaskSheetDetailViewModel == nil else { return }
-        subtaskSheetDetailViewModel = SubtaskSheetDetailViewModel(with: SubtaskSheetDetailUseCase(withTask: FBTaskRepository()),
-                                        and: SubtaskSheetDetailNavigator(with: self),
-                                        and: sheet
+        subtaskSheetDetailViewModel = SubtaskSheetDetailViewModel(
+            with: SubtaskSheetDetailUseCase(with: FBSubtaskSheetRepository(),and: FBTaskRepository()),
+            and: SubtaskSheetDetailNavigator(with: self),
+            and: sheetId
         )
     }
     

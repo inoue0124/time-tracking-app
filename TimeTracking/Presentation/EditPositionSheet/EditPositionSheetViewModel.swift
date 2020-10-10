@@ -31,20 +31,24 @@ class EditPositionSheetViewModel: ViewModelType {
 
     private let editPositionSheetUseCase: EditPositionSheetUseCase
     private let navigator: EditPositionSheetNavigator
-    private let sheet: PositionSheet?
+    private let sheetId: String?
+    private let sheetName: String?
+    let appConst = AppConst()
 
-    init(with editPositionSheetUseCase: EditPositionSheetUseCase, and navigator: EditPositionSheetNavigator, and sheet: PositionSheet? = nil) {
+    init(with editPositionSheetUseCase: EditPositionSheetUseCase, and navigator: EditPositionSheetNavigator,
+         and sheetId: String? = nil, and sheetName: String? = nil) {
         self.editPositionSheetUseCase = editPositionSheetUseCase
         self.navigator = navigator
-        self.sheet = sheet
+        self.sheetId = sheetId
+        self.sheetName = sheetName
     }
 
     func transform(input: EditPositionSheetViewModel.Input) -> EditPositionSheetViewModel.Output {
         let state = State()
         let load = input.loadTrigger
             .flatMap { [unowned self] _ -> Driver<Void> in
-                if (self.sheet!.id != "" && self.sheet!.type != "") {
-                    return self.editPositionSheetUseCase.loadTasks(with: self.sheet!.id, and: self.sheet!.type)
+                if (self.sheetId != nil) {
+                    return self.editPositionSheetUseCase.loadTasks(with: self.sheetId!, and: self.appConst.SHEET_TYPE_POSITION)
                         .trackArray(state.contentArray)
                         .trackError(state.error)
                         .trackActivity(state.isLoading)
@@ -54,14 +58,22 @@ class EditPositionSheetViewModel: ViewModelType {
                     return Observable.create { [unowned self] observer in return Disposables.create() }.asDriverOnErrorJustComplete()
                 }
         }
+        let sheet = input.loadTrigger
+            .flatMap { [unowned self] _ -> Driver<PositionSheet> in
+                if (self.sheetId != nil) {
+                    return self.editPositionSheetUseCase.getPositionSheetById(with: self.sheetId!).asDriverOnErrorJustComplete()
+                } else {
+                    return Observable.create { observer in return Disposables.create() }.asDriverOnErrorJustComplete()
+                }
+        }
         let requiredInputs = Driver.combineLatest(input.sheet, input.tasks)
         let save = input.saveTrigger
             .withLatestFrom(requiredInputs)
             .flatMapLatest { [unowned self] (sheet: PositionSheet, tasks: [Task]) -> Driver<Void> in
-                if (self.sheet!.id != "" && self.sheet!.type != "") {
+                if (self.sheetId != nil) {
                     return self.editPositionSheetUseCase.updateSheet(with: sheet)
                     .flatMap { [unowned self] _ in
-                        self.editPositionSheetUseCase.updateTasks(with: tasks, and: sheet.id, and: sheet.type)
+                        self.editPositionSheetUseCase.updateTasks(with: tasks, and: sheet.id, and: self.appConst.SHEET_TYPE_POSITION)
                             .do(onNext: { [unowned self] in
                                 self.navigator.toSheetSetting()
                             })
@@ -69,9 +81,10 @@ class EditPositionSheetViewModel: ViewModelType {
                     .trackError(state.error)
                     .asDriver(onErrorJustReturn: ())
                 } else {
+                    sheet.name = self.sheetName!
                     return self.editPositionSheetUseCase.saveSheet(with: sheet)
                     .flatMap { [unowned self] (sheetId: String) in
-                        self.editPositionSheetUseCase.saveTasks(with: tasks, and: sheetId, and: sheet.type)
+                        self.editPositionSheetUseCase.saveTasks(with: tasks, and: sheetId, and: self.appConst.SHEET_TYPE_POSITION)
                             .do(onNext: { [unowned self] in
                                 self.navigator.toSheetSetting()
                             })
@@ -87,15 +100,7 @@ class EditPositionSheetViewModel: ViewModelType {
         }
         return EditPositionSheetViewModel.Output(load: load,
                                          tasks: state.contentArray.asDriver(),
-                                         sheet: Observable.create { [unowned self] observer in
-                                            if (self.sheet == nil) {
-                                                observer.onError(Exception.unknown)
-                                                return Disposables.create()
-                                            } else {
-                                                observer.onNext(self.sheet!)
-                                                return Disposables.create()
-                                            }
-                                         }.asDriverOnErrorJustComplete(),
+                                         sheet: sheet,
                                          save: save,
                                          uploadImage: uploadImage,
                                          isLoading: state.isLoading.asDriver(),

@@ -45,12 +45,14 @@ class EditSubtaskSheetViewController: UIViewController {
         sheetView.register(AddButtonCell.self, forCellWithReuseIdentifier: String(describing: AddButtonCell.self))
     }
 
-    func initializeViewModel(with sheet: SubtaskSheet? = nil, and nvc: UINavigationController? = nil) {
+    func initializeViewModel(with sheetId: String? = nil, and sheetName: String? = nil, and nvc: UINavigationController? = nil) {
         guard editSubtaskSheetViewModel == nil else { return }
-        editSubtaskSheetViewModel = EditSubtaskSheetViewModel(with: EditSubtaskSheetUseCase(with: FBSubtaskSheetRepository(),
-                                                                       and: FBTaskRepository()),
-                                                and: EditSubtaskSheetNavigator(with: self, and: nvc),
-                                                and: sheet)
+        editSubtaskSheetViewModel = EditSubtaskSheetViewModel(
+            with: EditSubtaskSheetUseCase(with: FBSubtaskSheetRepository(), and: FBTaskRepository()),
+            and: EditSubtaskSheetNavigator(with: self, and: nvc),
+            and: sheetId,
+            and: sheetName
+        )
     }
 
     func bindViewModel() {

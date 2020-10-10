@@ -22,10 +22,10 @@ class HomeUseCase {
     }
 
     func loadPositionSheets() -> Observable<[PositionSheet]> {
-        return positionSheetRepository.read(with: appConst.SHEET_TYPE_SUBTASK)
+        return positionSheetRepository.read()
     }
 
     func loadSubtaskSheets() -> Observable<[SubtaskSheet]> {
-        return subtaskSheetRepository.read(with: appConst.SHEET_TYPE_SUBTASK)
+        return subtaskSheetRepository.read()
     }
 }

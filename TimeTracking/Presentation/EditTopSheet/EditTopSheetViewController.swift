@@ -43,11 +43,14 @@ class EditTopSheetViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
 
-    func initializeViewModel(with topSheet: TopSheet? = nil, and nvc: UINavigationController? = nil) {
+    func initializeViewModel(with sheetId: String? = nil, and sheetName: String? = nil, and nvc: UINavigationController? = nil) {
         guard editTopSheetViewModel == nil else { return }
-        editTopSheetViewModel = EditTopSheetViewModel(with: EditTopSheetUseCase(with: FBTopSheetRepository(), and: FBPositionSheetRepository()),
-                                                and: EditTopSheetNavigator(with: self, and: nvc),
-                                                and: topSheet)
+        editTopSheetViewModel = EditTopSheetViewModel(
+            with: EditTopSheetUseCase(with: FBTopSheetRepository(), and: FBPositionSheetRepository()),
+            and: EditTopSheetNavigator(with: self, and: nvc),
+            and: sheetId,
+            and: sheetName
+        )
     }
 
     func bindViewModel() {

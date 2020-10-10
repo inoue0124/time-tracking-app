@@ -25,14 +25,14 @@ class SheetSettingUseCase {
     }
 
     func loadPositionSheets() -> Observable<[PositionSheet]> {
-        return positionSheetRepository.read(with: appConst.SHEET_TYPE_POSITION)
+        return positionSheetRepository.read()
     }
     func deletePositionSheets(with sheetId: String) -> Observable<Void> {
         return positionSheetRepository.delete(sheetId, and: appConst.SHEET_TYPE_POSITION)
     }
 
     func loadSubtaskSheets() -> Observable<[SubtaskSheet]> {
-        return subtaskSheetRepository.read(with: appConst.SHEET_TYPE_SUBTASK)
+        return subtaskSheetRepository.read()
     }
     func deleteSubtaskSheets(with sheetId: String) -> Observable<Void> {
         return subtaskSheetRepository.delete(sheetId, and: appConst.SHEET_TYPE_SUBTASK)

@@ -24,36 +24,41 @@ class SubtaskSheetDetailViewModel: ViewModelType {
     
     private let useCase: SubtaskSheetDetailUseCase
     private let navigator: SubtaskSheetDetailNavigator
-    private let sheet: SubtaskSheet?
+    private let sheetId: String?
+    let appConst = AppConst()
     
-    init(with useCase: SubtaskSheetDetailUseCase, and navigator: SubtaskSheetDetailNavigator, and sheet: SubtaskSheet? = nil) {
+    init(with useCase: SubtaskSheetDetailUseCase, and navigator: SubtaskSheetDetailNavigator, and sheetId: String? = nil) {
         self.useCase = useCase
         self.navigator = navigator
-        self.sheet = sheet
+        self.sheetId = sheetId
     }
     
     func transform(input: SubtaskSheetDetailViewModel.Input) -> SubtaskSheetDetailViewModel.Output {
         let state = State()
         let load = input.loadTrigger
-            .flatMap { [unowned self] _ in
-                return self.useCase.loadTasks(with: self.sheet!.id, and: self.sheet!.type)
-                    .trackArray(state.contentArray)
-                    .trackError(state.error)
-                    .trackActivity(state.isLoading)
-                    .mapToVoid()
-                    .asDriverOnErrorJustComplete()
+            .flatMap { [unowned self] _ -> Driver<Void> in
+                if (self.sheetId != nil) {
+                    return self.useCase.loadTasks(with: self.sheetId!, and: self.appConst.SHEET_TYPE_SUBTASK)
+                        .trackArray(state.contentArray)
+                        .trackError(state.error)
+                        .trackActivity(state.isLoading)
+                        .mapToVoid()
+                        .asDriverOnErrorJustComplete()
+                } else {
+                    return Observable.create { observer in return Disposables.create() }.asDriverOnErrorJustComplete()
+                }
+        }
+        let sheet = input.loadTrigger
+            .flatMap { [unowned self] _ -> Driver<SubtaskSheet> in
+                if (self.sheetId != nil) {
+                    return self.useCase.getSubtaskSheetById(with: self.sheetId!).asDriverOnErrorJustComplete()
+                } else {
+                    return Observable.create { observer in return Disposables.create() }.asDriverOnErrorJustComplete()
+                }
         }
         return SubtaskSheetDetailViewModel.Output(load: load,
                                      tasks: state.contentArray.asDriver(),
-                                     sheet: Observable.create { [unowned self] observer in
-                                        if (self.sheet == nil) {
-                                            observer.onError(Exception.unknown)
-                                            return Disposables.create()
-                                        } else {
-                                            observer.onNext(self.sheet!)
-                                            return Disposables.create()
-                                        }
-                                     }.asDriverOnErrorJustComplete(),
+                                     sheet: sheet,
                                      isLoading: state.isLoading.asDriver(),
                                      error: state.error.asDriver())
     }

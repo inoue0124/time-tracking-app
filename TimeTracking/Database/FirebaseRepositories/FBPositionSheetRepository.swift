@@ -18,15 +18,14 @@ class FBPositionSheetRepository: PositionSheetRepository {
     func create(with sheet: PositionSheet) -> Observable<String> {
         print(sheet)
         return Observable.create { [unowned self] observer in
-            let ref = self.db.collection(sheet.type).document()
+            let ref = self.db.collection("position_sheets").document()
             ref.setData([
                 "id": ref.documentID,
                 "name": sheet.name,
-                "type": sheet.type,
                 "is_public": false,
-                "column_titles": sheet.columnTitles,
-                "column_types": sheet.columnTypes,
-                "column_widths": sheet.columnWidths,
+                "columnTitles": sheet.columnTitles,
+                "columnTypes": sheet.columnTypes,
+                "columnWidths": sheet.columnWidths,
                 "create_user": (Auth.auth().currentUser?.uid)!,
                 "created_at": Date(),
                 "update_user": (Auth.auth().currentUser?.uid)!,
@@ -42,12 +41,12 @@ class FBPositionSheetRepository: PositionSheetRepository {
         }
     }
 
-    func read(with sheetType: String) -> Observable<[PositionSheet]> {
+    func read() -> Observable<[PositionSheet]> {
         let options = QueryListenOptions()
         options.includeQueryMetadataChanges(true)
 
         return Observable.create { [unowned self] observer in
-            self.listener = self.db.collection(sheetType)
+            self.listener = self.db.collection("position_sheets")
                 .whereField("create_user", isEqualTo: (Auth.auth().currentUser?.uid)!)
                 .order(by: "updated_at", descending: true)
                 .addSnapshotListener(options: options) { snapshot, error in
@@ -69,11 +68,10 @@ class FBPositionSheetRepository: PositionSheetRepository {
                             positionSheets.append(PositionSheet(
                                 id: item.documentID,
                                 name: item["name"] as? String ?? "",
-                                type: item["type"] as? String ?? "",
                                 isPublic: item["is_public"] as? Bool ?? false,
-                                columnTitles: item["column_titles"] as? [String] ?? [],
-                                columnTypes: item["column_types"] as? [String] ?? [],
-                                columnWidths: item["column_widths"] as? [Int] ?? [],
+                                columnTitles: item["columnTitles"] as? [String] ?? [],
+                                columnTypes: item["columnTypes"] as? [String] ?? [],
+                                columnWidths: item["columnWidths"] as? [Int] ?? [],
                                 createUser: item["create_user"] as? String ?? "",
                                 createdAt: item["created_at"] as? Date ?? Date(),
                                 updateUser: item["update_user"] as? String ?? "",
@@ -87,9 +85,52 @@ class FBPositionSheetRepository: PositionSheetRepository {
         }
     }
 
+    func readById(with id: String) -> Observable<PositionSheet> {
+        let options = QueryListenOptions()
+        options.includeQueryMetadataChanges(true)
+
+        return Observable.create { [unowned self] observer in
+            self.listener = self.db.collection("position_sheets")
+                .whereField("id", isEqualTo: id)
+                .addSnapshotListener(options: options) { snapshot, error in
+                    guard let snap = snapshot else {
+                        print("Error fetching document: \(error!)")
+                        observer.onError(error!)
+                        return
+                    }
+                    for diff in snap.documentChanges {
+                        if diff.type == .added {
+                            print("New data: \(diff.document.data())")
+                        }
+                    }
+                    print("Current data: \(snap)")
+
+                    var positionSheet = PositionSheet()
+                    if !snap.isEmpty {
+                        for item in snap.documents {
+                            positionSheet = PositionSheet(
+                                id: item.documentID,
+                                name: item["name"] as? String ?? "",
+                                isPublic: item["is_public"] as? Bool ?? false,
+                                columnTitles: item["column_titles"] as? [String] ?? [],
+                                columnTypes: item["column_types"] as? [String] ?? [],
+                                columnWidths: item["column_widths"] as? [Int] ?? [],
+                                createUser: item["create_user"] as? String ?? "",
+                                createdAt: item["created_at"] as? Date ?? Date(),
+                                updateUser: item["update_user"] as? String ?? "",
+                                updatedAt: item["updated_at"] as? Date ?? Date()
+                            )
+                        }
+                    }
+                    observer.onNext(positionSheet)
+            }
+            return Disposables.create()
+        }
+    }
+
     func update(_ sheet: PositionSheet) -> Observable<Void> {
         return Observable.create { [unowned self] observer in
-            self.db.collection(sheet.type).document(sheet.id).updateData([
+            self.db.collection("position_sheets").document(sheet.id).updateData([
                 "name": sheet.name,
                 "is_public": false,
                 "column_titles": sheet.columnTitles,

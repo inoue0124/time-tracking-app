@@ -11,12 +11,12 @@ class TopSheetDetailViewModel: ViewModelType {
     struct Output {
         let load: Driver<Void>
         let tasks: Driver<[Task]>
-        let sheet: Driver<PositionSheet>
         let isLoading: Driver<Bool>
         let error: Driver<Error>
     }
     
     struct State {
+        let sheetArray = ArrayTracker<TopSheet>()
         let contentArray = ArrayTracker<Task>()
         let isLoading = ActivityIndicator()
         let error = ErrorTracker()
@@ -24,37 +24,33 @@ class TopSheetDetailViewModel: ViewModelType {
     
     private let useCase: TopSheetDetailUseCase
     private let navigator: TopSheetDetailNavigator
-    private let sheet: PositionSheet?
+    private let sheetId: String?
+    private var topSheet: TopSheet?
+    let disposeBag = DisposeBag()
     
-    init(with useCase: TopSheetDetailUseCase, and navigator: TopSheetDetailNavigator, and sheet: PositionSheet? = nil) {
+    init(with useCase: TopSheetDetailUseCase, and navigator: TopSheetDetailNavigator, and sheetId: String? = nil) {
         self.useCase = useCase
         self.navigator = navigator
-        self.sheet = sheet
+        self.sheetId = sheetId
     }
     
     func transform(input: TopSheetDetailViewModel.Input) -> TopSheetDetailViewModel.Output {
         let state = State()
         let load = input.loadTrigger
-            .flatMap { [unowned self] _ in
-                return self.useCase.loadTasks(with: ["HXcCkW6ev3KP9Y9OC6Uh", "IqOzYKralPP0C40X6Ewn"])
+            .flatMap { [unowned self] _ -> Driver<Void> in
+                return self.useCase.getTopSheetById(with: self.sheetId!).map({ (topSheet) in
+                    self.useCase.loadTasks(with: topSheet.positionSheetIds).do()
                     .trackArray(state.contentArray)
                     .trackError(state.error)
                     .trackActivity(state.isLoading)
                     .mapToVoid()
-                    .asDriverOnErrorJustComplete()
+                    .asDriverOnErrorJustComplete().drive().disposed(by: self.disposeBag)
+                }).mapToVoid().asDriverOnErrorJustComplete()
         }
+
         return TopSheetDetailViewModel.Output(load: load,
-                                     tasks: state.contentArray.asDriver(),
-                                     sheet: Observable.create { [unowned self] observer in
-                                        if (self.sheet == nil) {
-                                            observer.onError(Exception.unknown)
-                                            return Disposables.create()
-                                        } else {
-                                            observer.onNext(self.sheet!)
-                                            return Disposables.create()
-                                        }
-                                     }.asDriverOnErrorJustComplete(),
-                                     isLoading: state.isLoading.asDriver(),
-                                     error: state.error.asDriver())
+                                              tasks: state.contentArray.asDriver(),
+                                              isLoading: state.isLoading.asDriver(),
+                                              error: state.error.asDriver())
     }
 }

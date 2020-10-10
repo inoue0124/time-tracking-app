@@ -13,6 +13,10 @@ class EditPositionSheetUseCase {
         self.taskRepository = taskRepository
     }
 
+    func getPositionSheetById(with sheetId: String) -> Observable<PositionSheet> {
+        return positionSheetRepository.readById(with: sheetId)
+    }
+
     func loadTasks(with sheetId: String, and sheetType: String) -> Observable<[Task]> {
         return taskRepository.read(with: sheetId, and: sheetType)
     }

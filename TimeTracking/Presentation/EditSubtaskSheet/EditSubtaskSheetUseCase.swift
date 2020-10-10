@@ -13,6 +13,10 @@ class EditSubtaskSheetUseCase {
         self.taskRepository = taskRepository
     }
 
+    func getSubtaskSheetById(with sheetId: String) -> Observable<SubtaskSheet> {
+        return subtaskSheetRepository.readById(with: sheetId)
+    }
+
     func loadTasks(with sheetId: String, and sheetType: String) -> Observable<[Task]> {
         return taskRepository.read(with: sheetId, and: sheetType)
     }

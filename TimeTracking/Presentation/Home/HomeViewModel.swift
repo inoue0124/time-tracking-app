@@ -36,6 +36,7 @@ class HomeViewModel: ViewModelType {
 
     private let homeUseCase: HomeUseCase
     public let navigator: HomeNavigator
+    let appConst = AppConst()
 
     init(with homeUseCase: HomeUseCase, and navigator: HomeNavigator) {
         self.homeUseCase = homeUseCase
@@ -46,7 +47,7 @@ class HomeViewModel: ViewModelType {
         let loadTopSheetsState = State()
         let loadTopSheets = input.loadTrigger
             .flatMap { [unowned self] _ in
-            return self.homeUseCase.loadTopSheets(with: "vKb3NOPcXnwGh0bV4WMd")
+            return self.homeUseCase.loadTopSheets(with: "eQ1PLbHjCxGXdlvQxsKw")
                 .trackArray(loadTopSheetsState.positionSheetsArray)
                 .trackError(loadTopSheetsState.errorLoadingTopSheets)
                 .trackActivity(loadTopSheetsState.isLoadingTopSheets)
@@ -56,9 +57,9 @@ class HomeViewModel: ViewModelType {
         let selectTopSheet = input.selectTopSheetTrigger
             .withLatestFrom(loadTopSheetsState.positionSheetsArray) { [unowned self] (index: Int, positionSheets: [PositionSheet]) in
                 if (index==0) {
-                    self.navigator.toTopSheetDetail()
+                    self.navigator.toSheetDetail(with: self.appConst.SHEET_TYPE_TOP, and: positionSheets[index].id)
                 } else {
-                    self.navigator.toPositionSheetDetail(with: positionSheets[index])
+                    self.navigator.toSheetDetail(with: self.appConst.SHEET_TYPE_POSITION, and: positionSheets[index].id)
                 }
         }
         
@@ -74,7 +75,7 @@ class HomeViewModel: ViewModelType {
         }
         let selectSubtaskSheet = input.selectSubtaskSheetTrigger
             .withLatestFrom(loadSubtaskSheetsState.subtaskSheetsArray) { [unowned self] (index: Int, subtaskSheets: [SubtaskSheet]) in
-                self.navigator.toSubtaskSheetDetail(with: subtaskSheets[index])
+                self.navigator.toSheetDetail(with: self.appConst.SHEET_TYPE_SUBTASK, and: subtaskSheets[index].id)
         }
 
         return HomeViewModel.Output(

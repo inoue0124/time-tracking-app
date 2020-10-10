@@ -23,16 +23,22 @@ class HomeViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == R.segue.homeViewController.toTopSheetDetail.identifier {
+            if let vc = segue.destination as? TopSheetDetailViewController,
+                let sheetId = sender as? String {
+                    vc.initializeViewModel(with: sheetId)
+            }
+        }
         if segue.identifier == R.segue.homeViewController.toPositionSheetDetail.identifier {
             if let vc = segue.destination as? PositionSheetDetailViewController,
-                let sheet = sender as? PositionSheet {
-                vc.initializeViewModel(with: sheet)
+                let sheetId = sender as? String {
+                    vc.initializeViewModel(with: sheetId)
             }
         }
         if segue.identifier == R.segue.homeViewController.toSubtaskSheetDetail.identifier {
             if let vc = segue.destination as? SubtaskSheetDetailViewController,
-                let sheet = sender as? SubtaskSheet {
-                vc.initializeViewModel(with: sheet)
+                let sheetId = sender as? String {
+                    vc.initializeViewModel(with: sheetId)
             }
         }
     }

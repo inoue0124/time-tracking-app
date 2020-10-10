@@ -80,6 +80,48 @@ class FBTopSheetRepository: TopSheetRepository {
         }
     }
 
+    func readById(with id: String) -> Observable<TopSheet> {
+        let options = QueryListenOptions()
+        options.includeQueryMetadataChanges(true)
+
+        return Observable.create { [unowned self] observer in
+            self.listener = self.db.collection("top_sheets")
+                .whereField("id", isEqualTo: id)
+                .addSnapshotListener(options: options) { snapshot, error in
+                    guard let snap = snapshot else {
+                        print("Error fetching document: \(error!)")
+                        observer.onError(error!)
+                        return
+                    }
+                    for diff in snap.documentChanges {
+                        if diff.type == .added {
+                            print("New data: \(diff.document.data())")
+                        }
+                    }
+                    print("Current data: \(snap)")
+
+                    var topSheet = TopSheet()
+                    if !snap.isEmpty {
+                        for item in snap.documents {
+                            topSheet = TopSheet(
+                                id: item.documentID,
+                                name: item["name"] as? String ?? "",
+                                isPublic: item["is_public"] as? Bool ?? false,
+                                positionSheetIds: item["position_sheet_ids"] as? [String] ?? [],
+                                createUser: item["create_user"] as? String ?? "",
+                                createdAt: item["created_at"] as? Date ?? Date(),
+                                updateUser: item["update_user"] as? String ?? "",
+                                updatedAt: item["updated_at"] as? Date ?? Date()
+                            )
+                        }
+                    }
+                    observer.onNext(topSheet)
+            }
+            return Disposables.create()
+        }
+    }
+
+
     func readPositionSheets(with id: String) -> Observable<[PositionSheet]> {
         let options = QueryListenOptions()
         options.includeQueryMetadataChanges(true)
@@ -108,11 +150,10 @@ class FBTopSheetRepository: TopSheetRepository {
                             positionSheets.append(PositionSheet(
                                 id: item.documentID,
                                 name: item["name"] as? String ?? "",
-                                type: "",
                                 isPublic: item["is_public"] as? Bool ?? false,
-                                columnTitles: [],
-                                columnTypes: [],
-                                columnWidths: [],
+                                columnTitles: item["columnTitles"] as? [String] ?? [],
+                                columnTypes: item["columnTypes"] as? [String] ?? [],
+                                columnWidths: item["columnWidths"] as? [Int] ?? [],
                                 createUser: item["create_user"] as? String ?? "",
                                 createdAt: item["created_at"] as? Date ?? Date(),
                                 updateUser: item["update_user"] as? String ?? "",
@@ -140,11 +181,10 @@ class FBTopSheetRepository: TopSheetRepository {
                                                 positionSheets.append(PositionSheet(
                                                     id: item.documentID,
                                                     name: item["name"] as? String ?? "",
-                                                    type: item["type"] as? String ?? "",
                                                     isPublic: item["is_public"] as? Bool ?? false,
-                                                    columnTitles: item["column_titles"] as? [String] ?? [],
-                                                    columnTypes: item["column_types"] as? [String] ?? [],
-                                                    columnWidths: item["column_widths"] as? [Int] ?? [],
+                                                    columnTitles: item["columnTitles"] as? [String] ?? [],
+                                                    columnTypes: item["columnTypes"] as? [String] ?? [],
+                                                    columnWidths: item["columnWidths"] as? [Int] ?? [],
                                                     createUser: item["create_user"] as? String ?? "",
                                                     createdAt: item["created_at"] as? Date ?? Date(),
                                                     updateUser: item["update_user"] as? String ?? "",
