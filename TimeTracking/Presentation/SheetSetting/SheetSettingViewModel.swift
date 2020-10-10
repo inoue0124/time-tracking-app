@@ -55,6 +55,7 @@ class SheetSettingViewModel: ViewModelType {
 
     private let sheetSettingUseCase: SheetSettingUseCase
     private let navigator: SheetSettingNavigator
+    let appConst = AppConst()
 
     init(with sheetSettingUseCase: SheetSettingUseCase, and navigator: SheetSettingNavigator) {
         self.sheetSettingUseCase = sheetSettingUseCase
@@ -75,7 +76,7 @@ class SheetSettingViewModel: ViewModelType {
             }
         let selectTopSheet = input.selectTopSheetTrigger
             .withLatestFrom(state.topSheetsArray) { [unowned self] (index: Int, topSheets: [TopSheet]) in
-                self.navigator.toEditTopSheet(with: topSheets[index])
+                self.navigator.toEditSheet(with: self.appConst.SHEET_TYPE_TOP, and: topSheets[index].id)
             }
         let deleteTopSheet = input.deleteTopSheetTrigger
             .flatMapLatest { [unowned self] index -> Driver<Void> in
@@ -94,7 +95,7 @@ class SheetSettingViewModel: ViewModelType {
             }
         let selectPositionSheet = input.selectPositionSheetTrigger
             .withLatestFrom(state.positionSheetsArray) { [unowned self] (index: Int, positionSheets: [PositionSheet]) in
-                self.navigator.toEditPositionSheet(with: positionSheets[index])
+                self.navigator.toEditSheet(with: self.appConst.SHEET_TYPE_POSITION, and: positionSheets[index].id)
             }
         let deletePositionSheet = input.deletePositionSheetTrigger
             .flatMapLatest { [unowned self] index -> Driver<Void> in
@@ -113,7 +114,7 @@ class SheetSettingViewModel: ViewModelType {
             }
         let selectSubtaskSheet = input.selectSubtaskSheetTrigger
             .withLatestFrom(state.subtaskSheetsArray) { [unowned self] (index: Int, subtaskSheets: [SubtaskSheet]) in
-                self.navigator.toEditSubtaskSheet(with: subtaskSheets[index])
+                self.navigator.toEditSheet(with: self.appConst.SHEET_TYPE_SUBTASK, and: subtaskSheets[index].id)
             }
         let deleteSubtaskSheet = input.deleteSubtaskSheetTrigger
             .flatMapLatest { [unowned self] index -> Driver<Void> in

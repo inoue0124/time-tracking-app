@@ -6,23 +6,20 @@ class AddSheetViewModel: ViewModelType {
 
     struct Input {
         let loadTemplateTrigger: Driver<String>
+        let sheetType: Driver<String>
         let createTrigger: Driver<Void>
-        let positionSheet: Driver<PositionSheet>
-        let subtaskSheet: Driver<SubtaskSheet>
     }
 
     struct Output {
         let loadTemplate: Driver<Void>
+        let templates: Driver<[Sheet]>
         let create: Driver<Void>
-        let positionSheetTemplates: Driver<[PositionSheet]>
-        let subtaskSheetTemplates: Driver<[SubtaskSheet]>
         let isLoadingTemplate: Driver<Bool>
         let errorLoadingTemplate: Driver<Error>
     }
 
     struct State {
-        let positionSheetTemplateArray = ArrayTracker<PositionSheet>()
-        let subtaskSheetTemplateArray = ArrayTracker<SubtaskSheet>()
+        let templateArray = ArrayTracker<Sheet>()
         let isLoadingTemplate = ActivityIndicator()
         let errorLoadingTemplate = ErrorTracker()
     }
@@ -40,37 +37,22 @@ class AddSheetViewModel: ViewModelType {
         let state = State()
         let loadTemplate = input.loadTemplateTrigger
             .flatMapLatest { [unowned self] (sheetType: String) -> Driver<Void> in
-                if (sheetType == self.appConst.SHEET_TYPE_POSITION) {
-                    return self.addSheetUseCase.loadPositionSheets()
-                        .trackArray(state.positionSheetTemplateArray)
-                        .trackError(state.errorLoadingTemplate)
-                        .trackActivity(state.isLoadingTemplate)
-                        .mapToVoid()
-                        .asDriverOnErrorJustComplete()
-                } else if (sheetType == self.appConst.SHEET_TYPE_SUBTASK) {
-                    return self.addSheetUseCase.loadSubtaskSheets()
-                        .trackArray(state.subtaskSheetTemplateArray)
-                        .trackError(state.errorLoadingTemplate)
-                        .trackActivity(state.isLoadingTemplate)
-                        .mapToVoid()
-                        .asDriverOnErrorJustComplete()
-                } else {
-                    return Driver.just(())
-                }
+                if (sheetType == "") { return Observable.create { observer in return Disposables.create() }.asDriverOnErrorJustComplete() }
+                return self.addSheetUseCase.loadTemplates(with: sheetType)
+                    .trackArray(state.templateArray)
+                    .trackError(state.errorLoadingTemplate)
+                    .trackActivity(state.isLoadingTemplate)
+                    .mapToVoid()
+                    .asDriverOnErrorJustComplete()
         }
         let create = input.createTrigger
-            .withLatestFrom(input.subtaskSheet) { [unowned self] (_, subtaskSheet: SubtaskSheet) in
-                if (subtaskSheet.type == self.appConst.SHEET_TYPE_TOP) {
-                    self.navigator.toCreateTopSheet()
-                } else {
-                    self.navigator.toCreateSubtaskSheet(with: subtaskSheet)
-                }
+            .withLatestFrom(input.sheetType) { [unowned self] (_, sheetType: String) in
+                self.navigator.toCreateSheet(with: sheetType)
         }
         return AddSheetViewModel.Output(
             loadTemplate: loadTemplate,
+            templates: state.templateArray.asDriver(),
             create: create,
-            positionSheetTemplates: state.positionSheetTemplateArray.asDriver(),
-            subtaskSheetTemplates: state.subtaskSheetTemplateArray.asDriver(),
             isLoadingTemplate: state.isLoadingTemplate.asDriver(),
             errorLoadingTemplate: state.errorLoadingTemplate.asDriver()
         )

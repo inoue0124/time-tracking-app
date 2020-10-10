@@ -2,11 +2,17 @@ import Foundation
 import RxSwift
 
 class TopSheetDetailUseCase {
-    
+
+    private let topSheetRepository: TopSheetRepository
     private let taskRepository: TaskRepository
     
-    init(withTask taskRepository: TaskRepository) {
+    init(with topSheetRepository: TopSheetRepository, and taskRepository: TaskRepository) {
+        self.topSheetRepository = topSheetRepository
         self.taskRepository = taskRepository
+    }
+
+    func getTopSheetById(with sheetId: String) -> Observable<TopSheet> {
+        return topSheetRepository.readById(with: sheetId)
     }
     
     func loadTasks(with positionSheetIds: [String]) -> Observable<[Task]> {

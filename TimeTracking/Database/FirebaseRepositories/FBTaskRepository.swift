@@ -101,7 +101,6 @@ class FBTaskRepository: TaskRepository {
 
                         if !snap.isEmpty {
                             for item in snap.documents {
-                                print(item)
                                 tasks.append(Task(id: item.documentID,
                                                   data: item["data"] as? [Any] ?? [],
                                                   createUser: item["create_user"] as? String ?? "",

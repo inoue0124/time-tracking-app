@@ -2,21 +2,23 @@ import Foundation
 
 class HomeNavigator {
     private weak var viewController: HomeViewController?
+    let appConst = AppConst()
 
     init(with viewController: HomeViewController) {
         self.viewController = viewController
     }
 
-    func toTopSheetDetail(with sheet: TopSheet? = nil) {
-        viewController?.performSegue(withIdentifier: R.segue.homeViewController.toTopSheetDetail, sender: sheet)
-    }
-
-    func toPositionSheetDetail(with sheet: PositionSheet? = nil) {
-        viewController?.performSegue(withIdentifier: R.segue.homeViewController.toPositionSheetDetail, sender: sheet)
-    }
-
-    func toSubtaskSheetDetail(with sheet: SubtaskSheet? = nil) {
-        viewController?.performSegue(withIdentifier: R.segue.homeViewController.toSubtaskSheetDetail, sender: sheet)
+    func toSheetDetail(with sheetType: String, and sheetId: String) {
+        switch (sheetType) {
+        case appConst.SHEET_TYPE_TOP:
+            viewController?.performSegue(withIdentifier: R.segue.homeViewController.toTopSheetDetail, sender: sheetId)
+        case appConst.SHEET_TYPE_POSITION:
+            viewController?.performSegue(withIdentifier: R.segue.homeViewController.toPositionSheetDetail, sender: sheetId)
+        case appConst.SHEET_TYPE_SUBTASK:
+            viewController?.performSegue(withIdentifier: R.segue.homeViewController.toSubtaskSheetDetail, sender: sheetId)
+        default:
+            break
+        }
     }
 
     func toSetting() {

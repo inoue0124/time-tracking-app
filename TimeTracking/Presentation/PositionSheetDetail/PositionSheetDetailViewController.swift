@@ -9,7 +9,7 @@ class PositionSheetDetailViewController: UIViewController {
 
     var positionSheetDetailViewModel: PositionSheetDetailViewModel!
     let disposeBag = DisposeBag()
-    var sheet: PositionSheet?
+    var sheet = PositionSheet()
     let cellDataConverter = CellDataConverter()
     var noteDialogView = NoteDialogView()
     var tasks: [Task] = []
@@ -31,11 +31,11 @@ class PositionSheetDetailViewController: UIViewController {
         sheetView.register(DataCell.self, forCellWithReuseIdentifier: String(describing: DataCell.self))
     }
     
-    func initializeViewModel(with sheet: PositionSheet? = nil) {
+    func initializeViewModel(with sheetId: String? = nil) {
         guard positionSheetDetailViewModel == nil else { return }
         positionSheetDetailViewModel = PositionSheetDetailViewModel(with: PositionSheetDetailUseCase(withTask: FBTaskRepository()),
                                         and: PositionSheetDetailNavigator(with: self),
-                                        and: sheet
+                                        and: sheetId
         )
     }
     
@@ -47,16 +47,13 @@ class PositionSheetDetailViewController: UIViewController {
             self.tasks = tasks
             self.sheetView.reloadData()
         }).disposed(by: disposeBag)
-        output.sheet.drive(onNext: { sheet in
-            self.sheet = sheet
-        }).disposed(by: disposeBag)
     }
 }
 
 
 extension PositionSheetDetailViewController: SpreadsheetViewDataSource {
     func numberOfColumns(in spreadsheetView: SpreadsheetView) -> Int {
-        return sheet?.columnTitles.count ?? 0
+        return sheet.columnTitles.count
     }
 
     func numberOfRows(in spreadsheetView: SpreadsheetView) -> Int {
@@ -64,7 +61,7 @@ extension PositionSheetDetailViewController: SpreadsheetViewDataSource {
     }
 
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, widthForColumn column: Int) -> CGFloat {
-        return CGFloat(sheet?.columnWidths[column] ?? 50)
+        return CGFloat(sheet.columnWidths[column])
     }
 
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, heightForRow row: Int) -> CGFloat {
@@ -75,7 +72,7 @@ extension PositionSheetDetailViewController: SpreadsheetViewDataSource {
         // headerのとき
         if (indexPath.row == 0) {
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderCell.self), for: indexPath) as! HeaderCell
-            cell.label.text = sheet?.columnTitles[indexPath.column]
+            cell.label.text = sheet.columnTitles[indexPath.column]
             return cell
         } else {
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: DataCell.self), for: indexPath) as! DataCell
@@ -86,7 +83,7 @@ extension PositionSheetDetailViewController: SpreadsheetViewDataSource {
             return cellDataConverter.makeDataCell(cell: cell,
                                                   indexPath: indexPath,
                                                   data: tasks[indexPath.row-1].data[indexPath.column] as Any,
-                                                  type: sheet?.columnTypes[indexPath.column] ?? "text")
+                                                  type: sheet.columnTypes[indexPath.column])
         }
     }
 }

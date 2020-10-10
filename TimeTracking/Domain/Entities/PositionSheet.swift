@@ -1,9 +1,9 @@
 import Foundation
 
-struct PositionSheet {
+class PositionSheet {
+
     var id: String
     var name: String
-    var type: String
     var isPublic: Bool
     var columnTitles: [String]
     var columnTypes: [String]
@@ -14,13 +14,23 @@ struct PositionSheet {
     var updatedAt: Date
 
     init() {
+        let appConst = AppConst()
         self.id = ""
         self.name = ""
-        self.type = ""
         self.isPublic = false
-        self.columnTitles = []
-        self.columnTypes = []
-        self.columnWidths = []
+        self.columnTitles = ["時間", "タイトル", "Q&A", "チェック"]
+        self.columnTypes = [
+            appConst.CELL_TYPE_TIME,
+            appConst.CELL_TYPE_TEXT,
+            appConst.CELL_TYPE_NOTE,
+            appConst.CELL_TYPE_CHECK
+        ]
+        self.columnWidths = [
+            appConst.CELL_WIDTH_MEDIUM,
+            appConst.CELL_WIDTH_LARGE,
+            appConst.CELL_WIDTH_SMALL,
+            appConst.CELL_WIDTH_SMALL
+        ]
         self.createUser = ""
         self.createdAt = Date()
         self.updateUser = ""
@@ -29,7 +39,6 @@ struct PositionSheet {
 
     init(id: String,
          name: String,
-         type: String,
          isPublic: Bool,
          columnTitles: [String],
          columnTypes: [String],
@@ -39,13 +48,23 @@ struct PositionSheet {
          updateUser: String,
          updatedAt: Date)
     {
+        let appConst = AppConst()
         self.id = id
         self.name = name
-        self.type = type
         self.isPublic = isPublic
-        self.columnTitles = columnTitles
-        self.columnTypes = columnTypes
-        self.columnWidths = columnWidths
+        self.columnTitles = ["時間", "タイトル", "Q&A", "チェック"]
+        self.columnTypes = [
+            appConst.CELL_TYPE_TIME,
+            appConst.CELL_TYPE_TEXT,
+            appConst.CELL_TYPE_NOTE,
+            appConst.CELL_TYPE_CHECK
+        ]
+        self.columnWidths = [
+            appConst.CELL_WIDTH_MEDIUM,
+            appConst.CELL_WIDTH_LARGE,
+            appConst.CELL_WIDTH_SMALL,
+            appConst.CELL_WIDTH_SMALL
+        ]
         self.createUser = createUser
         self.createdAt = createdAt
         self.updateUser = updateUser

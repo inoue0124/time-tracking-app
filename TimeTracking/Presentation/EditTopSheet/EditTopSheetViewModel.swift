@@ -26,25 +26,30 @@ class EditTopSheetViewModel: ViewModelType {
 
     private let editTopSheetUseCase: EditTopSheetUseCase
     private let navigator: EditTopSheetNavigator
-    private let topSheet: TopSheet?
+    private let sheetId: String?
+    private let sheetName: String?
+    let disposeBag = DisposeBag()
 
-    init(with editTopSheetUseCase: EditTopSheetUseCase, and navigator: EditTopSheetNavigator, and topSheet: TopSheet? = nil) {
+    init(with editTopSheetUseCase: EditTopSheetUseCase, and navigator: EditTopSheetNavigator,
+         and sheetId: String? = nil, and sheetName: String? = nil) {
         self.editTopSheetUseCase = editTopSheetUseCase
         self.navigator = navigator
-        self.topSheet = topSheet
+        self.sheetId = sheetId
+        self.sheetName = sheetName
     }
 
     func transform(input: EditTopSheetViewModel.Input) -> EditTopSheetViewModel.Output {
         let state = State()
         let load = input.loadTrigger
             .flatMap { [unowned self] _ -> Driver<Void> in
-                if (self.topSheet!.id != "") {
-                    return self.editTopSheetUseCase.loadPositionSheetsByIds(with: self.topSheet!.positionSheetIds)
-                        .trackArray(state.contentArray)
-                        .trackError(state.error)
-                        .trackActivity(state.isLoading)
-                        .mapToVoid()
-                        .asDriverOnErrorJustComplete()
+                if (self.sheetId != nil) {
+                    self.editTopSheetUseCase.getTopSheetById(with: self.sheetId!).subscribe(onNext: { topSheet in
+                        return self.editTopSheetUseCase.loadPositionSheetsByIds(with: topSheet.positionSheetIds)
+                            .trackArray(state.contentArray)
+                            .trackError(state.error)
+                            .trackActivity(state.isLoading)
+                    }).disposed(by: self.disposeBag)
+                    return Observable.create { observer in return Disposables.create()}.asDriverOnErrorJustComplete()
                 } else {
                     return self.editTopSheetUseCase.loadPositionSheets()
                         .trackArray(state.contentArray)
@@ -57,7 +62,7 @@ class EditTopSheetViewModel: ViewModelType {
         let save = input.saveTrigger
             .withLatestFrom(input.topSheet)
             .flatMapLatest { [unowned self] (topSheet: TopSheet) -> Driver<Void> in
-                if (self.topSheet!.id != "") {
+                if (self.sheetId != nil) {
                     return self.editTopSheetUseCase.updateSheet(with: topSheet)
                         .mapToVoid()
                         .asDriver(onErrorJustReturn: ())

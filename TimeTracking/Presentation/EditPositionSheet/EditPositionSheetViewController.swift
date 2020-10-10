@@ -16,7 +16,7 @@ class EditPositionSheetViewController: UIViewController {
 
     let disposeBag = DisposeBag()
     let cellDataConverter = CellDataConverter()
-
+    let appConst = AppConst()
 
     var sheet: PositionSheet = PositionSheet()
     var sheetRelay = BehaviorRelay<PositionSheet>(value: PositionSheet())
@@ -43,14 +43,17 @@ class EditPositionSheetViewController: UIViewController {
         sheetView.register(HeaderCell.self, forCellWithReuseIdentifier: String(describing: HeaderCell.self))
         sheetView.register(DataCell.self, forCellWithReuseIdentifier: String(describing: DataCell.self))
         sheetView.register(AddButtonCell.self, forCellWithReuseIdentifier: String(describing: AddButtonCell.self))
+        initiatePositionSheetColumn()
     }
 
-    func initializeViewModel(with sheet: PositionSheet? = nil, and nvc: UINavigationController? = nil) {
+    func initializeViewModel(with sheetId: String? = nil, and sheetName: String? = nil, and nvc: UINavigationController? = nil) {
         guard editPositionSheetViewModel == nil else { return }
-        editPositionSheetViewModel = EditPositionSheetViewModel(with: EditPositionSheetUseCase(with: FBPositionSheetRepository(),
-                                                                               and: FBTaskRepository()),
-                                                and: EditPositionSheetNavigator(with: self, and: nvc),
-                                                and: sheet)
+        editPositionSheetViewModel = EditPositionSheetViewModel(
+            with: EditPositionSheetUseCase(with: FBPositionSheetRepository(), and: FBTaskRepository()),
+            and: EditPositionSheetNavigator(with: self, and: nvc),
+            and: sheetId,
+            and: sheetName
+        )
     }
 
     func bindViewModel() {
@@ -72,6 +75,23 @@ class EditPositionSheetViewController: UIViewController {
         }).disposed(by: disposeBag)
         output.save.drive().disposed(by: disposeBag)
         output.uploadImage.drive().disposed(by: disposeBag)
+    }
+
+    func initiatePositionSheetColumn() {
+        sheet.columnTitles = ["時間", "タイトル", "Q&A", "チェック"]
+        sheet.columnTypes = [
+            appConst.CELL_TYPE_TIME,
+            appConst.CELL_TYPE_TEXT,
+            appConst.CELL_TYPE_NOTE,
+            appConst.CELL_TYPE_CHECK
+        ]
+        sheet.columnWidths = [
+            appConst.CELL_WIDTH_MEDIUM,
+            appConst.CELL_WIDTH_LARGE,
+            appConst.CELL_WIDTH_SMALL,
+            appConst.CELL_WIDTH_SMALL
+        ]
+        sheetView.reloadData()
     }
 }
 

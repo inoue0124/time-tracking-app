@@ -11,19 +11,18 @@ class AddSheetViewController: UIViewController {
     @IBOutlet weak var sheetNameTextField: UITextField!
 
     var addSheetViewModel: AddSheetViewModel!
-
-    let sheetDropDown = DropDown()
-    let templateDropDown = DropDown()
     let disposeBag = DisposeBag()
     let appConst = AppConst()
 
+    let sheetDropDown = DropDown()
+    let templateDropDown = DropDown()
+
     var sheetType: String?
     var sheetTypeRelay = BehaviorRelay<String>(value: "")
-    var topSheet = TopSheet()
-    var positionSheet = PositionSheet()
-    var subtaskSheet = SubtaskSheet()
-    var positionSheetRelay = BehaviorRelay<PositionSheet>(value: PositionSheet())
-    var subtaskSheetRelay = BehaviorRelay<SubtaskSheet>(value: SubtaskSheet())
+    var sheetId: String?
+    var sheetIdRelay = BehaviorRelay<String>(value: "")
+    var sheetName: String?
+    var sheetNameRelay = BehaviorRelay<String>(value: "")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,21 +35,21 @@ class AddSheetViewController: UIViewController {
         if segue.identifier == R.segue.addSheetViewController.toCreateTopSheet.identifier {
             if let nc = segue.destination as? UINavigationController {
                 if let vc = nc.viewControllers[0] as? EditTopSheetViewController {
-                    vc.initializeViewModel(with: self.topSheet, and: self.navigationController)
+                    vc.initializeViewModel(with: sheetId, and: sheetName, and: self.navigationController)
                 }
             }
         }
         if segue.identifier == R.segue.addSheetViewController.toCreatePositionSheet.identifier {
             if let nc = segue.destination as? UINavigationController {
                 if let vc = nc.viewControllers[0] as? EditPositionSheetViewController {
-                    vc.initializeViewModel(with: self.positionSheet, and: self.navigationController)
+                    vc.initializeViewModel(with: sheetId, and: sheetName, and: self.navigationController)
                 }
             }
         }
         if segue.identifier == R.segue.addSheetViewController.toCreateSubtaskSheet.identifier {
             if let nc = segue.destination as? UINavigationController {
                 if let vc = nc.viewControllers[0] as? EditSubtaskSheetViewController {
-                    vc.initializeViewModel(with: self.subtaskSheet, and: self.navigationController)
+                    vc.initializeViewModel(with: sheetId, and: sheetName, and: self.navigationController)
                 }
             }
         }
@@ -71,24 +70,22 @@ class AddSheetViewController: UIViewController {
     }
 
     func initializeViewModel() {
-        addSheetViewModel = AddSheetViewModel.init(with: AddSheetUseCase(with: FBTopSheetRepository(),
-                                                                         and: FBPositionSheetRepository(),
-                                                                         and: FBSubtaskSheetRepository()),
-                                                           and: AddSheetNavigator(with: self))
+        addSheetViewModel = AddSheetViewModel.init(
+            with: AddSheetUseCase(with: FBTemplateRepository()), and: AddSheetNavigator(with: self)
+        )
     }
 
     func bindViewModel() {
         let input = AddSheetViewModel.Input(loadTemplateTrigger: sheetTypeRelay.asDriver(),
-                                            createTrigger: submitButton.rx.tap.asDriver(),
-                                            positionSheet: positionSheetRelay.asDriver(),
-                                            subtaskSheet: subtaskSheetRelay.asDriver())
+                                            sheetType: sheetTypeRelay.asDriver(),
+                                            createTrigger: submitButton.rx.tap.asDriver())
 
         let output = addSheetViewModel.transform(input: input)
-        output.create.drive().disposed(by: disposeBag)
         output.loadTemplate.drive().disposed(by: disposeBag)
-        output.positionSheetTemplates.drive(onNext: { sheet in
-            self.setupTemplateDropDown(templates: sheet)
+        output.templates.drive(onNext: { templates in
+            self.setupTemplateDropDown(templates: templates)
         }).disposed(by: disposeBag)
+        output.create.drive().disposed(by: disposeBag)
     }
 
     func setupSheetDropDown() {
@@ -110,29 +107,29 @@ class AddSheetViewController: UIViewController {
             default:
                 break
             }
-            self?.sheetTypeRelay.accept(self?.sheetType as! String)
             self?.sheetButton.setTitle(item, for: .normal)
+            self?.sheetTypeRelay.accept(self?.sheetType! ?? "")
             self?.changeSubmitButtonState()
         }
     }
 
-    func setupTemplateDropDown(templates: [PositionSheet]) {
+    func setupTemplateDropDown(templates: [Sheet]) {
         templateDropDown.anchorView = templateButton
         templateDropDown.bottomOffset = CGPoint(x: 0, y: templateButton.bounds.height)
-        templateDropDown.dataSource = templates.map{ template in
-            return template.name
+        templateDropDown.dataSource = templates.map{ sheet in
+            return sheet.name
         }
         templateDropDown.selectionAction = { [weak self] (index, item) in
-            self?.positionSheet = templates[index]
             self?.templateButton.setTitle(item, for: .normal)
+            self?.sheetId = templates[index].id
+            self?.sheetIdRelay.accept(self?.sheetId! ?? "")
         }
     }
 
     private func changeSubmitButtonState() {
         if (sheetNameTextField.text!.count > 0 && sheetType != nil) {
-            positionSheet.name = sheetNameTextField.text!
-            positionSheet.type = sheetType!
-            positionSheetRelay.accept(positionSheet)
+            sheetName = sheetNameTextField.text!
+            sheetNameRelay.accept(sheetName!)
             submitButton.isEnabled = true
             submitButton.backgroundColor = UIColor(named: R.color.theme.name)
         } else {

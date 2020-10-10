@@ -18,11 +18,10 @@ class FBSubtaskSheetRepository: SubtaskSheetRepository {
     func create(with sheet: SubtaskSheet) -> Observable<String> {
         print(sheet)
         return Observable.create { [unowned self] observer in
-            let ref = self.db.collection(sheet.type).document()
+            let ref = self.db.collection("subtask_sheets").document()
             ref.setData([
                 "id": ref.documentID,
                 "name": sheet.name,
-                "type": sheet.type,
                 "is_public": false,
                 "column_titles": sheet.columnTitles,
                 "column_types": sheet.columnTypes,
@@ -42,12 +41,12 @@ class FBSubtaskSheetRepository: SubtaskSheetRepository {
         }
     }
 
-    func read(with sheetType: String) -> Observable<[SubtaskSheet]> {
+    func read() -> Observable<[SubtaskSheet]> {
         let options = QueryListenOptions()
         options.includeQueryMetadataChanges(true)
 
         return Observable.create { [unowned self] observer in
-            self.listener = self.db.collection(sheetType)
+            self.listener = self.db.collection("subtask_sheets")
                 .whereField("create_user", isEqualTo: (Auth.auth().currentUser?.uid)!)
                 .order(by: "updated_at", descending: true)
                 .addSnapshotListener(options: options) { snapshot, error in
@@ -69,7 +68,6 @@ class FBSubtaskSheetRepository: SubtaskSheetRepository {
                             positionSheets.append(SubtaskSheet(
                                 id: item.documentID,
                                 name: item["name"] as? String ?? "",
-                                type: item["type"] as? String ?? "",
                                 isPublic: item["is_public"] as? Bool ?? false,
                                 columnTitles: item["column_titles"] as? [String] ?? [],
                                 columnTypes: item["column_types"] as? [String] ?? [],
@@ -87,9 +85,52 @@ class FBSubtaskSheetRepository: SubtaskSheetRepository {
         }
     }
 
+    func readById(with id: String) -> Observable<SubtaskSheet> {
+        let options = QueryListenOptions()
+        options.includeQueryMetadataChanges(true)
+
+        return Observable.create { [unowned self] observer in
+            self.listener = self.db.collection("subtask_sheets")
+                .whereField("id", isEqualTo: id)
+                .addSnapshotListener(options: options) { snapshot, error in
+                    guard let snap = snapshot else {
+                        print("Error fetching document: \(error!)")
+                        observer.onError(error!)
+                        return
+                    }
+                    for diff in snap.documentChanges {
+                        if diff.type == .added {
+                            print("New data: \(diff.document.data())")
+                        }
+                    }
+                    print("Current data: \(snap)")
+
+                    var subtaskSheet = SubtaskSheet()
+                    if !snap.isEmpty {
+                        for item in snap.documents {
+                            subtaskSheet = SubtaskSheet(
+                                id: item.documentID,
+                                name: item["name"] as? String ?? "",
+                                isPublic: item["is_public"] as? Bool ?? false,
+                                columnTitles: item["column_titles"] as? [String] ?? [],
+                                columnTypes: item["column_types"] as? [String] ?? [],
+                                columnWidths: item["column_widths"] as? [Int] ?? [],
+                                createUser: item["create_user"] as? String ?? "",
+                                createdAt: item["created_at"] as? Date ?? Date(),
+                                updateUser: item["update_user"] as? String ?? "",
+                                updatedAt: item["updated_at"] as? Date ?? Date()
+                            )
+                        }
+                    }
+                    observer.onNext(subtaskSheet)
+            }
+            return Disposables.create()
+        }
+    }
+
     func update(_ sheet: SubtaskSheet) -> Observable<Void> {
         return Observable.create { [unowned self] observer in
-            self.db.collection(sheet.type).document(sheet.id).updateData([
+            self.db.collection("subtask_sheets").document(sheet.id).updateData([
                 "name": sheet.name,
                 "is_public": false,
                 "column_titles": sheet.columnTitles,

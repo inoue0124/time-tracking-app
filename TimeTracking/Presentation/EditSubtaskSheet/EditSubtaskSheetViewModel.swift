@@ -31,20 +31,24 @@ class EditSubtaskSheetViewModel: ViewModelType {
 
     private let editSheetUseCase: EditSubtaskSheetUseCase
     private let navigator: EditSubtaskSheetNavigator
-    private let sheet: SubtaskSheet?
+    private let sheetId: String?
+    private let sheetName: String?
+    let appConst = AppConst()
 
-    init(with editSheetUseCase: EditSubtaskSheetUseCase, and navigator: EditSubtaskSheetNavigator, and sheet: SubtaskSheet? = nil) {
+    init(with editSheetUseCase: EditSubtaskSheetUseCase, and navigator: EditSubtaskSheetNavigator,
+         and sheetId: String? = nil, and sheetName: String? = nil) {
         self.editSheetUseCase = editSheetUseCase
         self.navigator = navigator
-        self.sheet = sheet
+        self.sheetId = sheetId
+        self.sheetName = sheetName
     }
 
     func transform(input: EditSubtaskSheetViewModel.Input) -> EditSubtaskSheetViewModel.Output {
         let state = State()
         let load = input.loadTrigger
             .flatMap { [unowned self] _ -> Driver<Void> in
-                if (self.sheet!.id != "" && self.sheet!.type != "") {
-                    return self.editSheetUseCase.loadTasks(with: self.sheet!.id, and: self.sheet!.type)
+                if (self.sheetId != nil) {
+                    return self.editSheetUseCase.loadTasks(with: self.sheetId!, and: self.appConst.SHEET_TYPE_SUBTASK)
                         .trackArray(state.contentArray)
                         .trackError(state.error)
                         .trackActivity(state.isLoading)
@@ -54,14 +58,22 @@ class EditSubtaskSheetViewModel: ViewModelType {
                     return Observable.create { [unowned self] observer in return Disposables.create() }.asDriverOnErrorJustComplete()
                 }
         }
+        let sheet = input.loadTrigger
+            .flatMap { [unowned self] _ -> Driver<SubtaskSheet> in
+                if (self.sheetId != nil) {
+                    return self.editSheetUseCase.getSubtaskSheetById(with: self.sheetId!).asDriverOnErrorJustComplete()
+                } else {
+                    return Observable.create { observer in return Disposables.create() }.asDriverOnErrorJustComplete()
+                }
+        }
         let requiredInputs = Driver.combineLatest(input.sheet, input.tasks)
         let save = input.saveTrigger
             .withLatestFrom(requiredInputs)
             .flatMapLatest { [unowned self] (sheet: SubtaskSheet, tasks: [Task]) -> Driver<Void> in
-                if (self.sheet!.id != "" && self.sheet!.type != "") {
+                if (self.sheetId != nil) {
                     return self.editSheetUseCase.updateSheet(with: sheet)
                     .flatMap { [unowned self] _ in
-                        self.editSheetUseCase.updateTasks(with: tasks, and: sheet.id, and: sheet.type)
+                        self.editSheetUseCase.updateTasks(with: tasks, and: sheet.id, and: self.appConst.SHEET_TYPE_SUBTASK)
                             .do(onNext: { [unowned self] in
                                 self.navigator.toSheetSetting()
                             })
@@ -69,9 +81,10 @@ class EditSubtaskSheetViewModel: ViewModelType {
                     .trackError(state.error)
                     .asDriver(onErrorJustReturn: ())
                 } else {
+                    sheet.name = self.sheetName!
                     return self.editSheetUseCase.saveSheet(with: sheet)
                     .flatMap { [unowned self] (sheetId: String) in
-                        self.editSheetUseCase.saveTasks(with: tasks, and: sheetId, and: sheet.type)
+                        self.editSheetUseCase.saveTasks(with: tasks, and: sheetId, and: self.appConst.SHEET_TYPE_SUBTASK)
                             .do(onNext: { [unowned self] in
                                 self.navigator.toSheetSetting()
                             })
@@ -87,15 +100,7 @@ class EditSubtaskSheetViewModel: ViewModelType {
         }
         return EditSubtaskSheetViewModel.Output(load: load,
                                          tasks: state.contentArray.asDriver(),
-                                         sheet: Observable.create { [unowned self] observer in
-                                            if (self.sheet == nil) {
-                                                observer.onError(Exception.unknown)
-                                                return Disposables.create()
-                                            } else {
-                                                observer.onNext(self.sheet!)
-                                                return Disposables.create()
-                                            }
-                                         }.asDriverOnErrorJustComplete(),
+                                         sheet: sheet,
                                          save: save,
                                          uploadImage: uploadImage,
                                          isLoading: state.isLoading.asDriver(),

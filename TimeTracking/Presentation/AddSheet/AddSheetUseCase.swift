@@ -3,25 +3,14 @@ import RxSwift
 
 class AddSheetUseCase {
 
-    let appConst = AppConst()
+    private let templateRepository: TemplateRepository
 
-    private let topSheetRepository: TopSheetRepository
-    private let positionSheetRepository: PositionSheetRepository
-    private let subtaskSheetRepository: SubtaskSheetRepository
-
-    init(with topSheetRepository: TopSheetRepository, and positionSheetRepository: PositionSheetRepository,
-         and subtaskSheetRepository: SubtaskSheetRepository) {
-
-        self.topSheetRepository = topSheetRepository
-        self.positionSheetRepository = positionSheetRepository
-        self.subtaskSheetRepository = subtaskSheetRepository
+    init(with templateRepository: TemplateRepository) {
+        self.templateRepository = templateRepository
     }
 
-    func loadPositionSheets() -> Observable<[PositionSheet]> {
-        return positionSheetRepository.read(with: appConst.SHEET_TYPE_POSITION)
+    func loadTemplates(with type: String) -> Observable<[Sheet]> {
+        return templateRepository.read(with: type)
     }
 
-    func loadSubtaskSheets() -> Observable<[SubtaskSheet]> {
-        return subtaskSheetRepository.read(with: appConst.SHEET_TYPE_SUBTASK)
-    }
 }
