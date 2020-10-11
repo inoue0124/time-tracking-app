@@ -3,6 +3,7 @@ import RxSwift
 import RxCocoa
 import DropDown
 import FSCalendar
+import CalculateCalendarLogic
 
 class HomeViewController: UIViewController {
 
@@ -16,6 +17,7 @@ class HomeViewController: UIViewController {
     let disposeBag = DisposeBag()
     let dropDown = DropDown()
     var calendarView = CalendarView()
+    let calendarUtil = CalendarUtil()
     var date = Date()
     var dateRelay = BehaviorRelay<Date>(value: Date())
 
@@ -120,11 +122,11 @@ class HomeViewController: UIViewController {
         f.timeStyle = .none
         f.dateStyle = .long
         f.locale = Locale(identifier: "ja_JP")
-        dateButton.setTitle(f.string(from: date), for: .normal)
+        dateButton.setTitle(f.string(from: date)+"("+calendarUtil.getDayKanji(date)+")", for: .normal)
     }
 }
 
-extension HomeViewController: FSCalendarDataSource, FSCalendarDelegate {
+extension HomeViewController: FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         dateRelay.accept(date)
         UIView.transition(with: self.view, duration: 0.25, options: [.transitionCrossDissolve], animations: {
@@ -132,6 +134,26 @@ extension HomeViewController: FSCalendarDataSource, FSCalendarDelegate {
         }, completion: { _ in
             self.calendarView.removeFromSuperview()
         })
+    }
+    // 土日や祝日の日の文字色を変える
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        if (calendarUtil.getDay(Date()) == calendarUtil.getDay(date)){
+            return UIColor.white
+        }
+
+        if calendarUtil.judgeHoliday(date){
+            return UIColor.red
+        }
+
+        let weekday = calendarUtil.getWeekIdx(date)
+        if weekday == 1 {   //日曜日
+            return UIColor.red
+        }
+        else if weekday == 7 {  //土曜日
+            return UIColor(named: R.color.theme.name)
+        }
+
+        return nil
     }
 }
 

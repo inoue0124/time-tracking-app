@@ -74,6 +74,8 @@
 		709562B72531CBFF0043A35B /* CalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 709562B62531CBFF0043A35B /* CalendarView.xib */; };
 		709562BA2531ECF30043A35B /* UDDateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562B92531ECF30043A35B /* UDDateRepository.swift */; };
 		709562BC2531ED1F0043A35B /* DateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562BB2531ED1F0043A35B /* DateRepository.swift */; };
+		709562BE253314F00043A35B /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562BD253314F00043A35B /* UserRepository.swift */; };
+		709562C025331E3F0043A35B /* CalendarUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562BF25331E3F0043A35B /* CalendarUtil.swift */; };
 		70B5933324F7769F00696E2A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933224F7769F00696E2A /* Task.swift */; };
 		70B5933524F7779600696E2A /* SubtaskSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933424F7779600696E2A /* SubtaskSheet.swift */; };
 		70B5933724F779F200696E2A /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933624F779F200696E2A /* TaskRepository.swift */; };
@@ -172,6 +174,8 @@
 		709562B62531CBFF0043A35B /* CalendarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarView.xib; sourceTree = "<group>"; };
 		709562B92531ECF30043A35B /* UDDateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDDateRepository.swift; sourceTree = "<group>"; };
 		709562BB2531ED1F0043A35B /* DateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRepository.swift; sourceTree = "<group>"; };
+		709562BD253314F00043A35B /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		709562BF25331E3F0043A35B /* CalendarUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUtil.swift; sourceTree = "<group>"; };
 		70B5933224F7769F00696E2A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		70B5933424F7779600696E2A /* SubtaskSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskSheet.swift; sourceTree = "<group>"; };
 		70B5933624F779F200696E2A /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
@@ -240,6 +244,7 @@
 				4C49248F1FE75BDF0073FE0B /* ViewModelType.swift */,
 				7020B11625167D36007FB709 /* Extension_UIView.swift */,
 				7020B11A251779D1007FB709 /* ImageResizer.swift */,
+				709562BF25331E3F0043A35B /* CalendarUtil.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -320,6 +325,7 @@
 				70B5933A24F77E0500696E2A /* SubtaskSheetRepository.swift */,
 				70B5933624F779F200696E2A /* TaskRepository.swift */,
 				709562BB2531ED1F0043A35B /* DateRepository.swift */,
+				709562BD253314F00043A35B /* UserRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -603,6 +609,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-TimeTracking/Pods-TimeTracking-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/BottomHalfModal/BottomHalfModal.framework",
+				"${BUILT_PRODUCTS_DIR}/CalculateCalendarLogic/CalculateCalendarLogic.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
@@ -626,6 +633,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BottomHalfModal.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CalculateCalendarLogic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
@@ -694,10 +702,12 @@
 				709562A6252A15B80043A35B /* PositionSheetDetailViewModel.swift in Sources */,
 				70B5933F24F7825D00696E2A /* HomeViewController.swift in Sources */,
 				70B5934324F7834900696E2A /* HomeUseCase.swift in Sources */,
+				709562C025331E3F0043A35B /* CalendarUtil.swift in Sources */,
 				70D86BEC2504DE9200ABB1A9 /* EditSubtaskSheetUseCase.swift in Sources */,
 				7020B11F251898D4007FB709 /* SheetSettingViewModel.swift in Sources */,
 				709562A5252A15930043A35B /* PositionSheetDetailUseCase.swift in Sources */,
 				709562AF252CB88E0043A35B /* Sheet.swift in Sources */,
+				709562BE253314F00043A35B /* UserRepository.swift in Sources */,
 				70D86BE42504CE0800ABB1A9 /* AddButtonCell.swift in Sources */,
 				4C04772C1FE96435005A8A45 /* ActivityIndicator.swift in Sources */,
 				4C4924971FE769080073FE0B /* LoginNavigator.swift in Sources */,

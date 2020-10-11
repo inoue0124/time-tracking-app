@@ -23,4 +23,5 @@ target 'TimeTracking' do
   pod 'RxUIAlert'
   pod "BottomHalfModal"
   pod 'FSCalendar'
+  pod 'CalculateCalendarLogic'
 end

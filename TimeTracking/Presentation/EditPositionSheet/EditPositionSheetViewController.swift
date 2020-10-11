@@ -99,8 +99,7 @@ class EditPositionSheetViewController: UIViewController {
 extension EditPositionSheetViewController: SpreadsheetViewDataSource {
 
     func numberOfColumns(in spreadsheetView: SpreadsheetView) -> Int {
-        // 1 == addColumnCell
-        return sheet.columnTitles.count + 1
+        return sheet.columnTitles.count
     }
 
     func numberOfRows(in spreadsheetView: SpreadsheetView) -> Int {
@@ -136,13 +135,6 @@ extension EditPositionSheetViewController: SpreadsheetViewDataSource {
             cell.index = indexPath.column
             return cell
 
-        // 1行目、addColumnCellの時
-        case (0, sheet.columnTitles.count):
-            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: AddButtonCell.self), for: indexPath) as! AddButtonCell
-            cell.delegate = self
-            cell.type = "column"
-            return cell
-
         // 一番下にaddRowCellを追加
         case (tasks.count+1, 0):
             // データがまだない時は非表示
@@ -154,13 +146,6 @@ extension EditPositionSheetViewController: SpreadsheetViewDataSource {
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: AddButtonCell.self), for: indexPath) as! AddButtonCell
             cell.delegate = self
             cell.type = "row"
-            return cell
-
-        // 2行目以降、右端は空のセル
-        case (1..<tasks.count+2, sheet.columnTitles.count):
-            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: DataCell.self), for: indexPath) as! DataCell
-            clearCell(cell)
-            cell.gridlines.left = .default
             return cell
 
         default:

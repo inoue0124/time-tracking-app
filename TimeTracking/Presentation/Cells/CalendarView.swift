@@ -34,20 +34,20 @@ class CalendarView: UIView {
                                                       views: bindings))
         calendar.appearance.headerTitleColor = UIColor(named: R.color.theme.name)
         calendar.appearance.headerDateFormat = "YYYY年MM月"
-        calendar.calendarWeekdayView.weekdayLabels[0].text = "日"
-        calendar.calendarWeekdayView.weekdayLabels[1].text = "月"
-        calendar.calendarWeekdayView.weekdayLabels[2].text = "火"
-        calendar.calendarWeekdayView.weekdayLabels[3].text = "水"
-        calendar.calendarWeekdayView.weekdayLabels[4].text = "木"
-        calendar.calendarWeekdayView.weekdayLabels[5].text = "金"
-        calendar.calendarWeekdayView.weekdayLabels[6].text = "土"
-        calendar.calendarWeekdayView.weekdayLabels[0].textColor = UIColor.red
+        calendar.calendarWeekdayView.weekdayLabels[0].text = "月"
+        calendar.calendarWeekdayView.weekdayLabels[1].text = "火"
+        calendar.calendarWeekdayView.weekdayLabels[2].text = "水"
+        calendar.calendarWeekdayView.weekdayLabels[3].text = "木"
+        calendar.calendarWeekdayView.weekdayLabels[4].text = "金"
+        calendar.calendarWeekdayView.weekdayLabels[5].text = "土"
+        calendar.calendarWeekdayView.weekdayLabels[6].text = "日"
+        calendar.calendarWeekdayView.weekdayLabels[0].textColor = UIColor.black
         calendar.calendarWeekdayView.weekdayLabels[1].textColor = UIColor.black
         calendar.calendarWeekdayView.weekdayLabels[2].textColor = UIColor.black
         calendar.calendarWeekdayView.weekdayLabels[3].textColor = UIColor.black
         calendar.calendarWeekdayView.weekdayLabels[4].textColor = UIColor.black
-        calendar.calendarWeekdayView.weekdayLabels[5].textColor = UIColor.black
-        calendar.calendarWeekdayView.weekdayLabels[6].textColor = UIColor(named: R.color.theme.name)
+        calendar.calendarWeekdayView.weekdayLabels[5].textColor = UIColor(named: R.color.theme.name)
+        calendar.calendarWeekdayView.weekdayLabels[6].textColor = UIColor.red
     }
 }
 
