@@ -147,12 +147,19 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 2 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 3 nibs.
   struct nib {
+    /// Nib `CalendarView`.
+    static let calendarView = _R.nib._CalendarView()
     /// Nib `HeaderSettingViewController`.
     static let headerSettingViewController = _R.nib._HeaderSettingViewController()
     /// Nib `NoteDialogView`.
     static let noteDialogView = _R.nib._NoteDialogView()
+    
+    /// `UINib(name: "CalendarView", in: bundle)`
+    static func calendarView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.calendarView)
+    }
     
     /// `UINib(name: "HeaderSettingViewController", in: bundle)`
     static func headerSettingViewController(_: Void = ()) -> UIKit.UINib {
@@ -378,6 +385,17 @@ struct _R: Rswift.Validatable {
   struct nib: Rswift.Validatable {
     static func validate() throws {
       try _NoteDialogView.validate()
+    }
+    
+    struct _CalendarView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "CalendarView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
     }
     
     struct _HeaderSettingViewController: Rswift.NibResourceType {

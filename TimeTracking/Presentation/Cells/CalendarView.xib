@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16097"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CalendarView" customModule="TimeTracking" customModuleProvider="target">
+            <connections>
+                <outlet property="calendar" destination="Cqx-2f-qUy" id="J7r-aY-v8D"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YlY-SI-UK7">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cqx-2f-qUy" customClass="FSCalendar">
+                    <rect key="frame" x="50" y="100" width="314" height="696"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Cqx-2f-qUy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="100" id="6ym-dA-IU3"/>
+                <constraint firstAttribute="bottom" secondItem="YlY-SI-UK7" secondAttribute="bottom" id="f41-ZN-ebD"/>
+                <constraint firstAttribute="bottom" secondItem="Cqx-2f-qUy" secondAttribute="bottom" constant="100" id="i6C-48-dP5"/>
+                <constraint firstAttribute="trailing" secondItem="Cqx-2f-qUy" secondAttribute="trailing" constant="50" id="nEX-gm-4dv"/>
+                <constraint firstItem="YlY-SI-UK7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="p3o-3n-aqx"/>
+                <constraint firstItem="Cqx-2f-qUy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="50" id="pm4-4Q-OwB"/>
+                <constraint firstItem="YlY-SI-UK7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="vog-HG-XpC"/>
+                <constraint firstAttribute="trailing" secondItem="YlY-SI-UK7" secondAttribute="trailing" id="zNK-gu-y75"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="132.58928571428572"/>
+        </view>
+    </objects>
+</document>

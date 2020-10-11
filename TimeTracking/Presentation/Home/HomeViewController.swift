@@ -2,6 +2,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import DropDown
+import FSCalendar
 
 class HomeViewController: UIViewController {
 
@@ -14,6 +15,9 @@ class HomeViewController: UIViewController {
 
     let disposeBag = DisposeBag()
     let dropDown = DropDown()
+    var calendarView = CalendarView()
+    var date = Date()
+    var dateRelay = BehaviorRelay<Date>(value: Date())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +55,18 @@ class HomeViewController: UIViewController {
         f.dateStyle = .long
         f.locale = Locale(identifier: "ja_JP")
         dateButton.setTitle(f.string(from: Date()), for: .normal)
+        dateButton.rx.tap.subscribe { [unowned self] _ in
+            let size: CGSize = UIScreen.main.bounds.size
+            self.calendarView = CalendarView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            self.calendarView.alpha = 0
+            self.navigationController?.view.addSubview(self.calendarView)
+            UIView.transition(with: self.view, duration: 0.25, options: [.transitionCrossDissolve], animations: {
+                self.calendarView.alpha = 1
+                self.calendarView.calendar.delegate = self
+                self.calendarView.calendar.dataSource = self
+            }, completion: nil)
+        }.disposed(by: disposeBag)
+
         dropDown.anchorView = menuBarButton
         dropDown.dataSource = ["設定", "ホーム"]
         dropDown.bottomOffset = CGPoint(x: 0, y: 40)
@@ -59,6 +75,7 @@ class HomeViewController: UIViewController {
                 self.homeViewModel.navigator.toSetting()
             }
         }
+
         menuBarButton.rx.tap.subscribe { [unowned self] _ in
             self.dropDown.show()
         }.disposed(by: disposeBag)
@@ -67,16 +84,22 @@ class HomeViewController: UIViewController {
     func initializeViewModel() {
         homeViewModel = HomeViewModel.init(with: HomeUseCase(with: FBTopSheetRepository(),
                                                              and: FBPositionSheetRepository(),
-                                                             and: FBSubtaskSheetRepository()),
+                                                             and: FBSubtaskSheetRepository(),
+                                                             and: UDDateRepository()),
                                            and: HomeNavigator(with: self))
     }
 
     func bindViewModel() {
         let input = HomeViewModel.Input(loadTrigger: Driver.just(()),
+                                        dateTrigger: dateRelay.asDriver(),
                                         selectTopSheetTrigger: topSheetTable.rx.itemSelected.asDriver().map { $0.row },
                                         selectSubtaskSheetTrigger: subtaskSheetTable.rx.itemSelected.asDriver().map { $0.row })
 
         let output = homeViewModel.transform(input: input)
+        output.changeDate.drive(onNext: { date in
+            self.updateDateButton(date)
+        }).disposed(by: disposeBag)
+
         output.loadTopSheets.drive().disposed(by: disposeBag)
         output.topSheets.drive(topSheetTable.rx.items(cellIdentifier: R.reuseIdentifier.topSheetCell.identifier)) {
             (row, element, cell) in
@@ -90,6 +113,25 @@ class HomeViewController: UIViewController {
             cell.textLabel?.text = element.name
         }.disposed(by: disposeBag)
         output.selectSubtaskSheet.drive().disposed(by: disposeBag)
+    }
 
+    func updateDateButton(_ date: Date) {
+        let f = DateFormatter()
+        f.timeStyle = .none
+        f.dateStyle = .long
+        f.locale = Locale(identifier: "ja_JP")
+        dateButton.setTitle(f.string(from: date), for: .normal)
     }
 }
+
+extension HomeViewController: FSCalendarDataSource, FSCalendarDelegate {
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        dateRelay.accept(date)
+        UIView.transition(with: self.view, duration: 0.25, options: [.transitionCrossDissolve], animations: {
+            self.calendarView.alpha = 0
+        }, completion: { _ in
+            self.calendarView.removeFromSuperview()
+        })
+    }
+}
+

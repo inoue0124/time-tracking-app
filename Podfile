@@ -22,4 +22,5 @@ target 'TimeTracking' do
   pod 'SpreadsheetView'
   pod 'RxUIAlert'
   pod "BottomHalfModal"
+  pod 'FSCalendar'
 end
