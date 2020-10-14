@@ -137,14 +137,12 @@ extension HomeViewController: FSCalendarDataSource, FSCalendarDelegate, FSCalend
     }
     // 土日や祝日の日の文字色を変える
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        if (calendarUtil.getDay(Date()) == calendarUtil.getDay(date)){
+        if (calendarUtil.getDay(Date()) == calendarUtil.getDay(date)) {
             return UIColor.white
         }
-
-        if calendarUtil.judgeHoliday(date){
+        if calendarUtil.judgeHoliday(date) {
             return UIColor.red
         }
-
         let weekday = calendarUtil.getWeekIdx(date)
         if weekday == 1 {   //日曜日
             return UIColor.red
@@ -152,7 +150,6 @@ extension HomeViewController: FSCalendarDataSource, FSCalendarDelegate, FSCalend
         else if weekday == 7 {  //土曜日
             return UIColor(named: R.color.theme.name)
         }
-
         return nil
     }
 }

@@ -76,6 +76,7 @@
 		709562BC2531ED1F0043A35B /* DateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562BB2531ED1F0043A35B /* DateRepository.swift */; };
 		709562BE253314F00043A35B /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562BD253314F00043A35B /* UserRepository.swift */; };
 		709562C025331E3F0043A35B /* CalendarUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562BF25331E3F0043A35B /* CalendarUtil.swift */; };
+		709562C225347C1C0043A35B /* FBUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709562C125347C1C0043A35B /* FBUserRepository.swift */; };
 		70B5933324F7769F00696E2A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933224F7769F00696E2A /* Task.swift */; };
 		70B5933524F7779600696E2A /* SubtaskSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933424F7779600696E2A /* SubtaskSheet.swift */; };
 		70B5933724F779F200696E2A /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5933624F779F200696E2A /* TaskRepository.swift */; };
@@ -176,6 +177,7 @@
 		709562BB2531ED1F0043A35B /* DateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRepository.swift; sourceTree = "<group>"; };
 		709562BD253314F00043A35B /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		709562BF25331E3F0043A35B /* CalendarUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUtil.swift; sourceTree = "<group>"; };
+		709562C125347C1C0043A35B /* FBUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBUserRepository.swift; sourceTree = "<group>"; };
 		70B5933224F7769F00696E2A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		70B5933424F7779600696E2A /* SubtaskSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskSheet.swift; sourceTree = "<group>"; };
 		70B5933624F779F200696E2A /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				70B5933C24F77E6D00696E2A /* FBPositionSheetRepository.swift */,
 				709562AA252A1CF70043A35B /* FBSubtaskSheetRepository copy.swift */,
 				70B5934424F78B9C00696E2A /* FBTaskRepository.swift */,
+				709562C125347C1C0043A35B /* FBUserRepository.swift */,
 			);
 			path = FirebaseRepositories;
 			sourceTree = "<group>";
@@ -726,6 +729,7 @@
 				709562922529F7690043A35B /* TopSheetDetailViewModel.swift in Sources */,
 				70ED1C2B2507BDDD0059B3BB /* AppConst.swift in Sources */,
 				7095629E252A112B0043A35B /* EditPositionSheetUseCase.swift in Sources */,
+				709562C225347C1C0043A35B /* FBUserRepository.swift in Sources */,
 				70D86BDE2504AA6F00ABB1A9 /* HeaderCell.swift in Sources */,
 				709562B52531CBDF0043A35B /* CalendarView.swift in Sources */,
 				7095627E25273A120043A35B /* EditTopSheetNavigator.swift in Sources */,
