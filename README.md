@@ -39,5 +39,5 @@ time-tracking/TimeTracking
 
 
 ## 参考URL
-[XDデザイン](https://xd.adobe.com/view/76a758e3-03b9-45df-b866-65af20ffb4c8-23f4/screen/f7b8c183-e8e8-4bb3-aca2-f46d5c5619d1/)
-[SpreadSheetView](https://github.com/kishikawakatsumi/SpreadsheetView)
+- [XDデザイン](https://xd.adobe.com/view/76a758e3-03b9-45df-b866-65af20ffb4c8-23f4/screen/f7b8c183-e8e8-4bb3-aca2-f46d5c5619d1/)
+- [SpreadSheetView](https://github.com/kishikawakatsumi/SpreadsheetView)
